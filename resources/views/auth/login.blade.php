@@ -25,12 +25,16 @@ rounded-lg shadow-lg">
       text-red-600 p-2 my-2">* {{ $message }}</p>
     @enderror
 
+    <div class="flex items-center justify-end mt-4">
+      <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+          {{ __('Forgot your password?') }}
+      </a>
+
     <button type="submit" class="rounded-md bg-indigo-500 w-full text-lg
     text-white font-semibold p-2 my-3 hover:bg-indigo-600">Send</button>
 
 
   </form>
-
 
 </div>
 
