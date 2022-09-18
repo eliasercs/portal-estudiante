@@ -7,46 +7,57 @@
 <div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
 rounded-lg shadow-lg">
 
-<h5 class="fw-bold mb-4 pb-4" style="letter-spacing: 1.5px;">Iniciar sesión</h5>
 
   <form class="mt-4" method="POST" action="">
     @csrf
 
-<section class="vh-100" style="background-color: grey;">
-  <div class="container py-5 h-100 position-relative">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-20">
-        <div class="card" style="border-radius: 1rem;">
-          <div class="row g-0">
-            <div class="col-md-6 col-lg-7 d-none d-md-block">
-              <img src="./img/fondo_01.jpg" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 100%; width: 140%">
+    <section>
+      <div class="row g-0">
+
+        <div class="col-lg-7">
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./img/fondo_01.jpg" class="d-block w-100 vh-100">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/fondo_04.jpg" class="d-block vh-100">
+              </div>
+              <div class="carousel-item">
+                <img src="./img/fondo_05.jpg" class="d-block w-100 vh-100">
+              </div>
             </div>
-            
-            <div class="col-md-6 col-lg-5 d-flex align-items-center">
-              <div class="card-body p-4 p-lg-5 text-black">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Siguiente</span>
+            </button>
+          </div>
 
-                <form>
+        </div>
 
-                  <div class="d-flex align-items-center mb-3 pb-1">
-                    <i class="fas fa-cubes fa-2x me-3" style="color: blue;"></i>
-                    <img src="./img/logo.png" alt="" >
-                  </div>
+        <div class="col-lg-5 d-flex flex-column justify-content-center min-vh-100">
 
-                  <h5 class="fw-bold mb-4 pb-4" style="letter-spacing: 1.5px;">Iniciar sesión</h5>
+          <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 nb-auto">
+            <img src="./img/logo.png" alt="logo" class="img-fluid">
+          </div>
 
-                  <!-- Email input -->
-
+          <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
+            <h2>Iniciar sesión</h2>
+            <form>
+                  <! -- Email input -->
                   <div class="form-outline mb-4 flex-nowrap">
-                    <label class="form-label"">Rut</label>
-                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <label class="form-label"">👤Rut</label>
                     <input type="email" id="email" name="email" class="form-control form-control-lg border-0" 
                     placeholder="Ingrese su rut sin puntos ni guión"/>
                   </div>
 
                   <! -- Password input -->
-
                   <div class="form-outline mb-4">
-                    <label class="form-label" for="password">Contraseña</label>
+                    <label class="form-label" for="password">🔒Contraseña</label>
                     <input type="contrasena" id="password" name="password" class="form-control form-control-lg border-0"
                     placeholder="Ingrese su contraseña" />
                   </div>
@@ -61,23 +72,19 @@ rounded-lg shadow-lg">
                   @enderror
 
                   <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="text-dark font-weight-bold text-decoration-none" href="{{ route('password.request') }}">
                         {{ __('Recuperar contraseña') }}
                     </a>
-
-                  
-                  <a class="link-dark" href="#!">Cambiar contraseña</a>
+                  </div>
+                  <a href="#!" class="text-dark font-weight-bold text-decoration-none">Cambiar contraseña</a>
                      
                 </form>
-
-              </div>
-            </div>
           </div>
+
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+
 
 
   </form>
