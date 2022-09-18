@@ -6,6 +6,9 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PasswordResetLinkController;
 use App\Http\Controllers\NewPasswordController;
+use App\Mail\UCTtestMailable;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +61,11 @@ Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
 Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->middleware('guest')
         ->name('password.update');
+
+Route::get('UCT', function(){
+    $correo = new UCTtestMailable;
+
+    Mail::to("testuct@gmail.com")->send($correo);
+
+    return "mensaje enviado";
+});
