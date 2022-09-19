@@ -12,9 +12,9 @@ class SessionController extends Controller
     }
     public function store() {
         
-        if(auth()->attempt(request(['email', 'password'])) == false) {
+        if(auth()->attempt(request(['rut', 'password'])) == false) {
             return back()->withErrors([
-                'message' => 'The email or password is incorrect, please try again',
+                'message' => 'El Rut o la contraseña ingresados no coinciden, vuelva a intertarlo',
             ]);
 
         } else {

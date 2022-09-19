@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-
+<link rel="stylesheet" type="text/css" href="input.css">
 <div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
 rounded-lg shadow-lg">
 
@@ -47,23 +47,25 @@ rounded-lg shadow-lg">
 
           <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
             <h2>Iniciar sesión</h2>
-            <form>
-                  <! -- Email input -->
+            <form class="mt-4" method="POST" action="">
+            @csrf
+                  <! -- RUT input -->
                   <div class="form-outline mb-4 flex-nowrap">
-                    <label class="form-label"">👤Rut</label>
-                    <input type="email" id="email" name="email" class="form-control form-control-lg border-0" 
+                    <label class="form-label">👤Rut</label>
+                    <input type="number"  id="rut" name="rut" class="form-control form-control-lg border-0" 
                     placeholder="Ingrese su rut sin puntos ni guión"/>
                   </div>
 
                   <! -- Password input -->
                   <div class="form-outline mb-4">
                     <label class="form-label" for="password">🔒Contraseña</label>
-                    <input type="contrasena" id="password" name="password" class="form-control form-control-lg border-0"
+                    <input type="password" id="password" name="password" class="form-control form-control-lg border-0"
                     placeholder="Ingrese su contraseña" />
                   </div>
+                  <script>JAVASCRIPT IS USUALLY PLACED HERE</script>
 
                   <div class="d-grip gap-2">
-                    <button class="btn btn-primary " type="button" style="border-radius: 1rem; width: 100%">Entrar</button>
+                    <button type="submit" class="btn btn-primary " style="border-radius: 1rem; width: 100%">Entrar</button>
                   </div>
 
                   @error('message')        
