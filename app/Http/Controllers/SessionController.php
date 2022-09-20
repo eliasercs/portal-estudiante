@@ -13,9 +13,7 @@ class SessionController extends Controller
     public function store() {
         
         if(auth()->attempt(request(['rut', 'password'])) == false) {
-            return back()->withErrors([
-                'message' => 'El Rut o la contraseña ingresados no coinciden, vuelva a intertarlo',
-            ]);
+            return back()->with('status', 'error');
 
         } else {
 

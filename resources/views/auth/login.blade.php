@@ -3,12 +3,9 @@
 @section('title', 'Login')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="input.css">
 <div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
 rounded-lg shadow-lg">
 
-
-  <form class="mt-4" method="POST" action="">
     @csrf
 
     <section>
@@ -52,7 +49,7 @@ rounded-lg shadow-lg">
                   <! -- RUT input -->
                   <div class="form-outline mb-4 flex-nowrap">
                     <label class="form-label">👤Rut</label>
-                    <input type="number"  id="rut" name="rut" class="form-control form-control-lg border-0" 
+                    <input type="text"  id="rut" name="rut" class="form-control form-control-lg border-0" 
                     placeholder="Ingrese su rut sin puntos ni guión"/>
                   </div>
 
@@ -68,17 +65,10 @@ rounded-lg shadow-lg">
                     <button type="submit" class="btn btn-primary " style="border-radius: 1rem; width: 100%">Entrar</button>
                   </div>
 
-                  @error('message')        
-                    <p class="border border-red-500 rounded-md bg-red-100 w-full
-                    text-red-600 p-2 my-2">* {{ $message }}</p>
-                  @enderror
-
-                  <div class="flex items-center justify-end mt-4">
+                  <div class="flex items-center justify-end mt-2">
                     <a class="text-dark font-weight-bold text-decoration-none" href="{{ route('password.request') }}">
                         {{ __('Recuperar contraseña') }}
                     </a>
-                  </div>
-                  <a href="#!" class="text-dark font-weight-bold text-decoration-none">Cambiar contraseña</a>
                      
                 </form>
           </div>
@@ -88,9 +78,22 @@ rounded-lg shadow-lg">
     </section>
 
 
-
-  </form>
-
 </div>
+
+@endsection
+
+@section('scripts')
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  @if (session('status') == 'error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Rut o contraseña incorrectos',
+      })
+    </script>
+  @endif
 
 @endsection

@@ -1,27 +1,62 @@
 @extends('layout.app')
 
-@section('title', 'Login')
+@section('title', 'recuperar contraseña')
 
 @section('content')
 
 <div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
 rounded-lg shadow-lg">
+  <section>
+    <div class="row g-0">
+      <div class="col-lg-5 d-flex flex-column justify-content-center min-vh-100">
 
-  <h1 class="text-3xl text-center font-bold">Recuperar contraseña</h1>
+        <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 nb-auto">
+            <img src="./img/logo.png" alt="logo" class="img-fluid">
+        </div>
 
-  <form class="mt-4" method="POST" action="{{ route('password.email') }}">
-    @csrf
-
-    <input type="email" class="border border-gray-200 rounded-md bg-gray-200 w-full
-    text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Email"
-    id="email" name="email" :value="old('email')">
-
-    <button type="submit" class="rounded-md bg-indigo-500 w-full text-lg
-    text-white font-semibold p-2 my-3 hover:bg-indigo-600">Send</button>
-
-
-  </form>
-
+        <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
+          <h2>Recuperar contraseña</h2>
+          <form class="mt-4" method="POST" action="">
+            @csrf
+            <div class="form-outline mb-4 flex-nowrap">
+              <input type="text"  id="email" name="email" class="form-control form-control-lg border-0" 
+                placeholder="Email"/>
+            </div>
+            <div class="d-grip gap-2">
+              <button type="submit" class="btn btn-primary " style="border-radius: 1rem; width: 100%">Enviar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
+
+
+@endsection
+
+@section('scripts')
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  @if (session('status') == 'success')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Enviado',
+        text: 'Se ha enviado un correo a su cuenta de correo',
+      })
+    </script>
+  @endif
+
+  @if ($errors->any())
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El correo ingresado no existe',
+      })
+    </script>
+  @endif
 
 @endsection
