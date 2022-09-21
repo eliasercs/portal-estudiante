@@ -13,6 +13,7 @@
     
   </head>
   <body class="bg-gray-100 text-gray-800">
+    
 
     @if(auth()->check())
       <nav class="flex py-5 bg-indigo-500 text-white">
@@ -33,7 +34,6 @@
     @endif
 
     @yield('content')
-    @yield('scripts')
 
 
   </body>

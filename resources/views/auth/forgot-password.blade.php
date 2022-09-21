@@ -1,62 +1,40 @@
 @extends('layout.app')
 
-@section('title', 'recuperar contraseña')
+@section('title', 'Login')
 
 @section('content')
 
-<div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
-rounded-lg shadow-lg">
-  <section>
-    <div class="row g-0">
-      <div class="col-lg-5 d-flex flex-column justify-content-center min-vh-100">
+<div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center" style="background-color: cyan;">
 
-        <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 nb-auto">
-            <img src="./img/logo.png" alt="logo" class="img-fluid">
-        </div>
+  <h1 class="text-3xl text-center font-bold" style="background-color: yellow;">Recuperar contraseña</h1>
 
-        <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
-          <h2>Recuperar contraseña</h2>
-          <form class="mt-4" method="POST" action="">
-            @csrf
-            <div class="form-outline mb-4 flex-nowrap">
-              <input type="text"  id="email" name="email" class="form-control form-control-lg border-0" 
-                placeholder="Email"/>
-            </div>
-            <div class="d-grip gap-2">
-              <button type="submit" class="btn btn-primary " style="border-radius: 1rem; width: 100%">Enviar</button>
-            </div>
-          </form>
-        </div>
-      </div>
+  <form class="mt-4" method="POST" action="{{ route('password.email') }}">
+    @csrf
+     
+    <div class="form-outline text-center mb-4">
+      <label class="form-label">Se enviarán todas las intrucciones de recuperación
+        a su correo electrónico</label> <br>
+      </label>
     </div>
-  </section>
+
+    <! -- Email input -->
+
+    <div class="form-outline text-center">
+      <label class="form-label">✉️Email</label>
+      <input type="email" class="form-control form-control-lg border-0 w-50" placeholder="Ingrese su correo instutional"
+        id="email" name="email" :value="old('email')">
+    </div>
+
+    <! -- Submit button -->
+
+    <div class="d-grip gap-2 text-center mt-4">
+      <button type="submit" class="btn btn-primary" style="border-radius: 1rem;">Enviar Contraseña</button>
+    </div>
+      
+
+
+  </form>
+
 </div>
-
-
-@endsection
-
-@section('scripts')
-
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
-  @if (session('status') == 'success')
-    <script>
-      Swal.fire({
-        icon: 'success',
-        title: 'Enviado',
-        text: 'Se ha enviado un correo a su cuenta de correo',
-      })
-    </script>
-  @endif
-
-  @if ($errors->any())
-    <script>
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'El correo ingresado no existe',
-      })
-    </script>
-  @endif
 
 @endsection

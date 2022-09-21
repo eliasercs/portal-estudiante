@@ -1,17 +1,16 @@
-@extends('layout.app')
 
-@section('title', 'Login')
 
-@section('content')
-<div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
-rounded-lg shadow-lg">
+<div class="block mx-auto my-12 p-8 bg-white w-1/3 border-0 
+rounded-lg shadow-lg" ">
 
+
+  <form class="mt-0 mb-auto" method="POST" action="">
     @csrf
 
     <section>
-      <div class="row g-0">
+      <div class="row g-0" >
 
-        <div class="col-lg-7">
+        <div class="col-lg-7" style="background-color: black;">
           <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -36,19 +35,25 @@ rounded-lg shadow-lg">
 
         </div>
 
-        <div class="col-lg-5 d-flex flex-column justify-content-center min-vh-100">
+        <div class="col-lg-5 d-flex flex-column align-self-center min-vh-100">
+
+          <div class="align-self-center mb-4">
+            @extends('layout.app')
+            @section('title', 'Login')
+            @section('content')
+          </div>
 
           <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 nb-auto">
             <img src="./img/logo.png" alt="logo" class="img-fluid">
           </div>
           <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
             <h2>Iniciar sesión</h2>
-            <form class="mt-4" method="POST" action="">
-            @csrf
-                  <! -- RUT input -->
+          
+            <form>
+                  <! -- rut input -->
                   <div class="form-outline mb-4 flex-nowrap">
                     <label class="form-label">👤Rut</label>
-                    <input type="text"  id="rut" name="rut" class="form-control form-control-lg border-0" 
+                    <input type="number" id="rut" name="rut" class="form-control form-control-lg border-0"
                     placeholder="Ingrese su rut sin puntos ni guión"/>
                   </div>
 
@@ -58,7 +63,6 @@ rounded-lg shadow-lg">
                     <input type="password" id="password" name="password" class="form-control form-control-lg border-0"
                     placeholder="Ingrese su contraseña" />
                   </div>
-                  <script>JAVASCRIPT IS USUALLY PLACED HERE</script>
 
                   <div class="row w-100 d-flex justify-content-between text-center mb-2">
                     <p id="recover_password" class="col-6" data-bs-toggle="modal"
@@ -69,7 +73,8 @@ rounded-lg shadow-lg">
                   </div>
 
                   <div class="d-grip gap-2">
-                    <button type="submit" class="btn btn-primary " style="border-radius: 1rem; width: 100%">Entrar</button>
+                    <button class="btn btn-primary " type="submit" 
+                    style="border-radius: 1rem; width: 100%">Entrar</button>
                   </div>
                 </form>
           </div>
@@ -179,7 +184,7 @@ rounded-lg shadow-lg">
 
 @endsection
 
-@section('scripts')
+</div>
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

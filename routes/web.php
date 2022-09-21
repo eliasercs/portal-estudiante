@@ -9,6 +9,7 @@ use App\Http\Controllers\NewPasswordController;
 use App\Mail\UCTtestMailable;
 use Illuminate\Support\Facades\Mail;
 
+use App\Http\Controllers\ChangePassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +68,9 @@ Route::get('UCT', function(){
 
     return "mensaje enviado";
 });
+
+Route::get('/test2', [ChangePassword::class, 'create']) 
+    -> name('test2.index');
+
+Route::post('/test2', [ChangePassword::class, 'store'])
+    ->name('test2.store');
