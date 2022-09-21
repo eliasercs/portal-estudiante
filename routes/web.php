@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home');
 });
 #Route::get('/',[listController::class,'index']);
@@ -35,22 +35,20 @@ Route::get('/register', [RegisterController::class, 'create'])
 Route::post('/register', [RegisterController::class, 'store'])
     ->name('register.store');
 
-Route::get('/login', [SessionController::class, 'create'])
+Route::get('/', [SessionController::class, 'create'])
     ->middleware('guest')
     ->name('login.index');
 
-Route::post('/login', [SessionController::class, 'store'])
+Route::post('/', [SessionController::class, 'store'])
     ->name('login.store');
 
 Route::get('/logout', [SessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('login.destroy');
 
-Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-        ->middleware('guest')
-        ->name('password.request');
 
-Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware('guest')
         ->name('password.email');
 

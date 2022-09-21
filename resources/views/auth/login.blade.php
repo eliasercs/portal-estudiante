@@ -41,7 +41,6 @@ rounded-lg shadow-lg">
           <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 nb-auto">
             <img src="./img/logo.png" alt="logo" class="img-fluid">
           </div>
-
           <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
             <h2>Iniciar sesión</h2>
             <form class="mt-4" method="POST" action="">
@@ -61,24 +60,122 @@ rounded-lg shadow-lg">
                   </div>
                   <script>JAVASCRIPT IS USUALLY PLACED HERE</script>
 
+                  <div class="row w-100 d-flex justify-content-between text-center mb-2">
+                    <p id="recover_password" class="col-6" data-bs-toggle="modal"
+                      data-bs-target="#recover_password_modal">Recuperar contraseña</p>
+
+                    <p id="change_password" class="col-5" data-bs-toggle="modal"
+                      data-bs-target="#change_password_modal">Cambiar contraseña</p>
+                  </div>
+
                   <div class="d-grip gap-2">
                     <button type="submit" class="btn btn-primary " style="border-radius: 1rem; width: 100%">Entrar</button>
                   </div>
-
-                  <div class="flex items-center justify-end mt-2">
-                    <a class="text-dark font-weight-bold text-decoration-none" href="{{ route('password.request') }}">
-                        {{ __('Recuperar contraseña') }}
-                    </a>
-                     
                 </form>
           </div>
-
         </div>
       </div>
+
+
+      <!--Modal para recuperar contraseña-->
+      <div class="modal fade" id="recover_password_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Recuperar contraseña</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body p-3">
+                      <div class="alert alert-primary mb-5" role="alert">
+                          <p>Se <strong>enviarán</strong> todas las instrucciones de recuperación a su <strong>correo
+                                  electrónico</strong>.</p>
+                      </div>
+                      <form method="POST" action="{{ route('password.email') }}">
+                          <div class="mb-5">
+                              <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
+                              <div class="input-group">
+                                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                  <input type="email" class="form-control" placeholder="name@example.com">
+                              </div>
+                          </div>
+                          <button type="submit" class="btn btn-primary w-100">Recuperar</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--Modal para cambiar contraseña-->
+      <div class="modal fade" id="change_password_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title">Cambiar contraseña</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body p-3">
+                      <div class="alert alert-success mb-5" role="alert">
+                          <p>Su nueva contraseña <strong>debe contener</strong>:</p>
+                          <ul>
+                              <li>8 carácteres de longitud.</li>
+                              <li>Al menos <strong>un punto</strong>.</li>
+                              <li>Al menos <strong>una letra en mayúscula</strong> y al menos <strong>un número</strong>.
+                              </li>
+                              <li>Sólo carácteres alfanuméricos, <strong>sin carácteres especiales</strong> como:
+                                  <strong>($|#|"|%|&|/||()|°|=|¡!|¿?|{}|ñ|á|^|~)</strong>
+                              </li>
+                              <li>Su nueva contraseña <strong>no debe ser idéntica</strong> a su contraseña actual.</li>
+                          </ul>
+                      </div>
+                      <form>
+                          <div class="mb-2">
+                              <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
+                              <div class="input-group">
+                                  <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                  <input type="email" class="form-control" placeholder="name@example.com">
+                              </div>
+                          </div>
+                          <div class="mb-2">
+                              <label for="exampleFormControlInput1" class="form-label">Contraseña actual</label>
+                              <div class="input-group">
+                                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                  <input type="password" class="form-control" id="current_password"
+                                      placeholder="Ingrese su contraseña">
+                                  <span class="input-group-text" id="toggle_current_password"><i class="bi bi-eye-fill"
+                                          id="current_password_icon"></i></span>
+                              </div>
+                          </div>
+                          <div class="mb-2">
+                              <label for="exampleFormControlInput1" class="form-label">Nueva contraseña</label>
+                              <div class="input-group">
+                                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                  <input type="password" class="form-control" id="new_password"
+                                      placeholder="Ingrese su contraseña">
+                                  <span class="input-group-text" id="toggle_new_password"><i class="bi bi-eye-fill"
+                                          id="new_password_icon"></i></span>
+                              </div>
+                          </div>
+                          <div class="mb-5">
+                              <label for="exampleFormControlInput1" class="form-label">Repetir nueva contraseña</label>
+                              <div class="input-group">
+                                  <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                  <input type="password" class="form-control" id="repeat_new_password"
+                                      placeholder="Ingrese su contraseña">
+                                  <span class="input-group-text" id="toggle_repeat_new_password"><i class="bi bi-eye-fill"
+                                          id="repeat_new_password_icon"></i></span>
+                              </div>
+                          </div>
+                          <button type="submit" class="btn btn-primary w-100">Cambiar</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
     </section>
-
-
 </div>
+
+
 
 @endsection
 
@@ -95,5 +192,6 @@ rounded-lg shadow-lg">
       })
     </script>
   @endif
+
 
 @endsection
