@@ -44,7 +44,7 @@ rounded-lg shadow-lg">
           <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
             <h2>Iniciar sesión</h2>
             <form class="mt-4" method="POST" action="">
-            @csrf
+                  @csrf
                   <! -- RUT input -->
                   <div class="form-outline mb-4 flex-nowrap">
                     <label class="form-label">👤Rut</label>
@@ -92,11 +92,12 @@ rounded-lg shadow-lg">
                                   electrónico</strong>.</p>
                       </div>
                       <form method="POST" action="{{ route('password.email') }}">
+                          @csrf
                           <div class="mb-5">
                               <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                  <input type="email" class="form-control" placeholder="name@example.com">
+                                  <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" require>
                               </div>
                           </div>
                           <button type="submit" class="btn btn-primary w-100">Recuperar</button>
@@ -129,6 +130,7 @@ rounded-lg shadow-lg">
                           </ul>
                       </div>
                       <form>
+                          @csrf
                           <div class="mb-2">
                               <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
                               <div class="input-group">
