@@ -48,9 +48,9 @@ rounded-lg shadow-lg" ">
           </div>
           <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
             <h2>Iniciar sesión</h2>
-          
-            <form>
-                  <! -- rut input -->
+            <form class="mt-4" method="POST" action="">
+                  @csrf
+                  <! -- RUT input -->
                   <div class="form-outline mb-4 flex-nowrap">
                     <label class="form-label">👤Rut</label>
                     <input type="number" id="rut" name="rut" class="form-control form-control-lg border-0"
@@ -96,12 +96,13 @@ rounded-lg shadow-lg" ">
                           <p>Se <strong>enviarán</strong> todas las instrucciones de recuperación a su <strong>correo
                                   electrónico</strong>.</p>
                       </div>
-                      <form method="POST" action="{{ route('password.email') }}">
+                      <form class="formulario_email" method="POST" action="{{ route('password.email') }}">
+                          @csrf
                           <div class="mb-5">
                               <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                  <input type="email" class="form-control" placeholder="name@example.com">
+                                  <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required>
                               </div>
                           </div>
                           <button type="submit" class="btn btn-primary w-100">Recuperar</button>
@@ -133,12 +134,13 @@ rounded-lg shadow-lg" ">
                               <li>Su nueva contraseña <strong>no debe ser idéntica</strong> a su contraseña actual.</li>
                           </ul>
                       </div>
-                      <form>
+                      <form method="POST" action="{{ route('password.update') }}">
+                          @csrf
                           <div class="mb-2">
                               <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                  <input type="email" class="form-control" placeholder="name@example.com">
+                                  <input type="email" class="form-control" placeholder="name@example.com" required>
                               </div>
                           </div>
                           <div class="mb-2">
@@ -146,7 +148,7 @@ rounded-lg shadow-lg" ">
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                   <input type="password" class="form-control" id="current_password"
-                                      placeholder="Ingrese su contraseña">
+                                      placeholder="Ingrese su contraseña" required>
                                   <span class="input-group-text" id="toggle_current_password"><i class="bi bi-eye-fill"
                                           id="current_password_icon"></i></span>
                               </div>
@@ -156,7 +158,7 @@ rounded-lg shadow-lg" ">
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                   <input type="password" class="form-control" id="new_password"
-                                      placeholder="Ingrese su contraseña">
+                                      placeholder="Ingrese su contraseña" required>
                                   <span class="input-group-text" id="toggle_new_password"><i class="bi bi-eye-fill"
                                           id="new_password_icon"></i></span>
                               </div>
@@ -166,7 +168,7 @@ rounded-lg shadow-lg" ">
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                   <input type="password" class="form-control" id="repeat_new_password"
-                                      placeholder="Ingrese su contraseña">
+                                      placeholder="Ingrese su contraseña" required>
                                   <span class="input-group-text" id="toggle_repeat_new_password"><i class="bi bi-eye-fill"
                                           id="repeat_new_password_icon"></i></span>
                               </div>
@@ -198,5 +200,24 @@ rounded-lg shadow-lg" ">
     </script>
   @endif
 
+  @if (session('forgot') == 'success')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'Se ha enviado un correo con las instrucciones para recuperar su contraseña',
+      })
+    </script>
+  @endif
+
+  @if (session('NewPassword') == 'success')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'Se ha cambiado su contraseña',
+      })
+    </script>
+  @endif
 
 @endsection
