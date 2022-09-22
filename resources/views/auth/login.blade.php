@@ -207,32 +207,12 @@ rounded-lg shadow-lg">
     </script>
   @endif
 
-  @if (session('change') == 'success')
-    <script>
-      Swal.fire({
-        icon: 'success',
-        title: '¡Listo!',
-        text: 'Se ha cambiado su contraseña',
-      })
-    </script>
-  @endif
-
   @if (session('change') == 'password_error')
     <script>
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Las contraseña no coinciden'
-      })
-    </script>
-  @endif
-
-  @if (session('change') == 'error')
-    <script>
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'correo o contraseña incorrectos',
       })
     </script>
   @endif

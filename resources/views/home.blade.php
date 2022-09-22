@@ -12,3 +12,30 @@
 
 
 @endsection
+
+@section('scripts')
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('status') == 'success')
+
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'A iniciado sesión correctamente',
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'success')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'Se ha cambiado su contraseña',
+      })
+    </script>
+  @endif
+
+@endsection

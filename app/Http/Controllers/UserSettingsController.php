@@ -18,10 +18,10 @@ class UserSettingsController extends Controller
         ]);
 
         if(auth()->attempt(request(['email', 'password'])) == false) {
-            return back()->with('change', 'error');
+            return back()->with('status', 'error');
 
         } else {
-            if($request->new_password != $request->new_password_confirmation) {
+            if('new_password' != 'new_password_confirmation') {
                 return back()->with('change', 'password_error');
             }
             #Update the new Password

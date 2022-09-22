@@ -64,13 +64,13 @@ rounded-lg shadow-lg">
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@if (session('success') == 'password_changed')
-    <script>
-      Swal.fire({
-        icon: 'success',
-        title: '¡Listo!',
-        text: 'Se ha cambiado su contraseña',
-      })
-    </script>
-@endif
+  @if (session('success') == 'password_changed')
+      <script>
+        Swal.fire({
+          icon: 'success',
+          title: '¡Listo!',
+          text: 'Se ha cambiado su contraseña',
+        })
+      </script>
+  @endif
 @endsection
