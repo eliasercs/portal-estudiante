@@ -1,14 +1,13 @@
 @extends('layout.app')
-@section('title', 'Login')
+
+@section('title', 'Inicio')
+
 @section('content')
 
-<div class="block mx-auto my-12 p-8 bg-white w-1/3 border-0 
-rounded-lg shadow-lg">
-
+<div class="block mx-auto my-12 p-8 bg-white w-1/3 border-0 rounded-lg shadow-lg" ">
 
   <form class="mt-0 mb-auto" method="POST" action="">
     @csrf
-
     <section>
       <div class="row g-0" >
 
@@ -53,7 +52,7 @@ rounded-lg shadow-lg">
                   <div class="form-outline mb-4 flex-nowrap">
                     <label class="form-label">👤Email</label>
                     <input type="email" id="email" name="email" class="form-control form-control-lg border-0"
-                    placeholder="Ingrese su correo"/>
+                    placeholder="name@example.com"/>
                   </div>
 
                   <! -- Password input -->
@@ -182,8 +181,7 @@ rounded-lg shadow-lg">
     </section>
 </div>
 
-@endsection
-@section('scripts')
+</div>
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

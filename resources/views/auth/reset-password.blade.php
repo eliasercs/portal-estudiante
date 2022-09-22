@@ -25,7 +25,7 @@ rounded-lg shadow-lg">
                 <div class="form-outline mb-4 flex-nowrap">
                     <x-input-label for="email" :value="__('Email')" />
 
-                    <x-text-input id="email" class="login__label" type="email" name="email" class="form-control form-control-lg border-0" :value="old('email', $request->email)" required autofocus/>
+                    <x-text-input id="email" class="login__label" type="email" name="email" readonly=»readonly»  class="form-control form-control-lg border-0" :value="old('email', $request->email)" required autofocus/>
                 </div>
 
                 <!-- Password -->

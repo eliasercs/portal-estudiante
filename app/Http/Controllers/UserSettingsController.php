@@ -26,7 +26,7 @@ class UserSettingsController extends Controller
             }
             #Update the new Password
             User::whereId(auth()->user()->id)->update([
-                'password' => Hash::make($request->new_password)
+                'password' => bcrypt($request->new_password)
             ]);
 
             return back()->with("change", "suscess");
