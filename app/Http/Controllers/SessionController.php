@@ -13,7 +13,7 @@ class SessionController extends Controller
     }
     public function store() {
         
-        if(auth()->attempt(request(['rut', 'password'])) == false) {
+        if(auth()->attempt(request(['email', 'password'])) == false) {
             return back()->with('status', 'error');
 
         } else {

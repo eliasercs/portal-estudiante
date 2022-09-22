@@ -15,13 +15,12 @@ class RegisterController extends Controller
 
         $this->validate(request(), [
             'name' => 'required',
-            'apellido' => 'required',
             'rut'  => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
         ]);
 
-        $user = User::create(request(['name','apellido','rut', 'email', 'password']));
+        $user = User::create(request(['name','rut', 'email', 'password']));
 
         auth()->login($user);
         return redirect()->to('/');

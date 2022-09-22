@@ -1,7 +1,9 @@
-
+@extends('layout.app')
+@section('title', 'Login')
+@section('content')
 
 <div class="block mx-auto my-12 p-8 bg-white w-1/3 border-0 
-rounded-lg shadow-lg" ">
+rounded-lg shadow-lg">
 
 
   <form class="mt-0 mb-auto" method="POST" action="">
@@ -38,9 +40,6 @@ rounded-lg shadow-lg" ">
         <div class="col-lg-5 d-flex flex-column align-self-center min-vh-100">
 
           <div class="align-self-center mb-4">
-            @extends('layout.app')
-            @section('title', 'Login')
-            @section('content')
           </div>
 
           <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 nb-auto">
@@ -48,13 +47,13 @@ rounded-lg shadow-lg" ">
           </div>
           <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
             <h2>Iniciar sesión</h2>
-            <form class="mt-4" method="POST" action="">
+            <form class="mt-4" method="POST" action="{{ route('login.store') }}">
                   @csrf
-                  <! -- RUT input -->
+                  <! -- email input -->
                   <div class="form-outline mb-4 flex-nowrap">
-                    <label class="form-label">👤Rut</label>
-                    <input type="number" id="rut" name="rut" class="form-control form-control-lg border-0"
-                    placeholder="Ingrese su rut sin puntos ni guión"/>
+                    <label class="form-label">👤Email</label>
+                    <input type="email" id="email" name="email" class="form-control form-control-lg border-0"
+                    placeholder="Ingrese su correo"/>
                   </div>
 
                   <! -- Password input -->
@@ -134,20 +133,21 @@ rounded-lg shadow-lg" ">
                               <li>Su nueva contraseña <strong>no debe ser idéntica</strong> a su contraseña actual.</li>
                           </ul>
                       </div>
-                      <form method="POST" action="{{ route('password.update') }}">
+                      <form method="POST" action="{{ route('Change-Password') }}">
                           @csrf
                           <div class="mb-2">
                               <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                  <input type="email" class="form-control" placeholder="name@example.com" required>
+                                  <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="name@example.com" required>
                               </div>
                           </div>
                           <div class="mb-2">
                               <label for="exampleFormControlInput1" class="form-label">Contraseña actual</label>
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                  <input type="password" class="form-control" id="current_password"
+                                  <input type="password" id="password" name="password" class="form-control"
                                       placeholder="Ingrese su contraseña" required>
                                   <span class="input-group-text" id="toggle_current_password"><i class="bi bi-eye-fill"
                                           id="current_password_icon"></i></span>
@@ -157,7 +157,7 @@ rounded-lg shadow-lg" ">
                               <label for="exampleFormControlInput1" class="form-label">Nueva contraseña</label>
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                  <input type="password" class="form-control" id="new_password"
+                                  <input type="password" id="new_password" name="new_password" class="form-control"
                                       placeholder="Ingrese su contraseña" required>
                                   <span class="input-group-text" id="toggle_new_password"><i class="bi bi-eye-fill"
                                           id="new_password_icon"></i></span>
@@ -167,8 +167,8 @@ rounded-lg shadow-lg" ">
                               <label for="exampleFormControlInput1" class="form-label">Repetir nueva contraseña</label>
                               <div class="input-group">
                                   <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                  <input type="password" class="form-control" id="repeat_new_password"
-                                      placeholder="Ingrese su contraseña" required>
+                                  <input type="password" id="new_password_confirmation" name="new_password_confirmation"
+                                    class="form-control" placeholder="Repita su contraseña" required>
                                   <span class="input-group-text" id="toggle_repeat_new_password"><i class="bi bi-eye-fill"
                                           id="repeat_new_password_icon"></i></span>
                               </div>
@@ -182,11 +182,8 @@ rounded-lg shadow-lg" ">
     </section>
 </div>
 
-
-
 @endsection
-
-</div>
+@section('scripts')
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -195,7 +192,7 @@ rounded-lg shadow-lg" ">
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Rut o contraseña incorrectos',
+        text: 'correo o contraseña incorrectos',
       })
     </script>
   @endif
@@ -210,12 +207,32 @@ rounded-lg shadow-lg" ">
     </script>
   @endif
 
-  @if (session('NewPassword') == 'success')
+  @if (session('change') == 'success')
     <script>
       Swal.fire({
         icon: 'success',
         title: '¡Listo!',
         text: 'Se ha cambiado su contraseña',
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'password_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Las contraseña no coinciden'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'correo o contraseña incorrectos',
       })
     </script>
   @endif

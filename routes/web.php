@@ -8,6 +8,7 @@ use App\Http\Controllers\PasswordResetLinkController;
 use App\Http\Controllers\NewPasswordController;
 use App\Mail\UCTtestMailable;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\UserSettingsController;
 
 use App\Http\Controllers\ChangePassword;
 
@@ -47,8 +48,6 @@ Route::get('/logout', [SessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('login.destroy');
 
-
-
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware('guest')
         ->name('password.email');
@@ -57,9 +56,10 @@ Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
         ->middleware('guest')
         ->name('password.reset');
 
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
+Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->middleware('guest')
         ->name('password.update');
+
 
 Route::get('UCT', function(){
     $correo = new UCTtestMailable;
@@ -69,8 +69,5 @@ Route::get('UCT', function(){
     return "mensaje enviado";
 });
 
-Route::get('/test2', [ChangePassword::class, 'create']) 
-    -> name('test2.index');
-
-Route::post('/test2', [ChangePassword::class, 'store'])
-    ->name('test2.store');
+Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordPost'])
+    ->name('Change-Password');

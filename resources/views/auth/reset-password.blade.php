@@ -3,8 +3,6 @@
 @section('title', 'reset')
 
 @section('content')
-  <!-- Validation Errors -->
-  <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
   <div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
 rounded-lg shadow-lg">
@@ -27,7 +25,7 @@ rounded-lg shadow-lg">
                 <div class="form-outline mb-4 flex-nowrap">
                     <x-input-label for="email" :value="__('Email')" />
 
-                    <x-text-input id="email" class="login__label" type="email" name="email" class="form-control form-control-lg border-0" :value="old('email', $request->email)" required autofocus disabled/>
+                    <x-text-input id="email" class="login__label" type="email" name="email" class="form-control form-control-lg border-0" :value="old('email', $request->email)" required autofocus/>
                 </div>
 
                 <!-- Password -->
@@ -43,7 +41,8 @@ rounded-lg shadow-lg">
 
                     <x-text-input id="password_confirmation" class="login__label"
                                         type="password"
-                                        name="password_confirmation" required />
+                                        name="password_confirmation"
+                                        class="form-control form-control-lg border-0" required />
                 </div>
 
                 <div class="d-grip gap-2" >
@@ -59,4 +58,19 @@ rounded-lg shadow-lg">
 </div>
 
 
+@endsection
+
+@section('scripts')
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (session('success') == 'password_changed')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'Se ha cambiado su contraseña',
+      })
+    </script>
+@endif
 @endsection
