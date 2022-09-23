@@ -27,9 +27,6 @@ Route::get('/home', function () {
     return view('home');
 });
 #Route::get('/',[listController::class,'index']);
-Route::get('/info', function () { 
-    return view('info');
-});
 
 Route::get('/register', [RegisterController::class, 'create']) 
     -> name('register.index');

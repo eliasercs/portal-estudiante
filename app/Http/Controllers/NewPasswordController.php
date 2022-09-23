@@ -58,7 +58,7 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
-                    ? redirect()->to('/')->with('status', __($status))->with('success', 'password_changed')
+                    ? redirect()->to('/')->with('status', __($status))->with('change', 'password_changed')
                     : redirect()->to('/')->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
     }

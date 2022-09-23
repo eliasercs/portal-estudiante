@@ -21,15 +21,12 @@ class UserSettingsController extends Controller
             return back()->with('status', 'error');
 
         } else {
-            if('new_password' != 'new_password_confirmation') {
-                return back()->with('change', 'password_error');
-            }
             #Update the new Password
             User::whereId(auth()->user()->id)->update([
                 'password' => bcrypt($request->new_password)
             ]);
 
-            return back()->with("change", "suscess");
+            return redirect()->to('/home')->with("change", "suscess");
         
         }
     }
