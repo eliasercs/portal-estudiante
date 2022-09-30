@@ -14,7 +14,7 @@ class UserSettingsController extends Controller
         # Validation
         $request->validate([
             'password' => 'required',
-            'new_password' => 'required|confirmed',
+            'new_password' => 'required|confirmed|min:8|',
         ]);
 
         if(auth()->attempt(request(['email', 'password'])) == false) {
@@ -26,7 +26,7 @@ class UserSettingsController extends Controller
                 'password' => bcrypt($request->new_password)
             ]);
 
-            return redirect()->to('/home')->with("change", "suscess");
+            return redirect()->to('/home')->with("change", "success");
         
         }
     }

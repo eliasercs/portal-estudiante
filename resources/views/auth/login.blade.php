@@ -123,7 +123,6 @@
                           <p>Su nueva contraseña <strong>debe contener</strong>:</p>
                           <ul>
                               <li>8 carácteres de longitud.</li>
-                              <li>Al menos <strong>un punto</strong>.</li>
                               <li>Al menos <strong>una letra en mayúscula</strong> y al menos <strong>un número</strong>.
                               </li>
                               <li>Sólo carácteres alfanuméricos, <strong>sin carácteres especiales</strong> como:
@@ -210,7 +209,7 @@
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Las contraseña no coinciden'
+        text: 'Contraseña no válida',
       })
     </script>
   @endif
