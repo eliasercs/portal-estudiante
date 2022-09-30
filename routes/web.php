@@ -26,7 +26,7 @@ use App\Http\Controllers\ChangePassword;
 
 
 Route::get('/home', function () {
-    return view('welcome');
+    return view('home');
 });
 Route::match(['get', 'post'], '/botman', [BotmanController::class, 'handle']);
 
