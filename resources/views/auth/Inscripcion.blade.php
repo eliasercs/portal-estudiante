@@ -29,7 +29,7 @@
                     
                 </div>
             </div>
-            <h5 class="card-title text-center">Ramos inscritos de {{ auth()->user()->name }} </h5>
+            <h5 class="card-title text-center">Listado de ramos en el sistema</h5>
             <hr>
             <p class="card-text">
                 <div class="table table-responsive">
@@ -41,14 +41,12 @@
                             <th>Cupos</th>
                         </thead>
                         <tbody>
-                        @foreach ($ramos as $item)
+                        
                             <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->code }}</td>
-                                <td>{{ $item->profesor }}</td>
-                                <td>{{ $item->cupos }}</td>
+                                <td>{{ $ramos }}</td>
                                 
-                        @endforeach
+                                
+                        
                         </tbody>
                     </table>
                     <hr>

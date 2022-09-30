@@ -13,6 +13,7 @@ use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\RegisterRamosController;
 use App\Http\Controllers\RamosController;
+use App\Http\Controllers\InscripcionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,17 +30,16 @@ use App\Http\Controllers\RamosController;
 Route::get('/home', function () {
     return view('welcome');
 });
-<<<<<<< HEAD
+
 
 #Route::get('/',[listController::class,'index']);
-=======
 Route::match(['get', 'post'], '/botman', [BotmanController::class, 'handle']);
 
 #Route::get('/',[listController::class,'index']);
 Route::get('/info', function () {
     return view('info');
 });
->>>>>>> email-server
+
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register.index');
 
@@ -76,7 +76,7 @@ Route::get('UCT', function () {
 
 Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordPost'])
     ->name('Change-Password');
-<<<<<<< HEAD
+
 
 
 Route::get('/register-ramos', [RegisterRamosController::class, 'create']) 
@@ -87,5 +87,6 @@ Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
 
 Route::get('/ramos', [RamosController::class, 'index']) 
     -> name('ramos.index');
-=======
->>>>>>> email-server
+
+Route::get('/tramos', [InscripcionController::class, 'create']) 
+    -> name('ramos.index');

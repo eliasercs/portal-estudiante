@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,6 @@ class User extends Authenticatable
     ];
     public function setPasswordAttribute($password) {
 
-        $this->attributes['password'] = bcrypt($password);
+        $this->attributes['password'] = Hash::make($password);
     }
 }

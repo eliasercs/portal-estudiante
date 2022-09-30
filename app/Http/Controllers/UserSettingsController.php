@@ -26,7 +26,7 @@ class UserSettingsController extends Controller
                 'password' => bcrypt($request->new_password)
             ]);
 
-            return redirect()->to('/home')->with("change", "success");
+            return redirect()->to('/home')->with('change', 'success');
         
         }
     }

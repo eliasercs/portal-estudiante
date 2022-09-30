@@ -204,7 +204,17 @@
     </script>
   @endif
 
-  @if ($errors->has('new_password'))
+  @if (session('success') == 'password_changed')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'Su contraseña ha sido cambiada con éxito',
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'password_error')
     <script>
       Swal.fire({
         icon: 'error',
