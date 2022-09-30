@@ -28,7 +28,7 @@ use App\Http\Controllers\InscripcionController;
 
 
 Route::get('/home', function () {
-    return view('welcome');
+    return view('home');
 });
 
 
