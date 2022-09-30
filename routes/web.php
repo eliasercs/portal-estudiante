@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BotmanController;
 use App\Http\Controllers\listController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisterController;
@@ -24,43 +25,48 @@ use App\Http\Controllers\RamosController;
 |
 */
 
+
 Route::get('/home', function () {
-    return view('home');
+    return view('welcome');
 });
+<<<<<<< HEAD
 
 #Route::get('/',[listController::class,'index']);
+=======
+Route::match(['get', 'post'], '/botman', [BotmanController::class, 'handle']);
 
-Route::get('/register', [RegisterController::class, 'create']) 
-    -> name('register.index');
+#Route::get('/',[listController::class,'index']);
+Route::get('/info', function () {
+    return view('info');
+});
+>>>>>>> email-server
 
-Route::post('/register', [RegisterController::class, 'store'])
-    ->name('register.store');
+Route::get('/register', [RegisterController::class, 'create'])->name('register.index');
 
-Route::get('/', [SessionController::class, 'create'])
-    ->middleware('guest')
-    ->name('login.index');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
-Route::post('/', [SessionController::class, 'store'])
-    ->name('login.store');
+Route::get('/', [SessionController::class, 'create'])->middleware('guest')->name('login.index');
+
+Route::post('/', [SessionController::class, 'store'])->name('login.store');
 
 Route::get('/logout', [SessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('login.destroy');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-        ->middleware('guest')
-        ->name('password.email');
+    ->middleware('guest')
+    ->name('password.email');
 
 Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-        ->middleware('guest')
-        ->name('password.reset');
+    ->middleware('guest')
+    ->name('password.reset');
 
 Route::post('reset-password', [NewPasswordController::class, 'store'])
-        ->middleware('guest')
-        ->name('password.update');
+    ->middleware('guest')
+    ->name('password.update');
 
 
-Route::get('UCT', function(){
+Route::get('UCT', function () {
     $correo = new UCTtestMailable;
 
     Mail::to("testuct@gmail.com")->send($correo);
@@ -70,6 +76,7 @@ Route::get('UCT', function(){
 
 Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordPost'])
     ->name('Change-Password');
+<<<<<<< HEAD
 
 
 Route::get('/register-ramos', [RegisterRamosController::class, 'create']) 
@@ -80,3 +87,5 @@ Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
 
 Route::get('/ramos', [RamosController::class, 'index']) 
     -> name('ramos.index');
+=======
+>>>>>>> email-server
