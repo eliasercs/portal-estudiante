@@ -1,0 +1,11 @@
+.carousel-inner, .carousel-inner img {
+    width: 100%;
+    height: 100vh;
+}
+
+.password-change {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
