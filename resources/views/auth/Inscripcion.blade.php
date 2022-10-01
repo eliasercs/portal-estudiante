@@ -10,7 +10,7 @@
     <div class="row g-0">
       <div class="col-lg-5 d-flex flex-column justify-content-center min-vh-100">
         <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 nb-auto">
-          <img src="../img/logo.png" alt="logo" class="img-fluid">
+          <img src="./img/logo.png" alt="logo" class="img-fluid">
         </div>
 
         <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
@@ -47,7 +47,7 @@
                                 <td>{{ $item->code }}</td>
                                 <td>{{ $item->profesor }}</td>
                                 <td>{{ $item->cupos }}</td>
-                                <td><a href="{{route('ramos.store', $item->code)}}" class="btn btn-alert">inscribir</a></td>
+                                <td><a href="{{route('ramos.store', $item->code)}}" class="btn btn-primary">inscribir</a></td>
                             </tr>   
                         @endforeach
                         </tbody>
