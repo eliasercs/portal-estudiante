@@ -47,7 +47,16 @@
                                 <td>{{ $item->code }}</td>
                                 <td>{{ $item->profesor }}</td>
                                 <td>{{ $item->cupos }}</td>
-                                <td><a href="{{route('ramos.store', $item->code)}}" class="btn btn-success">inscribir</a></td>
+                                <td>
+                                <form action="{{route('ramos.store', $item->code)}}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-success">inscribir
+                                        <span class="fas fa-user-edit"></span>
+                                    </button>
+                                </form>
+                                </td>
+
+                                
                             </tr>   
                         @endforeach
                         </tbody>

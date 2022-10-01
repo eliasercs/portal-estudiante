@@ -47,7 +47,14 @@
                                 <td>{{ $item->code }}</td>
                                 <td>{{ $item->profesor }}</td>
                                 <td>{{ $item->cupos }}</td>
-                                <td><a href="" class="btn btn-alert">eliminar</a></td>
+                                <td>
+                                <form action="{{ route('ramos.destroy', $item->code) }}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-danger">Eliminar
+                                        <span class="fas fa-user-times"></span>
+                                    </button>
+                                </form>
+                            </td>
                             </tr>   
                         @endforeach
                         </tbody>

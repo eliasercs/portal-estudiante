@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ramos;
+use App\Models\inscripcion;
 use Illuminate\Http\Request;
 use DB;
 
@@ -15,11 +16,29 @@ class RamosController extends Controller
         return view('auth.inscripcion', compact('ramos'));
     }
 
-    public function store($curso){
+    public function create() {
+        $usuario = auth()->user()->rut;
+        $ramos = ramos::join('inscripcion', 'ramos.code', '=', 'inscripcion.curso')
+            ->select('name','code','profesor','cupos')
+            ->where('inscripcion.rut', '=', $usuario)
+            ->paginate(10);
+        return view('auth.ramos', compact('ramos'));
+    }
+
+    public function store($code){
         $usuario = auth()->user()->rut;
         DB::table('inscripcion')->insert([
-            ['rut' => $usuario, 'curso' => $curso,'created_at'=>getdate(),'updated_at'=>getdate()]
+            ['rut' => $usuario, 'curso' => $code]
         ]);
-        return "xd";
+        return redirect()->route("cursos.index");
     }
+
+    public function destroy($code)
+    {
+        $usuario = auth()->user()->rut;
+        DB::table('inscripcion')->where('rut', '=', $usuario)->where('curso', '=', $code)->delete();
+
+        return redirect()->route("cursos.index");
+    }
+
 }
