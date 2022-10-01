@@ -85,8 +85,14 @@ Route::get('/register-ramos', [RegisterRamosController::class, 'create'])
 Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
     ->name('register-ramo.store');
 
-Route::get('/ramos', [RamosController::class, 'index']) 
+Route::get('/inscripcion', [RamosController::class, 'index']) 
     -> name('ramos.index');
 
+Route::post('/inscripcion', [RamosController::class, 'store'])
+    ->name('ramos.store');
+
 Route::get('/tramos', [InscripcionController::class, 'create']) 
-    -> name('ramos.index');
+    -> name('cursos.index');
+
+#Route::get('/inscripcion', [InscripcionController::class,create]);
+    #-> name('inscripcion.agregar');

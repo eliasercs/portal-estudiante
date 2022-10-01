@@ -15,16 +15,9 @@ class InscripcionController extends Controller
             ->select('name','code','profesor','cupos')
             ->where('inscripcion.rut', '=', $usuario)
             ->paginate(10);
-        #$listado = DB::table('dbo.inscripcion')->select('code')->where('rut', '=', '10')->paginate(3);
-        #$ramos = DB::table('dbo.ramos')->select('name','code','profesor','cupos')->where('code','=',$listado)->paginate(3);
-        #->where('code','=',$listado)
         return view('auth.ramos', compact('ramos'));
-        #return view('auth.inscripcion',['ramos'=>$ramos]);
     }
 
-    public function form(){
-        return view('auth.register-ramos');
-    }
 
     public function store() {
 
