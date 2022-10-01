@@ -47,7 +47,7 @@
                                 <td>{{ $item->code }}</td>
                                 <td>{{ $item->profesor }}</td>
                                 <td>{{ $item->cupos }}</td>
-                                <td><a href="{{route('ramos.store', $item->code)}}" class="btn btn-primary">inscribir</a></td>
+                                <td><a href="{{route('ramos.store', $item->code)}}" class="btn btn-success">inscribir</a></td>
                             </tr>   
                         @endforeach
                         </tbody>
