@@ -215,4 +215,64 @@
     </script>
   @endif
 
+  @if (session('change') == 'symbol_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña no debe incluir carácteres especiales.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'upper_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un carácter en mayúscula.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'lower_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un carácter en minúscula.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'number_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un número.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'len_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe estar conformado por mínimo 8 carácteres.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'point_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un punto.'
+      })
+    </script>
+  @endif
+
 @endsection

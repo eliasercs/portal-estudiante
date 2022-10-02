@@ -68,5 +68,5 @@ Route::get('UCT', function () {
     return "mensaje enviado";
 });
 
-Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordPost'])
+Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordNoAuth'])
     ->name('Change-Password');
