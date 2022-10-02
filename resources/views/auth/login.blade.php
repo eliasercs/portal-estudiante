@@ -195,6 +195,36 @@
     </script>
   @endif
 
+  @if (session('status') == 'current_password_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'La contraseña actual ingresada no es correcta.',
+      })
+    </script>
+  @endif
+
+  @if (session('status') == 'user_email_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El correo electrónico ingresado no coincide con nuestros registros.',
+      })
+    </script>
+  @endif
+
+  @if (session('status') == 'password_validation_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Las nuevas contraseñas ingresadas no coinciden entre si.',
+      })
+    </script>
+  @endif
+
   @if (session('forgot') == 'success')
     <script>
       Swal.fire({
@@ -271,6 +301,16 @@
         icon: 'error',
         title: 'Oops...',
         text: 'Su nueva contraseña debe incorporar al menos un punto.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'success')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Ok',
+        text: 'Contraseña actualizada con éxito.'
       })
     </script>
   @endif
