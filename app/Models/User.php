@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Hash;
 
+use App\Models\AcademicRecord;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -47,5 +49,10 @@ class User extends Authenticatable
     public function setPasswordAttribute($password) {
 
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    // Relación uno a uno
+    public function AcademicRecord() {
+        return $this->hasOne(AcademicRecord::class);
     }
 }

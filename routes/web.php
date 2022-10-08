@@ -15,6 +15,8 @@ use App\Http\Controllers\RegisterRamosController;
 use App\Http\Controllers\RamosController;
 use App\Http\Controllers\InscripcionController;
 
+use App\Http\Controllers\AcademicRecordController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,6 +98,9 @@ Route::get('/tramos', [RamosController::class, 'create'])
 
 Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
     ->name('ramos.destroy');
+
+Route::get('/matricular', [AcademicRecordController::class, 'create']);
+Route::post('/matricular', [AcademicRecordController::class, 'enroll']);
 
 #Route::get('/inscripcion', [InscripcionController::class,create]);
     #-> name('inscripcion.agregar');
