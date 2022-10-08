@@ -21,8 +21,19 @@
 <body class="bg-gray-100 text-gray-800">
   <script type="text/javascript">
     var botmanWidget = {
+      //desktopHeight:"",
+      //desktopWidth:,
+      //mobileHeight:,
+      //mobileWidth:,
+
+      aboutLink: null,
+      title: "UCTIN",
+      bubbleAvatarUrl: "https://images.vexels.com/media/users/3/235658/isolated/preview/ab14b963565a4c5ab27169d90c341994-silueta-animales-21.png",
+      placeholderText: "Escribe tu consulta choro...",
+      mainColor: '#038ACE',
+      bubbleBackground: "#01568E",
       aboutText: 'Escribe tu consulta',
-      introMessage: "Soy Liana, ¡Feliz de hablar contigo!"
+      introMessage: "Hola soy UCTIN encantado de conocerte! \n ¿Quisieras ver las secciones más recomendadas?"
     };
   </script>
 

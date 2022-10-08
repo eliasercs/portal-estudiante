@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\BotMan;
 use Illuminate\Http\Request;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -17,18 +19,37 @@ class BotmanController extends Controller
 
         $botman->hears('{message}', function ($botman, $message) {
 
-            if ($message == 'Hola') {
+            if ($message == "Si" || $message == "si") {
                 $this->askName($botman);
-            } else {
-                $botman->reply("Escribe 'Hola' para probar...");
+            }
+            $botman->reply("¿quiere ver secciones adicioales?");
+            if ($message == "Si" || $message == "si") {
+                $this->opcionesAdicionales($botman);
             }
         });
 
         $botman->listen();
     }
 
-    public function nlp()
+    public function opcionesAdicionales($botman)
     {
+        $botman = resolve('botman');
+
+        $question = Question::create('')
+            ->callbackId('agree')
+            ->addButtons([
+                button::create('certificado academico')->value('has pinchado las cer aca'),
+                button::create('informacion personal')->value('has pinchado la info personal'),
+                button::create('observacion a la ficha')->value('has pinchado  obs a la ficha'),
+                button::create('cuenta corriente')->value('has pinchado los c corriente'),
+            ]);
+
+        $botman->ask($question, function (Answer $answer) {
+
+            $alternativa = $answer->getText();
+
+            $this->say($alternativa);
+        });
     }
 
     /**
@@ -36,11 +57,22 @@ class BotmanController extends Controller
      */
     public  function  askName($botman)
     {
-        $botman->ask('¡Hola! ¿Cuál es su nombre?', function (Answer $answer) {
+        $botman = resolve('botman');
 
-            $name = $answer->getText();
+        $question = Question::create('')
+            ->callbackId('agree')
+            ->addButtons([
+                button::create('Notas parciales')->value('has pinchado las otas parciales'),
+                button::create('Informacion academica')->value('has pinchado la inf academica'),
+                button::create('Inscripción de cursos')->value('has pinchado  insc curso'),
+                button::create('Documentos')->value('has pinchado los documentos'),
+            ]);
 
-            $this->say('Encantada de conocerte ' . $name . '. ¿Que necesitas?');
+        $botman->ask($question, function (Answer $answer) {
+
+            $alternativa = $answer->getText();
+
+            $this->say($alternativa);
         });
     }
 }
