@@ -9,7 +9,7 @@
 <div class="text-5xl text-center pt-16">
   <p>Información academica</p>
 
-  <div class="col-lg-7 text-align-center"">
+  <div class="col-lg-7 text-align-center">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <h3 class="text-center">Su carrera es: {{ auth()->user()->carrera }}</h3>
       <h3 class="text-center">Numero de registro: {{ auth()->user()->id }}</h3>

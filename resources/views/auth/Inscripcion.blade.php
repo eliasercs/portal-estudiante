@@ -14,11 +14,11 @@
         </div>
 
         <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
-            <h2 style="color: white;">Ramos</h2>
+            <h2 style="color: black;">Ramos</h2>
         </div>
 
         <div class="card-body">
-            <div class="row">
+        <div class="row">
                 <div class="col-sm-12">
                     @if ($mensaje = Session::get('success'))
                         <div class="alert alert-success" role="alert">
@@ -29,26 +29,34 @@
                     
                 </div>
             </div>
-            <h5 class="card-title text-center">Ramos inscritos de {{ auth()->user()->name }} </h5>
+            <h5 class="card-title text-center">Ramos disponibles para {{ auth()->user()->name }} </h5>
             <hr>
             <p class="card-text">
                 <div class="table table-responsive">
                     <table class="table table-sm table-bordered">
                         <thead>
-                            <th>Ramo</th>
                             <th>Codigo</th>
+                            <th>Curso</th>
+                            <th>Seccion</th>
                             <th>Profesor</th>
-                            <th>Cupos</th>
+                            <th>Horario</th>
+                            <th>Sala</th>
+                            <th>Capacidad</th>
+                            <th>Inscritos</th>
                         </thead>
                         <tbody>
                         @foreach ($ramos as $item)
                             <tr>
-                                <td>{{ $item->name }}</td>
                                 <td>{{ $item->code }}</td>
+                                <td>{{ $item->nombre }}</td>
+                                <td>{{ $item->numero }}</td>
                                 <td>{{ $item->profesor }}</td>
-                                <td>{{ $item->cupos }}</td>
+                                <td>{{ $item->horario }}</td>
+                                <td>{{ $item->sala }}</td>
+                                <td>{{ $item->capacidad }}</td>
+                                <td>{{ $item->inscritos }}</td>
                                 <td>
-                                <form action="{{route('ramos.store', $item->code)}}" method="POST">
+                                <form action="{{route('ramos.store', $item->id)}}" method="POST">
                                     @csrf
                                     <button class="btn btn-success">inscribir
                                         <span class="fas fa-user-edit"></span>

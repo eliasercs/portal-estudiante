@@ -19,7 +19,7 @@ class CreateSeccionTable extends Migration
     {
         Schema::create('seccion', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedSmallInteger("numero")->unique();
+            $table->unsignedSmallInteger("numero");
             $table->string('curso');
             $table->string("profesor");
             $table->string("horario");
