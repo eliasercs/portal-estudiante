@@ -23,10 +23,21 @@ class RamosController extends Controller
         #no funciona, al parecer devuelve una consulta en vez del dato que necesito 
         #necesito obtener el id del registro academico del usuario que esta logeado
         $registro = DB::table('curso_inscrito')->select('id')->where('rut', '=', $usuario);
-        $ramos = ramos::join('curso_inscrito', 'ramos.code', '=', 'curso_inscrito.curso')
-            ->select('name','code','profesor','cupos')
-            ->where('curso_inscrito.registro', '=', $registro)
-            ->paginate(10);
+        if (DB::table('curso_inscrito')->where('registro', '=', $registro)->where('curso', '=', $code)->exists()) {
+            return redirect()->route('ramos.index')->with('status', 'curso_repetido');
+        } else {
+            #si hay 0 cupos disponibles marca como cursos agotados, (en la bd solo hay total y inscritos, por lo que hay que modificarlo)
+            if (DB::table('seccion')->where('cupos', '=', 0)->where('code', '=', $code)->exists()) {
+                return redirect()->route('ramos.index')->with('status', 'cupos_agotados');
+            } else {
+                DB::table('curso_inscrito')->insert([
+                    ['registro' => $registro, 'curso' => $code]
+                ]);
+                #si se inscribe el curso se añade uno a los inscritos
+                DB::table('seccion')->where('id', '=', $code)->increment('inscritos');
+                return redirect()->route("cursos.index")->with('status', 'curso_agregado');
+            }
+        }
         return view('auth.ramos', compact('ramos'));
     }
 
@@ -36,6 +47,8 @@ class RamosController extends Controller
         DB::table('curso_inscrito')->insert([
             ['registro' => $registro, 'seccion' => $code]
         ]);
+        #si se elimina el curso se le resta uno a los inscritos
+        DB::table('seccion')->where('id', '=', $code)->decrement('inscritos');
         return redirect()->route("cursos.index");
     }
 
