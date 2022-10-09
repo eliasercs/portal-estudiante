@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCarreraTable extends Migration
+class CreateCarrerasTable extends Migration
 {
     /**
      * Tabla carrera, en esta va la informacion asociada a la carrera
@@ -14,11 +14,9 @@ class CreateCarreraTable extends Migration
      */
     public function up()
     {
-        Schema::create('carrera', function (Blueprint $table) {
-            $table->string('code')->primary();
-            $table->string('nombre');
-            $table->string('ubicacion');
-            $table->string('contacto');
+        Schema::create('carreras', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre')->unique();
         });
     }
 
@@ -29,6 +27,6 @@ class CreateCarreraTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carrera');
+        Schema::dropIfExists('carreras');
     }
 }

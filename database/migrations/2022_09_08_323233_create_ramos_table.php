@@ -22,7 +22,7 @@ class CreateRamosTable extends Migration
             $table->integer('creditos');
             $table->string('carrera');
             $table->string('tipo');
-            $table->foreign('carrera')->references('code')->on('carrera')->onDelete('cascade')->onUpdate('cascade');
+            //$table->foreign('carrera')->references('code')->on('carrera')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -19,15 +19,14 @@ class CreateAcademicRecordsTable extends Migration
     {
         Schema::create('academic_records', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("rut")->unique();
-            $table->string("carrera");
-            $table->string("codigo");
+            $table->unsignedBigInteger("user_id")->unique();
+            $table->unsignedBigInteger("carrera_id");
             $table->integer("plan");
-            $table->dateTime('ingreso')->default(now());
+            $table->year("ingreso");
             $table->string("situacion");
             
-            $table->foreign("rut")->references("rut")->on("users")->onDelete("cascade")->onUpdate('cascade');;
-            $table->foreign('codigo')->references('code')->on('carrera');
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->onUpdate('cascade');;
+            $table->foreign('carrera_id')->references('id')->on('carreras');
         });
     }
 

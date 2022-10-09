@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeccionTable extends Migration
+class CreateSeccionesTable extends Migration
 {
     /**
      * En esta tabla se guardara la informacion correspondientes a las secciones de cada ramo de la universidad,
@@ -17,7 +17,7 @@ class CreateSeccionTable extends Migration
      */
     public function up()
     {
-        Schema::create('seccion', function (Blueprint $table) {
+        Schema::create('secciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedSmallInteger("numero");
             $table->string('curso');
@@ -38,6 +38,6 @@ class CreateSeccionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seccion');
+        Schema::dropIfExists('secciones');
     }
 }

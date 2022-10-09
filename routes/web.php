@@ -15,6 +15,12 @@ use App\Http\Controllers\RegisterRamosController;
 use App\Http\Controllers\RamosController;
 use App\Http\Controllers\InscripcionController;
 
+use App\Http\Controllers\AcademicRecordController;
+use App\Http\Controllers\CarreraController;
+
+// Controlador que utilizo para testear mis entidades
+use App\Http\Controllers\EntidadController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,6 +102,22 @@ Route::get('/tramos', [RamosController::class, 'create'])
 
 Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
     ->name('ramos.destroy');
+
+// Vista para matricular un usuario a una carrera
+Route::get('/estudiante/matricular', [AcademicRecordController::class,'create_view']);
+
+// Vista para generar una nueva carrera
+Route::get('/carreras/new', [CarreraController::class, 'create_view']);
+Route::post('/carreras/new', [CarreraController::class, 'create_carrera']);
+
+// Vista para visualizar el listado de carreras disponibles
+Route::get("/carreras/show", [CarreraController::class, 'show_carreras']);
+
+Route::post('/estudiante/matricular', [AcademicRecordController::class,'enroll']);
+
+// Rutas para testear entidades
+Route::get('/testing/user/id={id}', [EntidadController::class, 'checkUser']);
+Route::get('/testing/academic-record/userid={id}', [EntidadController::class, 'checkAcademicRecord']);
 
 #Route::get('/inscripcion', [InscripcionController::class,create]);
     #-> name('inscripcion.agregar');

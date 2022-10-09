@@ -20,9 +20,9 @@ class CreateNotasTable extends Migration
             $table->unsignedBigInteger('inscripcion');
             $table->unsignedFloat('nota');
             $table->unsignedFloat('porcentaje');
-            $table->dateTime('Fecha')->default(now());
+            $table->dateTime('fecha')->default(now());
 
-            $table->foreign('inscripcion')->references('id')->on('Curso_inscrito')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('inscripcion')->references('id')->on('curso_inscrito')->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 

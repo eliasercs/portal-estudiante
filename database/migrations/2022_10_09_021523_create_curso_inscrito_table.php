@@ -21,8 +21,8 @@ class CreateCursoInscritoTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('registro');
             $table->unsignedBigInteger('seccion');
-            $table->dateTime('Fecha')->default(now());
-            $table->unsignedInteger('Asistencia');
+            $table->dateTime('fecha')->default(now());
+            $table->unsignedInteger('asistencia');
 
             $table->foreign('registro')->references('id')->on('academic_records')->onDelete('cascade')->onUpdate('cascade');;
             $table->foreign('seccion')->references('id')->on('seccion')->onDelete('cascade')->onUpdate('cascade');;
