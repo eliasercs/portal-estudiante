@@ -7,15 +7,19 @@ use Illuminate\Support\Facades\Schema;
 class CreateAcademicRecordsTable extends Migration
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
+     * en esta tabla estara almacenada toda la informacion asociada a los registros academicos,
+     * en donde tendran un id autoincremental como clave primaria
+     * los registros academicos estas relacionados a un usuario, por lo que estaran asociados a un determinado usuario por su rut
+     * tambien estan asociados a una carrera, por lo que estaran asociados con la tabla carreras, mediante el codigo de la carrera
+     * como parametros llevara el plan, que indica el plan curricular que esta cursando
+     * la fecha de ingreso, el cual se establece inmediatamente al realizar la inscripcion
+     * y su situacion academica (no se que es xd)
      */
     public function up()
     {
         Schema::create('academic_records', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger("rut")->unique();
+            $table->string("rut")->unique();
             $table->string("carrera");
             $table->string("codigo");
             $table->integer("plan");
