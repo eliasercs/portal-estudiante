@@ -12,7 +12,6 @@ class ramos extends Model
     protected $fillable = [
         'name',
         'code',
-        'profesor',
-        'cupos',
+        'creditos',
     ];
 }

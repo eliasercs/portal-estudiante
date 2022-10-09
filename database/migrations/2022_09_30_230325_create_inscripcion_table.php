@@ -15,9 +15,12 @@ class CreateInscripcionTable extends Migration
     {
         Schema::create('inscripcion', function (Blueprint $table) {
             $table->id();
-            $table->string('rut');
-            $table->string('curso');
-            $table->timestamps();
+            $table->unsignedBigInteger('registro');
+            $table->unsignedBigInteger('seccion');
+            $table->dateTime('Fecha')->default(now());
+
+            $table->foreign('registro')->references('id')->on('academic_records')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('seccion')->references('id')->on('seccion')->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 
