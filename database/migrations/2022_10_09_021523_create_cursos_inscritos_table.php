@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCursoInscritoTable extends Migration
+class CreateCursosInscritosTable extends Migration
 {
     /**
      * en esta tabla estaran marcados todos los cursos que halla inscrito un determinado usuario
@@ -17,15 +17,15 @@ class CreateCursoInscritoTable extends Migration
      */
     public function up()
     {
-        Schema::create('curso_inscrito', function (Blueprint $table) {
+        Schema::create('cursos_inscritos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('registro');
-            $table->unsignedBigInteger('seccion');
+            $table->unsignedBigInteger('academic_record_id');
+            $table->unsignedBigInteger('seccion_id');
             $table->dateTime('fecha')->default(now());
             $table->unsignedInteger('asistencia');
 
-            $table->foreign('registro')->references('id')->on('academic_records')->onDelete('cascade')->onUpdate('cascade');;
-            $table->foreign('seccion')->references('id')->on('seccion')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('academic_record_id')->references('id')->on('academic_records')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('seccion_id')->references('id')->on('secciones')->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 
@@ -36,6 +36,6 @@ class CreateCursoInscritoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('curso_inscrito');
+        Schema::dropIfExists('cursos_inscritos');
     }
 }

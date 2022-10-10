@@ -118,6 +118,11 @@ Route::post('/estudiante/matricular', [AcademicRecordController::class,'enroll']
 // Rutas para testear entidades
 Route::get('/testing/user/id={id}', [EntidadController::class, 'checkUser']);
 Route::get('/testing/academic-record/userid={id}', [EntidadController::class, 'checkAcademicRecord']);
-
+Route::get('/testing/cursos/new', [EntidadController::class, 'createCursoView']);
+Route::post('/testing/cursos/new', [EntidadController::class, 'createCurso']);
+Route::get('/testing/cursos/seccion/new/curso_id={id}', [EntidadController::class, 'createSeccionView'])
+    ->name("nueva_seccion");
+Route::post('/cursos/seccion/new_seccion', [EntidadController::class, 'newSeccion']);
+Route::post('/testing', [EntidadController::class, 'AddNewSection']);
 #Route::get('/inscripcion', [InscripcionController::class,create]);
     #-> name('inscripcion.agregar');

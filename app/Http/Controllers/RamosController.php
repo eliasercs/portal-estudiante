@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ramos;
+use App\Models\Ramo;
 use App\Models\inscripcion;
 use Illuminate\Http\Request;
 use DB;
@@ -12,9 +12,9 @@ class RamosController extends Controller
     public function index()
     {
         //pagina de inicio 
-        $ramos = ramos::join('seccion', 'ramos.code', '=', 'seccion.curso')
-        ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','id')
-        ->paginate(10);
+        $ramos = Ramo::join('secciones', 'ramos.code', '=', 'secciones.curso')
+            ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','id')
+            ->paginate(10);
         return view('auth.inscripcion', compact('ramos'));
     }
 

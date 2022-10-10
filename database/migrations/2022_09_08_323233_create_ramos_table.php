@@ -17,12 +17,14 @@ class CreateRamosTable extends Migration
     public function up()
     {
         Schema::create('ramos', function (Blueprint $table) {
-            $table->string('code')->primary();
+            $table->id();
+            $table->string('code');
             $table->string('nombre');
             $table->integer('creditos');
-            $table->string('carrera');
+            $table->unsignedBigInteger('carrera_id')->nullable();
             $table->string('tipo');
-            //$table->foreign('carrera')->references('code')->on('carrera')->onDelete('cascade')->onUpdate('cascade');
+            
+            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

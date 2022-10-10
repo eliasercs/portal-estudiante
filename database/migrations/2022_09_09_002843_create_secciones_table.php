@@ -20,14 +20,13 @@ class CreateSeccionesTable extends Migration
         Schema::create('secciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedSmallInteger("numero");
-            $table->string('curso');
             $table->string("profesor");
             $table->string("horario");
             $table->string("sala");
             $table->unsignedSmallInteger("capacidad");
             $table->unsignedSmallInteger("inscritos");
-            
-            $table->foreign('curso')->references('code')->on('ramos')->onDelete('cascade')->onUpdate('cascade');;
+            $table->unsignedBigInteger('curso_id');
+            $table->foreign('curso_id')->references('id')->on('ramos')->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 

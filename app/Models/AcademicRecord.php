@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Carrera;
 
+use App\Models\CursoInscrito;
+
 class AcademicRecord extends Model
 {
     use HasFactory;
@@ -28,5 +30,10 @@ class AcademicRecord extends Model
     // El registro académico del usuario solamente puede pertenecer a una sola carrera
     public function Carrera() {
         return $this->belongsTo(Carrera::class);
+    }
+
+    // Un estudiante puede inscribir muchos cursos
+    public function InscripcionCurso() {
+        $this->hasOne(CursoInscrito::class);
     }
 }

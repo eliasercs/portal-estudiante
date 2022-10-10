@@ -22,7 +22,7 @@ class CreateNotasTable extends Migration
             $table->unsignedFloat('porcentaje');
             $table->dateTime('fecha')->default(now());
 
-            $table->foreign('inscripcion')->references('id')->on('curso_inscrito')->onDelete('cascade')->onUpdate('cascade');;
+            //$table->foreign('inscripcion')->references('id')->on('curso_inscrito')->onDelete('cascade')->onUpdate('cascade');;
         });
     }
 
