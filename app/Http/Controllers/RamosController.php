@@ -25,8 +25,25 @@ class RamosController extends Controller
 
     public function create() {
         
-        $usuario = auth()->user()->rut;
-        return $usuario;
+        /*
+        $cursos retorna una lista con todos los cursos inscritos por el estudiante
+        */
+        $cursos = auth()->user()->AcademicRecord->InscripcionCurso;
+        $data = [];
+        foreach ($cursos as $key => $value) {
+            $data[$key] = [
+                "fecha" => $value->fecha,
+                "Curso" => $value->Seccion->Curso->nombre,
+                "Sigla" => $value->Seccion->Curso->code,
+                "Creditos" => $value->Seccion->Curso->creditos,
+                "Tipo" => $value->Seccion->Curso->tipo,
+                "Seccion" => $value->Seccion->numero,
+                "Profesor" => $value->Seccion->profesor,
+                "Horario" => $value->Seccion->horario,
+                "Sala" => $value->Seccion->sala,
+            ];
+        }
+        return $data;
         #no funciona, al parecer devuelve una consulta en vez del dato que necesito 
         #necesito obtener el id del registro academico del usuario que esta logeado
         /*
