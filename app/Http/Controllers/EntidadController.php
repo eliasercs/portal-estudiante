@@ -16,7 +16,9 @@ use App\Models\Seccion;
 class EntidadController extends Controller
 {
     public function checkUser($user_id) {
-        return User::where('id', intval($user_id))->first();
+        $user = User::where('id', intval($user_id))->first();
+        $reg = $user->AcademicRecord;
+        return is_null($reg->Carrera->Curso);
     }
 
     public function checkAcademicRecord($user_id) {
@@ -117,6 +119,7 @@ class EntidadController extends Controller
 
         $values = [
             'numero' => $data['seccion'],
+            'sigla' => $data['code'],
             'profesor' => $data['profesor'],
             'horario' => $data['horario'],
             'sala' => $data['sala'],
@@ -128,7 +131,7 @@ class EntidadController extends Controller
         $seccion->Curso()->associate($curso);
         $seccion->save();
 
-        return $seccion;
+        return $seccion->Curso->Carrera;
 
     }
 }

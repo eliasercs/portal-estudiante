@@ -23,7 +23,7 @@ class Ramo extends Model
     ];
 
     public function Seccion() {
-        return $this->hasMany(Seccion::class);
+        return $this->hasMany(Seccion::class, 'curso_id');
     }
 
     public function Carrera() {

@@ -6,23 +6,30 @@ use App\Models\Ramo;
 use App\Models\inscripcion;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
+
+use App\Models\CursoInscrito;
+use App\Models\Seccion;
 
 class RamosController extends Controller
 {
     public function index()
     {
         //pagina de inicio 
-        $ramos = Ramo::join('secciones', 'ramos.code', '=', 'secciones.curso')
-            ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','id')
+        $ramos = Ramo::join('secciones', 'ramos.code', '=', 'secciones.sigla')
+            ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','secciones.id')
             ->paginate(10);
+        //return $ramos;    
         return view('auth.inscripcion', compact('ramos'));
     }
 
     public function create() {
-        /*
+        
         $usuario = auth()->user()->rut;
+        return $usuario;
         #no funciona, al parecer devuelve una consulta en vez del dato que necesito 
         #necesito obtener el id del registro academico del usuario que esta logeado
+        /*
         $registro = DB::table('curso_inscrito')->select('id')->where('rut', '=', $usuario);
         echo isset($registro);
         if (DB::table('curso_inscrito')->where('registro', '=', $registro)->where('curso', '=', 'INFO1128')->exists()) {
@@ -44,10 +51,25 @@ class RamosController extends Controller
         */
     }
 
-    public function store($code){
-        /*
-        $usuario = auth()->user()->rut;
-        $registro = DB::table('curso_inscrito')->select('id')->where('rut', '=', $usuario);
+    public function store(Request $request){
+
+        $req = $request->all();
+
+        $usuario = auth()->user()->AcademicRecord;
+        
+        $id = $req["seccion_id"];
+
+        $seccion = Seccion::find($id);
+
+        $curso_inscrito = new CursoInscrito();
+        $curso_inscrito->AcademicRecord()->associate($usuario);
+        $curso_inscrito->Seccion()->associate($seccion);
+        $curso_inscrito->save();
+
+        return $curso_inscrito;
+
+
+        /*$registro = DB::table('curso_inscrito')->select('id')->where('rut', '=', $usuario);
         if (isset($registro)) {
             DB::table('curso_inscrito')->insert([
                 ['registro' => $registro, 'seccion' => intval($code)]

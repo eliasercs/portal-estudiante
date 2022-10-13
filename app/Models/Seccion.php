@@ -21,12 +21,13 @@ class Seccion extends Model
         'sala',
         'capacidad',
         'inscritos',
+        'sigla',
     ];
 
     public $timestamps = false;
 
     public function CursoInscrito() {
-        return $this->belongsTo(CursoInscrito::class);
+        return $this->hasMany(CursoInscrito::class);
     }
 
     public function Curso() {

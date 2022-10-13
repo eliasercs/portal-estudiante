@@ -20,6 +20,7 @@ class CreateSeccionesTable extends Migration
         Schema::create('secciones', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedSmallInteger("numero");
+            $table->string("sigla");
             $table->string("profesor");
             $table->string("horario");
             $table->string("sala");

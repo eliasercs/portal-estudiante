@@ -94,7 +94,7 @@ Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
 Route::get('/inscripcion', [RamosController::class, 'index']) 
     -> name('ramos.index');
 
-Route::post('/inscripcion/{code}', [RamosController::class, 'store'])
+Route::post('/inscripcion', [RamosController::class, 'store'])
     ->name('ramos.store');
 
 Route::get('/tramos', [RamosController::class, 'create']) 

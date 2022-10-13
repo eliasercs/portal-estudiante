@@ -34,6 +34,6 @@ class AcademicRecord extends Model
 
     // Un estudiante puede inscribir muchos cursos
     public function InscripcionCurso() {
-        $this->hasOne(CursoInscrito::class);
+        $this->hasMany(CursoInscrito::class,'academic_record_id', 'id');
     }
 }

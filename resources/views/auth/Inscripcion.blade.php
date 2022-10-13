@@ -17,8 +17,8 @@
             <h2 style="color: black;">Ramos</h2>
         </div>
 
-        <div class="card-body">
-        <div class="row">
+        <div>
+            <div class="row">
                 <div class="col-sm-12">
                     @if ($mensaje = Session::get('success'))
                         <div class="alert alert-success" role="alert">
@@ -29,13 +29,13 @@
                     
                 </div>
             </div>
-            <h5 class="card-title text-center">Ramos disponibles para {{ auth()->user()->name }} </h5>
+            <h5 class="card-title text-center">Ramos disponibles para </h5>
             <hr>
-            <p class="card-text">
-                <div class="table table-responsive">
-                    <table class="table table-sm table-bordered">
+            <div class="card-text">
+                <div class="table">
+                    <table class="table table-bordered">
                         <thead>
-                            <th>Codigo</th>
+                            <th>Sigla</th>
                             <th>Curso</th>
                             <th>Seccion</th>
                             <th>Profesor</th>
@@ -56,12 +56,14 @@
                                 <td>{{ $item->capacidad }}</td>
                                 <td>{{ $item->inscritos }}</td>
                                 <td>
-                                <form action="{{route('ramos.store', $item->id)}}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-success">inscribir
-                                        <span class="fas fa-user-edit"></span>
-                                    </button>
-                                </form>
+                                    <form action="/inscripcion" method="POST">
+                                        @csrf
+                                        <input type="hidden" value="{{ $item->id }}" id="seccion_id" name="seccion_id">
+                                        <button class="btn btn-success">
+                                            Inscribir
+                                            <span class="fas fa-user-edit"></span>
+                                        </button>
+                                    </form>
                                 </td>
 
                                 
@@ -71,12 +73,15 @@
                     </table>
                     <hr>
                 </div>
+                <!--
                 <div class="row">
                     <div class="col-sm-12">
                         {{ $ramos->links() }}
                     </div>
                 </div>
-            </p>
+                -->
+                
+            </div>
         </div>
     </div>
 </div>

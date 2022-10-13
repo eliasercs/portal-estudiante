@@ -13,9 +13,10 @@ class CursoInscrito extends Model
     use HasFactory;
 
     protected $table = "cursos_inscritos";
+    public $timestamps = false;
 
     public function Seccion() {
-        return $this->hasOne(Seccion::class);
+        return $this->belongsTo(Seccion::class, 'seccion_id');
     }
 
     // El curso inscrito no puede existir sin un registro académico

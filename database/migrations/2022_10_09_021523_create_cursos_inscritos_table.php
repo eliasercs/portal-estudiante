@@ -22,7 +22,7 @@ class CreateCursosInscritosTable extends Migration
             $table->unsignedBigInteger('academic_record_id');
             $table->unsignedBigInteger('seccion_id');
             $table->dateTime('fecha')->default(now());
-            $table->unsignedInteger('asistencia');
+            $table->unsignedInteger('asistencia')->nullable();
 
             $table->foreign('academic_record_id')->references('id')->on('academic_records')->onDelete('cascade')->onUpdate('cascade');;
             $table->foreign('seccion_id')->references('id')->on('secciones')->onDelete('cascade')->onUpdate('cascade');;
