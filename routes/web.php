@@ -97,6 +97,8 @@ Route::get('/inscripcion', [RamosController::class, 'index'])
 Route::post('/inscripcion', [RamosController::class, 'store'])
     ->name('ramos.store');
 
+Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
+
 Route::get('/tramos', [RamosController::class, 'create']) 
     -> name('cursos.index');
 
