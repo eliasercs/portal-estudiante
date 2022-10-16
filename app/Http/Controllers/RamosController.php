@@ -15,12 +15,35 @@ class RamosController extends Controller
 {
     public function index()
     {
+        $curso_inscrito = auth()->user()->AcademicRecord->InscripcionCurso;
+
+        $carrera = auth()->user()->AcademicRecord->Carrera->Cursos;
+        
+        $cursos_inscritos = [];
+        foreach ($curso_inscrito as $key => $value) {
+            if (!in_array($value->Seccion->sigla, $cursos_inscritos)) {
+                array_push($cursos_inscritos,$value->Seccion->sigla);
+            }
+        }
+
+        $cursos = [];
+        foreach ($carrera as $key => $value) {
+            if (!in_array($value->code, $cursos_inscritos)) {
+                array_push($cursos, [
+                    'id' => $value->id,
+                    'sigla' => $value->code,
+                    'nombre' => $value->nombre,
+                    'creditos' => $value->creditos
+                ]);
+            }
+        }
+
         //pagina de inicio 
-        $ramos = Ramo::join('secciones', 'ramos.id', '=', 'secciones.curso_id')
-            ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','secciones.id')
-            ->paginate(10);
-        //return $ramos;    
-        return view('auth.inscripcion', compact('ramos'));
+        //$ramos = Ramo::join('secciones', 'ramos.id', '=', 'secciones.curso_id')
+        //    ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','secciones.id')
+        //    ->paginate(10);
+        //return $cursos[0]["nombre"];    
+        return view('auth.inscripcion', compact('cursos'));
     }
 
     public function create() {
@@ -65,10 +88,10 @@ class RamosController extends Controller
             }
         }
         return view('auth.ramos', compact('ramos'));
+        */
     }
 
     public function store(Request $request){
-
         $req = $request->all();
 
         $usuario = auth()->user()->AcademicRecord;
@@ -77,26 +100,19 @@ class RamosController extends Controller
 
         $seccion = Seccion::find($id);
 
-        $curso_inscrito = new CursoInscrito();
-        $curso_inscrito->AcademicRecord()->associate($usuario);
-        $curso_inscrito->Seccion()->associate($seccion);
-        $curso_inscrito->save();
-
-        return $curso_inscrito;
-
-
-        /*$registro = DB::table('curso_inscrito')->select('id')->where('rut', '=', $usuario);
-        if (isset($registro)) {
-            DB::table('curso_inscrito')->insert([
-                ['registro' => $registro, 'seccion' => intval($code)]
-            ]);
-            #si se elimina el curso se le resta uno a los inscritos
-            DB::table('seccion')->where('id', '=', intval($code))->decrement('inscritos');
-            return redirect()->route("cursos.index");
+        if ($seccion->inscritos <= $seccion->capacidad) {
+            $curso_inscrito = new CursoInscrito();
+            $curso_inscrito->AcademicRecord()->associate($usuario);
+            $curso_inscrito->Seccion()->associate($seccion);
+            $curso_inscrito->save();
+    
+            $seccion->inscritos = $seccion->inscritos + 1;
+            $seccion->save();
+    
+            return "El curso se ha inscrito satisfactoriamente";
         } else {
-            echo "Error";
+            return "No quedan cupos disponibles para esta sección";
         }
-
     }
 
     public function destroy($code)
@@ -108,6 +124,12 @@ class RamosController extends Controller
 
         return redirect()->route("cursos.index");
         */
+    }
+
+    public function inscribirSectionView(Request $request) {
+        $curso = Ramo::find($request["curso_id"]);
+        $secciones = $curso->Seccion;
+        return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones]);
     }
 
 }
