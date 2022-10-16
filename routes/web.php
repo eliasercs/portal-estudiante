@@ -107,8 +107,9 @@ Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
 Route::get('/estudiante/matricular', [AcademicRecordController::class,'create_view']);
 
 // Vista para generar una nueva carrera
-Route::get('/carreras/new', [CarreraController::class, 'create_view']);
-Route::post('/carreras/new', [CarreraController::class, 'create_carrera']);
+Route::get('/carreras/new', [CarreraController::class, 'create_view'])-> name('register-carrera.index');
+
+Route::post('/carreras/new', [CarreraController::class, 'create_carrera'])-> name('register-carrera.store');;
 
 // Vista para visualizar el listado de carreras disponibles
 Route::get("/carreras/show", [CarreraController::class, 'show_carreras']);

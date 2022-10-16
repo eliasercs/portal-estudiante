@@ -16,7 +16,7 @@ class RamosController extends Controller
     public function index()
     {
         //pagina de inicio 
-        $ramos = Ramo::join('secciones', 'ramos.code', '=', 'secciones.sigla')
+        $ramos = Ramo::join('secciones', 'ramos.id', '=', 'secciones.curso_id')
             ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','secciones.id')
             ->paginate(10);
         //return $ramos;    
@@ -65,7 +65,6 @@ class RamosController extends Controller
             }
         }
         return view('auth.ramos', compact('ramos'));
-        */
     }
 
     public function store(Request $request){
@@ -97,7 +96,7 @@ class RamosController extends Controller
         } else {
             echo "Error";
         }
-        */
+
     }
 
     public function destroy($code)

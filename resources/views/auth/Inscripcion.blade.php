@@ -29,7 +29,25 @@
                     
                 </div>
             </div>
-            <h5 class="card-title text-center">Ramos disponibles para </h5>
+            <h5 class="card-title text-center">Cursos Inscritos por {{ auth()->user()->name }}</h5>
+            <div class="table">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Sigla</th>
+                        <th>Curso</th>
+                        <th>Seccion</th>
+                        <th>Profesor</th>
+                        <th>Horario</th>
+                        <th>Sala</th>
+                        <th>Capacidad</th>
+                        <th>Cupos</th>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            <h5 class="card-title text-center">Cursos Disponibles</h5>
             <hr>
             <div class="card-text">
                 <div class="table">
@@ -42,7 +60,7 @@
                             <th>Horario</th>
                             <th>Sala</th>
                             <th>Capacidad</th>
-                            <th>Inscritos</th>
+                            <th>Cupos</th>
                         </thead>
                         <tbody>
                         @foreach ($ramos as $item)
@@ -54,15 +72,21 @@
                                 <td>{{ $item->horario }}</td>
                                 <td>{{ $item->sala }}</td>
                                 <td>{{ $item->capacidad }}</td>
-                                <td>{{ $item->inscritos }}</td>
+                                <td>{{ $item->capacidad - $item->inscritos }}</td>
                                 <td>
                                     <form action="/inscripcion" method="POST">
                                         @csrf
                                         <input type="hidden" value="{{ $item->id }}" id="seccion_id" name="seccion_id">
+                                        @if ($item->capacidad > $item->inscritos)
                                         <button class="btn btn-success">
                                             Inscribir
-                                            <span class="fas fa-user-edit"></span>
+                                        <span class="fas fa-user-edit"></span>
                                         </button>
+                                        @else
+                                        <button class="btn btn-success" disabled>
+                                            Lleno
+                                        <span class="fas fa-user-edit"></span>
+                                        @endif
                                     </form>
                                 </td>
 
