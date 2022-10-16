@@ -6,6 +6,20 @@
 
 @if(auth()->check())
 <h1 class="text-5xl text-center pt-24">Bienvenido {{ auth()->user()->name }}</h1>
+<div class="text-5xl text-center pt-16">
+  <p>Información academica</p>
+
+  <div class="col-lg-7 text-align-center">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <h3 class="text-center">Su carrera es: </h3>
+      <h3 class="text-center">Numero de registro: {{ auth()->user()->id }}</h3>
+      <h3 class="text-center">Plan: </h3>
+      <h3 class="text-center">Ingreso: </h3>
+      <h3 class="text-center">Situacion: </h3>
+    </div>
+  </div>
+  
+</div>
 @else
 <h1 class="text-5xl text-center pt-24">Portal del estudiante</h1>
 @endif

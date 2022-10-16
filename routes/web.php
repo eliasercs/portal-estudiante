@@ -10,8 +10,16 @@ use App\Http\Controllers\NewPasswordController;
 use App\Mail\UCTtestMailable;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\UserSettingsController;
-
 use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\RegisterRamosController;
+use App\Http\Controllers\RamosController;
+use App\Http\Controllers\InscripcionController;
+
+use App\Http\Controllers\AcademicRecordController;
+use App\Http\Controllers\CarreraController;
+
+// Controlador que utilizo para testear mis entidades
+use App\Http\Controllers\EntidadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,12 +36,16 @@ use App\Http\Controllers\ChangePassword;
 Route::get('/home', function () {
     return view('home');
 });
+
+
+#Route::get('/',[listController::class,'index']);
 Route::match(['get', 'post'], '/botman', [BotmanController::class, 'handle']);
 
 #Route::get('/',[listController::class,'index']);
 Route::get('/info', function () {
     return view('info');
 });
+
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register.index');
 
@@ -70,3 +82,47 @@ Route::get('UCT', function () {
 
 Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordNoAuth'])
     ->name('Change-Password');
+
+
+
+Route::get('/register-ramos', [RegisterRamosController::class, 'create']) 
+    -> name('register-ramo.index');
+
+Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
+    ->name('register-ramo.store');
+
+Route::get('/inscripcion', [RamosController::class, 'index']) 
+    -> name('ramos.index');
+
+Route::post('/inscripcion', [RamosController::class, 'store'])
+    ->name('ramos.store');
+
+Route::get('/tramos', [RamosController::class, 'create']) 
+    -> name('cursos.index');
+
+Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
+    ->name('ramos.destroy');
+
+// Vista para matricular un usuario a una carrera
+Route::get('/estudiante/matricular', [AcademicRecordController::class,'create_view']);
+
+// Vista para generar una nueva carrera
+Route::get('/carreras/new', [CarreraController::class, 'create_view']);
+Route::post('/carreras/new', [CarreraController::class, 'create_carrera']);
+
+// Vista para visualizar el listado de carreras disponibles
+Route::get("/carreras/show", [CarreraController::class, 'show_carreras']);
+
+Route::post('/estudiante/matricular', [AcademicRecordController::class,'enroll']);
+
+// Rutas para testear entidades
+Route::get('/testing/user/id={id}', [EntidadController::class, 'checkUser']);
+Route::get('/testing/academic-record/userid={id}', [EntidadController::class, 'checkAcademicRecord']);
+Route::get('/testing/cursos/new', [EntidadController::class, 'createCursoView']);
+Route::post('/testing/cursos/new', [EntidadController::class, 'createCurso']);
+Route::get('/testing/cursos/seccion/new/curso_id={id}', [EntidadController::class, 'createSeccionView'])
+    ->name("nueva_seccion");
+Route::post('/cursos/seccion/new_seccion', [EntidadController::class, 'newSeccion']);
+Route::post('/testing', [EntidadController::class, 'AddNewSection']);
+#Route::get('/inscripcion', [InscripcionController::class,create]);
+    #-> name('inscripcion.agregar');

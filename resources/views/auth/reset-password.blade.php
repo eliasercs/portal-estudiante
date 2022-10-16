@@ -30,24 +30,27 @@ rounded-lg shadow-lg">
 
                 <!-- Password -->
                 <div class="form-outline mb-4 flex-nowrap">
-                    <x-input-label for="password" :value="__('Password')" />
+                    <x-input-label for="password" :value="__('Nueva contraseña')" />
 
-                    <x-text-input id="password" class="login__label" type="password" name="password" class="form-control form-control-lg border-0" required />
+                    <x-text-input id="password" class="login__label" type="password" name="password"
+                                    class="form-control form-control-lg border-0" 
+                                    placeholder="Ingrese su nueva contraseña" required />
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="form-outline mb-4 flex-nowrap">
-                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                    <x-input-label for="password_confirmation" :value="__('Confirmar nueva contraseña')" />
 
                     <x-text-input id="password_confirmation" class="login__label"
                                         type="password"
                                         name="password_confirmation"
-                                        class="form-control form-control-lg border-0" required />
+                                        class="form-control form-control-lg border-0"
+                                        placeholder="Confirme su nueva contraseña" required />
                 </div>
 
                 <div class="d-grip gap-2" >
-                    <x-primary-button class="login_submit" style="border-radius: 1rem; width: 100%">
-                        {{ __('Reset Password') }}
+                    <x-primary-button class="login_submit btn btn-primary" style="border-radius: 1rem; width: 100%">
+                        {{ __('Cambiar Contraseña') }}
                     </x-primary-button>
                 </div>
             </form>
