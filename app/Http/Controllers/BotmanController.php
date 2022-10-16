@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use BotMan\BotMan\Messages\Outgoing\Question;
-use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use App\Conversations\Interactives;
+use App\Conversations\Operations;
+use App\Conversations\Quiz;
 use BotMan\BotMan\BotMan;
 use Illuminate\Http\Request;
-use BotMan\BotMan\Messages\Incoming\Answer;
+use App\Conversations\ExampleConversation;
 
 class BotmanController extends Controller
 {
@@ -16,63 +17,63 @@ class BotmanController extends Controller
     public function handle()
     {
         $botman = app('botman');
+        $botman = resolve('botman');
 
-        $botman->hears('{message}', function ($botman, $message) {
-
-            if ($message == "Si" || $message == "si") {
-                $this->askName($botman);
-            }
-            $botman->reply("¿quiere ver secciones adicioales?");
-            if ($message == "Si" || $message == "si") {
-                $this->opcionesAdicionales($botman);
-            }
+        $botman->hears('Hi|Hola', function ($bot) {
+            $bot->reply($bot->getUser()->getId());
+            $bot->reply('Hola como estas!');
         });
+        $botman->hears('conversar', BotmanController::class . '@startConversation');
+        $botman->hears('matematicas', BotmanController::class . '@startOperations');
+        $botman->hears('interactivo', BotmanController::class . '@startInteractive');
+        $botman->hears('examen', BotmanController::class . '@startQuiz');
 
+        $botman->hears('stop', function (\BotMan\BotMan\BotMan $botMan) {
+            $botMan->reply('chat detenido');
+        })->stopsConversation();
+
+        $botman->fallback(function (\BotMan\BotMan\BotMan $bot) {
+            $bot->reply('Para interactuar ingresa lo siguiente:');
+            $bot->reply('hola');
+            $bot->reply('matematicas');
+            $bot->reply('interactivo');
+            $bot->reply('conversar');
+        });
         $botman->listen();
     }
 
-    public function opcionesAdicionales($botman)
+
+    /**
+     * Loaded through routes/botman.php
+     * @param  BotMan $bot
+     */
+    public function startConversation(BotMan $bot)
     {
-        $botman = resolve('botman');
-
-        $question = Question::create('')
-            ->callbackId('agree')
-            ->addButtons([
-                button::create('certificado academico')->value('has pinchado las cer aca'),
-                button::create('informacion personal')->value('has pinchado la info personal'),
-                button::create('observacion a la ficha')->value('has pinchado  obs a la ficha'),
-                button::create('cuenta corriente')->value('has pinchado los c corriente'),
-            ]);
-
-        $botman->ask($question, function (Answer $answer) {
-
-            $alternativa = $answer->getText();
-
-            $this->say($alternativa);
-        });
+        $bot->startConversation(new ExampleConversation());
     }
 
     /**
-     * Place your BotMan logic here.
+     * Loaded through routes/botman.php
+     * @param  BotMan $bot
      */
-    public  function  askName($botman)
+    public function startOperations(BotMan $bot)
     {
-        $botman = resolve('botman');
-
-        $question = Question::create('')
-            ->callbackId('agree')
-            ->addButtons([
-                button::create('Notas parciales')->value('has pinchado las otas parciales'),
-                button::create('Informacion academica')->value('has pinchado la inf academica'),
-                button::create('Inscripción de cursos')->value('has pinchado  insc curso'),
-                button::create('Documentos')->value('has pinchado los documentos'),
-            ]);
-
-        $botman->ask($question, function (Answer $answer) {
-
-            $alternativa = $answer->getText();
-
-            $this->say($alternativa);
-        });
+        $bot->startConversation(new Operations());
+    }
+    /**
+     * Loaded through routes/botman.php
+     * @param  BotMan $bot
+     */
+    public function startInteractive(BotMan $bot)
+    {
+        $bot->startConversation(new Interactives());
+    }
+    /**
+     * Loaded through routes/botman.php
+     * @param  BotMan $bot
+     */
+    public function startQuiz(BotMan $bot)
+    {
+        $bot->startConversation(new Quiz());
     }
 }

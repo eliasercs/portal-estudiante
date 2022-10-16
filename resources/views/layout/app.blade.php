@@ -29,7 +29,7 @@
       aboutLink: null,
       title: "UCTIN",
       bubbleAvatarUrl: "https://images.vexels.com/media/users/3/235658/isolated/preview/ab14b963565a4c5ab27169d90c341994-silueta-animales-21.png",
-      placeholderText: "Escribe tu consulta choro...",
+      placeholderText: "Escribe tu consulta",
       mainColor: '#038ACE',
       bubbleBackground: "#01568E",
       aboutText: 'Escribe tu consulta',
