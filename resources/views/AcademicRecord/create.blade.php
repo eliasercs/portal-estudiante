@@ -34,6 +34,11 @@
     <input type="number" class="form-control" id="plan" name="plan">
   </div>
 
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Creditos disponibles</label>
+    <input type="number" class="form-control" id="creditos" name="creditos">
+  </div>
+
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>

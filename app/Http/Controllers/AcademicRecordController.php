@@ -22,6 +22,7 @@ class AcademicRecordController extends Controller
             'situacion' => 'required',
             'ingreso' => 'required',
             'plan' => 'required',
+            'creditos' => 'required',
         ]);
 
         $carrera = Carrera::where('id', $data['carrera'])->first();
@@ -35,7 +36,8 @@ class AcademicRecordController extends Controller
         } else {
             $res = ['plan' => $data['plan'],
                 'ingreso' => $data['ingreso'],
-                'situacion' => $data['situacion']];
+                'situacion' => $data['situacion'],
+                'creditos' => $data['creditos']];
             $reg = new AcademicRecord($res);
             // Asociar registros
             $reg->Carrera()->associate($carrera);

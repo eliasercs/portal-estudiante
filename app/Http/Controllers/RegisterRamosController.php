@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ramos;
+use App\Models\Ramo;
 
 class RegisterRamosController extends Controller
 {
@@ -14,13 +14,14 @@ class RegisterRamosController extends Controller
     public function store() {
 
         $this->validate(request(), [
-            'name' => 'required',
+            'nombre' => 'required',
             'code' => 'required',
-            'profesor' => 'required',
-            'cupos' => 'required',
+            'creditos' => 'required',
+            'tipo' => 'required',
+            'carrera' => 'required',
         ]);
 
-        $ramos = ramos::create(request(['name', 'code', 'profesor', 'cupos']));
+        $ramos = Ramo::create(request(['nombre', 'code', 'creditos', 'tipo', 'carrera']));
 
         return redirect()->to('/');
     }

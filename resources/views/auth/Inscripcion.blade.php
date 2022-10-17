@@ -25,11 +25,41 @@
                             {{ $mensaje }}
                         </div>
                     @endif
-
                     
                 </div>
             </div>
-            <h5 class="card-title text-center">Ramos disponibles para </h5>
+            <h5 class="card-title text-center">Cursos Inscritos por {{ auth()->user()->name }}</h5>
+            <div class="table">
+                    <table class="table table-bordered">
+                    <thead>
+                        <th>Sigla</th>
+                        <th>Curso</th>
+                        <th>Sección</th>
+                        <th>Creditos</th>
+                        <th>Profesor</th>
+                        <th>Horario</th>
+                        <th>Sala</th>
+                        <th>Cupos</th>
+                        <th>Inscritos</th>
+                    </thead>
+                    <tbody>    
+                @foreach ($data as $item)
+                    <tr>
+                        <td>{{ $item["Sigla"] }}</td>
+                        <td>{{ $item["Curso"] }}</td>
+                        <td>{{ $item["Seccion"] }}</td>
+                        <td>{{ $item["Creditos"] }}</td>
+                        <td>{{ $item["Profesor"] }}</td>
+                        <td>{{ $item["Horario"] }}</td>
+                        <td>{{ $item["Sala"] }}</td>
+                        <td>{{ $item["Capacidad"] }}</td>
+                        <td>{{ $item["Inscritos"] }}</td>
+                @endforeach
+                </table>
+                </div>
+
+                <h4>Creditos Disponibles: {{ $creditos }}</h4>
+            <h5 class="card-title text-center">Cursos Disponibles</h5>
             <hr>
             <div class="card-text">
                 <div class="table">
@@ -37,49 +67,29 @@
                         <thead>
                             <th>Sigla</th>
                             <th>Curso</th>
-                            <th>Seccion</th>
-                            <th>Profesor</th>
-                            <th>Horario</th>
-                            <th>Sala</th>
-                            <th>Capacidad</th>
-                            <th>Inscritos</th>
+                            <th>Créditos</th>
                         </thead>
-                        <tbody>
-                        @foreach ($ramos as $item)
-                            <tr>
-                                <td>{{ $item->code }}</td>
-                                <td>{{ $item->nombre }}</td>
-                                <td>{{ $item->numero }}</td>
-                                <td>{{ $item->profesor }}</td>
-                                <td>{{ $item->horario }}</td>
-                                <td>{{ $item->sala }}</td>
-                                <td>{{ $item->capacidad }}</td>
-                                <td>{{ $item->inscritos }}</td>
-                                <td>
-                                    <form action="/inscripcion" method="POST">
-                                        @csrf
-                                        <input type="hidden" value="{{ $item->id }}" id="seccion_id" name="seccion_id">
-                                        <button class="btn btn-success">
-                                            Inscribir
-                                            <span class="fas fa-user-edit"></span>
-                                        </button>
-                                    </form>
-                                </td>
-
-                                
-                            </tr>   
-                        @endforeach
+                        <tbody>    
+                            @foreach ($cursos as $curso)
+                                <tr>
+                                    <td>{{ $curso["sigla"] }}</td>
+                                    <td>{{ $curso["nombre"] }}</td>
+                                    <td>{{ $curso["creditos"] }}</td>
+                                    <td>
+                                        <form action="/inscripcion/seccion" method="post">
+                                            @csrf
+                                            <input type="hidden" name="curso_id" value="{{ $curso['id'] }}">
+                                            <button class="btn btn-primary" type="submit">
+                                                Inscribir
+                                            </buttom>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <hr>
                 </div>
-                <!--
-                <div class="row">
-                    <div class="col-sm-12">
-                        {{ $ramos->links() }}
-                    </div>
-                </div>
-                -->
                 
             </div>
         </div>

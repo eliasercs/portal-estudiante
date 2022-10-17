@@ -13,9 +13,10 @@
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <h3 class="text-center">Su carrera es: </h3>
       <h3 class="text-center">Numero de registro: {{ auth()->user()->id }}</h3>
-      <h3 class="text-center">Plan: </h3>
-      <h3 class="text-center">Ingreso: </h3>
-      <h3 class="text-center">Situacion: </h3>
+      <h3 class="text-center">Plan: {{ auth()->user()->AcademicRecord->plan }}</h3>
+      <h3 class="text-center">Ingreso: {{ auth()->user()->AcademicRecord->ingreso }}</h3>
+      <h3 class="text-center">Situacion: {{ auth()->user()->AcademicRecord->situacion }}</h3>
+      <h3 class="text-center">Situacion: {{ auth()->user()->AcademicRecord->CursoInscrito}}</h3>
     </div>
   </div>
   

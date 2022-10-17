@@ -97,6 +97,8 @@ Route::get('/inscripcion', [RamosController::class, 'index'])
 Route::post('/inscripcion', [RamosController::class, 'store'])
     ->name('ramos.store');
 
+Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
+
 Route::get('/tramos', [RamosController::class, 'create']) 
     -> name('cursos.index');
 
@@ -107,8 +109,9 @@ Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
 Route::get('/estudiante/matricular', [AcademicRecordController::class,'create_view']);
 
 // Vista para generar una nueva carrera
-Route::get('/carreras/new', [CarreraController::class, 'create_view']);
-Route::post('/carreras/new', [CarreraController::class, 'create_carrera']);
+Route::get('/carreras/new', [CarreraController::class, 'create_view'])-> name('register-carrera.index');
+
+Route::post('/carreras/new', [CarreraController::class, 'create_carrera'])-> name('register-carrera.store');;
 
 // Vista para visualizar el listado de carreras disponibles
 Route::get("/carreras/show", [CarreraController::class, 'show_carreras']);
@@ -126,3 +129,6 @@ Route::post('/cursos/seccion/new_seccion', [EntidadController::class, 'newSeccio
 Route::post('/testing', [EntidadController::class, 'AddNewSection']);
 #Route::get('/inscripcion', [InscripcionController::class,create]);
     #-> name('inscripcion.agregar');
+
+Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
+Route::post("/course/delete", [RamosController::class, 'destroy']);

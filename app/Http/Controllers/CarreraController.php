@@ -20,13 +20,17 @@ class CarreraController extends Controller
 
         if (count($search)==0) {
             $carrera = Carrera::create($data);
+            
             if (isset($carrera)){
                 echo "Exito";
+                
             } else {
                 echo "False";
+                
             }
         } else {
             echo "Esta carrera ya existe";
+            return redirect()->to('/');
         }
     }
 
