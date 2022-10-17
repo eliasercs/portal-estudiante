@@ -73,6 +73,7 @@ class RamosController extends Controller
         $data = [];
         foreach ($cursos as $key => $value) {
             $data[$key] = [
+                "id" => $value->id,
                 "fecha" => $value->fecha,
                 "Curso" => $value->Seccion->Curso->nombre,
                 "Sigla" => $value->Seccion->Curso->code,
@@ -84,37 +85,8 @@ class RamosController extends Controller
                 "Sala" => $value->Seccion->sala,
             ];
         }
-        /*
-        $CInscrito = [];
-        foreach ($cursos->Seccion as $key => $value) {
-            if (in_array($cursos,$value->id)) {
-                array_push($CInscrito,$value->Seccion->sigla);
-            }
-        }
-        */
+
         return $data;
-        #no funciona, al parecer devuelve una consulta en vez del dato que necesito 
-        #necesito obtener el id del registro academico del usuario que esta logeado
-        /*
-        $registro = DB::table('curso_inscrito')->select('id')->where('rut', '=', $usuario);
-        echo isset($registro);
-        if (DB::table('curso_inscrito')->where('registro', '=', $registro)->where('curso', '=', 'INFO1128')->exists()) {
-            return redirect()->route('ramos.index')->with('status', 'curso_repetido');
-        } else {
-            #si hay 0 cupos disponibles marca como cursos agotados, (en la bd solo hay total y inscritos, por lo que hay que modificarlo)
-            if (DB::table('seccion')->where('cupos', '=', 0)->where('code', '=', 'INFO1128')->exists()) {
-                return redirect()->route('ramos.index')->with('status', 'cupos_agotados');
-            } else {
-                DB::table('curso_inscrito')->insert([
-                    ['registro' => $registro, 'curso' => 'INFO1128']
-                ]);
-                #si se inscribe el curso se añade uno a los inscritos
-                DB::table('seccion')->where('id', '=', 'INFO1128')->increment('inscritos');
-                return redirect()->route("cursos.index")->with('status', 'curso_agregado');
-            }
-        }
-        return view('auth.ramos', compact('ramos'));
-        */
     }
 
     public function store(Request $request){
@@ -148,21 +120,40 @@ class RamosController extends Controller
         }
     }
 
-    public function destroy($code)
+    public function destroy(Request $request)
     {
-        /*
-        $usuario = auth()->user()->rut;
-        $registro = DB::table('curso_inscrito')->select('id')->where('rut', '=', $usuario);
-        DB::table('curso_inscrito')->where('rut', '=', $usuario)->where('curso', '=', $code)->delete();
+        $cantidad_cursos = count(CursoInscrito::all());
 
-        return redirect()->route("cursos.index");
-        */
+        $student = auth()->user()->AcademicRecord;
+        $curso = CursoInscrito::find($request['curso_id']);
+
+        $seccion = Seccion::find($curso->seccion_id);
+
+        if ($cantidad_cursos>1) {
+            if ($curso->delete()) {
+                $seccion->inscritos = $seccion->inscritos - 1;
+                $seccion->save();
+                $student->creditos = $student->creditos + $seccion->Curso->creditos;
+                $student->save();
+                return "El curso ha sido eliminado satisfactoriamente";
+            } else {
+                return "Ha ocurrido un error al eliminar el curso";
+            }
+        } else {
+            return "No podemos eliminar este curso.";
+        }
+        
     }
 
     public function inscribirSectionView(Request $request) {
         $curso = Ramo::find($request["curso_id"]);
         $secciones = $curso->Seccion;
         return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones]);
+    }
+
+    public function deleteCourseView(Request $request) {
+        $cursos = $this->create();
+        return view("Curso.delete_course", ['cursos' => $cursos]);
     }
 
 }

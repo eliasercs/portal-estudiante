@@ -129,3 +129,6 @@ Route::post('/cursos/seccion/new_seccion', [EntidadController::class, 'newSeccio
 Route::post('/testing', [EntidadController::class, 'AddNewSection']);
 #Route::get('/inscripcion', [InscripcionController::class,create]);
     #-> name('inscripcion.agregar');
+
+Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
+Route::post("/course/delete", [RamosController::class, 'destroy']);
