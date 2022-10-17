@@ -43,18 +43,15 @@
                         <tbody>
                         @foreach ($cursos as $item)
                             <tr>
-                                <td>{{ $item->fecha }}</td>
-                                <td>{{ $item->Curso }}</td>
-                                <td>{{ $item->Sigla }}</td>
-                                <td>{{ $item->Creditos}}</td>
-                                <td>{{ $item->Tipo }}</td>
-                                <td>{{ $item->Seccion }}</td>
-                                <td>{{ $item->Profesor }}</td>
-                                <td>{{ $item->Horario }}</td>
-                                <td>{{ $item->Sala }}</td>
-
-
-                                
+                                <td>{{ $item["fecha"] }}</td>
+                                <td>{{ $item["Curso"] }}</td>
+                                <td>{{ $item["Sigla"] }}</td>
+                                <td>{{ $item["Creditos"] }}</td>
+                                <td>{{ $item["Tipo"] }}</td>
+                                <td>{{ $item["Seccion"] }}</td>
+                                <td>{{ $item["Profesor"] }}</td>
+                                <td>{{ $item["Horario"] }}</td>
+                                <td>{{ $item["Sala"] }}</td>
                             </tr>   
                         @endforeach
                         </tbody>
