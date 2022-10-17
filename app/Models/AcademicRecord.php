@@ -20,6 +20,7 @@ class AcademicRecord extends Model
         'plan',
         'ingreso',
         'situacion',
+        'creditos',
     ];
 
     // El registro académico del estudiante solo puede pertenecer a un solo usuario

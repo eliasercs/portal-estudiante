@@ -20,7 +20,7 @@
                 <th>Profesor</th>
                 <th>Horario</th>
                 <th>Sala</th>
-                <th>Cupos</th>
+                <th>Capacidad</th>
                 <th>Inscritos</th>
             </thead>
             <tbody>    
@@ -38,9 +38,11 @@
                             <form action="/inscripcion" method="post">
                                 @csrf
                                 <input type="hidden" name="seccion_id" value="{{ $seccion['id'] }}">
+                                
                                 <button class="btn btn-primary" type="submit">
                                     Inscribir
                                 </buttom>
+                                
                             </form>
                         </td>
                     </tr>

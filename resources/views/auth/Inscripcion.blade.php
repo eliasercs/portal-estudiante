@@ -31,21 +31,34 @@
             <h5 class="card-title text-center">Cursos Inscritos por {{ auth()->user()->name }}</h5>
             <div class="table">
                     <table class="table table-bordered">
-                        <thead>
+                    <thead>
                         <th>Sigla</th>
                         <th>Curso</th>
-                        <th>Seccion</th>
+                        <th>Sección</th>
+                        <th>Creditos</th>
                         <th>Profesor</th>
                         <th>Horario</th>
                         <th>Sala</th>
-                        <th>Capacidad</th>
                         <th>Cupos</th>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
+                        <th>Inscritos</th>
+                    </thead>
+                    <tbody>    
+                @foreach ($data as $item)
+                    <tr>
+                        <td>{{ $item["Sigla"] }}</td>
+                        <td>{{ $item["Curso"] }}</td>
+                        <td>{{ $item["Seccion"] }}</td>
+                        <td>{{ $item["Creditos"] }}</td>
+                        <td>{{ $item["Profesor"] }}</td>
+                        <td>{{ $item["Horario"] }}</td>
+                        <td>{{ $item["Sala"] }}</td>
+                        <td>{{ $item["Capacidad"] }}</td>
+                        <td>{{ $item["Inscritos"] }}</td>
+                @endforeach
+                </table>
                 </div>
+
+                <h4>Creditos Disponibles: {{ $creditos }}</h4>
             <h5 class="card-title text-center">Cursos Disponibles</h5>
             <hr>
             <div class="card-text">

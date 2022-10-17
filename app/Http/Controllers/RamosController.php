@@ -37,13 +37,31 @@ class RamosController extends Controller
                 ]);
             }
         }
+        $inscritos = auth()->user()->AcademicRecord->InscripcionCurso;
+        $data = [];
+        $creditos = auth()->user()->AcademicRecord->creditos;
+        foreach ($inscritos as $key => $value) {
+            $data[$key] = [
+                "fecha" => $value->fecha,
+                "Curso" => $value->Seccion->Curso->nombre,
+                "Sigla" => $value->Seccion->Curso->code,
+                "Creditos" => $value->Seccion->Curso->creditos,
+                "Tipo" => $value->Seccion->Curso->tipo,
+                "Seccion" => $value->Seccion->numero,
+                "Profesor" => $value->Seccion->profesor,
+                "Horario" => $value->Seccion->horario,
+                "Sala" => $value->Seccion->sala,
+                "Capacidad" => $value->Seccion->capacidad,
+                "Inscritos" => $value->Seccion->inscritos,
+            ];
+        }
 
         //pagina de inicio 
         //$ramos = Ramo::join('secciones', 'ramos.id', '=', 'secciones.curso_id')
         //    ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','secciones.id')
         //    ->paginate(10);
         //return $cursos[0]["nombre"];    
-        return view('auth.inscripcion', compact('cursos'));
+        return view('auth.inscripcion', compact('cursos','data','creditos'));
     }
 
     public function create() {
@@ -66,6 +84,14 @@ class RamosController extends Controller
                 "Sala" => $value->Seccion->sala,
             ];
         }
+        /*
+        $CInscrito = [];
+        foreach ($cursos->Seccion as $key => $value) {
+            if (in_array($cursos,$value->id)) {
+                array_push($CInscrito,$value->Seccion->sigla);
+            }
+        }
+        */
         return $data;
         #no funciona, al parecer devuelve una consulta en vez del dato que necesito 
         #necesito obtener el id del registro academico del usuario que esta logeado
@@ -99,17 +125,24 @@ class RamosController extends Controller
         $id = $req["seccion_id"];
 
         $seccion = Seccion::find($id);
+        $cursos = auth()->user()->AcademicRecord->InscripcionCurso;
+        $registro = auth()->user()->AcademicRecord;
 
         if ($seccion->inscritos <= $seccion->capacidad) {
-            $curso_inscrito = new CursoInscrito();
-            $curso_inscrito->AcademicRecord()->associate($usuario);
-            $curso_inscrito->Seccion()->associate($seccion);
-            $curso_inscrito->save();
+            if ($seccion->Curso->creditos <= $registro->creditos) {
+                $curso_inscrito = new CursoInscrito();
+                $curso_inscrito->AcademicRecord()->associate($usuario);
+                $curso_inscrito->Seccion()->associate($seccion);
+                $curso_inscrito->save();
     
-            $seccion->inscritos = $seccion->inscritos + 1;
-            $seccion->save();
+                $seccion->inscritos = $seccion->inscritos + 1;
+                $registro->creditos = $registro->creditos - $seccion->Curso->creditos;
+                $registro->save();
+                $seccion->save();
+                return "Curso inscrito satisfactoriamente";
+            }
     
-            return "El curso se ha inscrito satisfactoriamente";
+            return "Creditos insfucientes";
         } else {
             return "No quedan cupos disponibles para esta sección";
         }
