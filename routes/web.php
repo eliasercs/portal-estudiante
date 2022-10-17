@@ -18,6 +18,7 @@ use App\Http\Controllers\InscripcionController;
 use App\Http\Controllers\AcademicRecordController;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\SolNotapController;
+use App\Http\Controllers\GeneradorController;
 
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\EntidadController;
@@ -129,4 +130,7 @@ Route::post('/testing', [EntidadController::class, 'AddNewSection']);
     #-> name('inscripcion.agregar');
 
  // Vista para visualizar solicitudes nota p
-Route::get('/solinotap', [SolNotapController::class, 'index']);   
+Route::get('/solinotap', [SolNotapController::class, 'index']);  
+
+//Visualizar en pdf los cursos inscritos
+Route::name('print')->get('/imprimir', [GeneradorController::class, 'imprimir']);

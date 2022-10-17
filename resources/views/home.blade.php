@@ -16,6 +16,8 @@
       <h3 class="text-center">Plan: </h3>
       <h3 class="text-center">Ingreso: </h3>
       <h3 class="text-center">Situacion: </h3>
+      <h3 class="text-center"> <a href="/imprimir">Cursos inscritos (PDF) </a> </h3>
+
     </div>
   </div>
   
