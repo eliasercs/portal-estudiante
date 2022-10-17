@@ -10,12 +10,13 @@ use App\Strategies\Operations\Mult;
 use App\Strategies\Operations\NotFound;
 use App\Strategies\Operations\Subs;
 
+
 final class Operator {
     const GET_STRATEGY = [
-        'S' => Add::class,
-        'R' => Subs::class,
-        'M' => Mult::class,
-        'D' => Divide::class
+        'N' => Add::class,
+        'C' => Subs::class,
+        'D' => Mult::class,
+        'I' => Divide::class
     ];
     
     static function getStrategy( $value )

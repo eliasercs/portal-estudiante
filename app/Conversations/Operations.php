@@ -22,14 +22,14 @@ class Operations extends Conversation
     
     private function askOperations()
     {
-        $question=Question::create('Que concepto deseas recordar?')
+        $question=Question::create('Las secciones mas vistas:')
             ->fallback('No se pudo responder la pregunta')
             ->callbackId('ask_reason')
             ->addButtons([
-                Button::create('suma')->value('S'),
-                Button::create('resta')->value('R'),
-                Button::create('multiplicacion')->value('M'),
-                Button::create('division')->value('D'),
+                Button::create('Notas')->value('N'),
+                Button::create('Cursos inscritos')->value('C'),
+                Button::create('Documentos')->value('D'),
+                Button::create('Inscripcion')->value('I'),
             ]);
         return $this->ask($question,function (Answer $answer){
             if($answer->isInteractiveMessageReply()){

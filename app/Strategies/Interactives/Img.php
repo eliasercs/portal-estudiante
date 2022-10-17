@@ -21,5 +21,6 @@ class Img extends Conversation implements IStrategy {
             ->withAttachment($attachment);
         $this->say($response);
         $this->returnOrExit(Interactives::class);
+        
     }
 }
