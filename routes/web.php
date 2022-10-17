@@ -15,6 +15,7 @@ use App\Http\Controllers\RegisterRamosController;
 use App\Http\Controllers\RamosController;
 use App\Http\Controllers\InscripcionController;
 
+// Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\AcademicRecordController;
 use App\Http\Controllers\CarreraController;
 
