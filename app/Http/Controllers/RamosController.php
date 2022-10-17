@@ -53,6 +53,8 @@ class RamosController extends Controller
                 "Sala" => $value->Seccion->sala,
                 "Capacidad" => $value->Seccion->capacidad,
                 "Inscritos" => $value->Seccion->inscritos,
+                "Cid" => $value ->Seccion->Curso->id,
+                "Sid" => $value ->id,
             ];
         }
 
@@ -70,7 +72,8 @@ class RamosController extends Controller
         $cursos retorna una lista con todos los cursos inscritos por el estudiante
         */
         $cursos = auth()->user()->AcademicRecord->InscripcionCurso;
-        $data = [];
+        $data = []; 
+    
         foreach ($cursos as $key => $value) {
             $data[$key] = [
                 "id" => $value->id,
@@ -88,30 +91,40 @@ class RamosController extends Controller
 
         return $data;
     }
-
+    
     public function store(Request $request){
         $req = $request->all();
 
-        $usuario = auth()->user()->AcademicRecord;
-        
         $id = $req["seccion_id"];
-
+        $usuario = auth()->user()->AcademicRecord;
         $seccion = Seccion::find($id);
         $cursos = auth()->user()->AcademicRecord->InscripcionCurso;
-        $registro = auth()->user()->AcademicRecord;
-
-        if ($seccion->inscritos <= $seccion->capacidad) {
-            if ($seccion->Curso->creditos <= $registro->creditos) {
+        #devuelve el id de los cursos que ya estan inscritos
+        $inscritos = [];
+        foreach ($cursos as $key => $value) {
+            array_push($inscritos,$value->Seccion->Curso->id);
+        }
+        #devuelve el id de las secciones del curso que esta inscrito, tuve que ir y volver para obtener dicho dato
+        $Sinscrito = [];
+        foreach ($seccion->Curso->Seccion as $key => $value) {
+            array_push($Sinscrito,$value->id);
+        }
+        if ($seccion->inscritos <= $seccion->capacidad) { #si hay espacio
+            if ($seccion->Curso->creditos <= $usuario->creditos) { #si hay creditos disponibles
+                if(in_array($seccion->Curso->id, $inscritos)){ #si ya no lo inscribio
+                    $test = CursoInscrito::Select('id')->whereIn('seccion_id',$Sinscrito)->get(); #test devuelve la id del curso inscrito que se debe eliminar
+                    #destroy($test); Ahora se deberia eliminar el registro seleccionado, pero no me funciona, siento que no es la manera correcta, y le falta el token que no se como agregarlo
+                }
                 $curso_inscrito = new CursoInscrito();
                 $curso_inscrito->AcademicRecord()->associate($usuario);
                 $curso_inscrito->Seccion()->associate($seccion);
                 $curso_inscrito->save();
     
                 $seccion->inscritos = $seccion->inscritos + 1;
-                $registro->creditos = $registro->creditos - $seccion->Curso->creditos;
-                $registro->save();
+                $usuario->creditos = $usuario->creditos - $seccion->Curso->creditos;
+                $usuario->save();
                 $seccion->save();
-                return "Curso inscrito satisfactoriamente";
+                return "Curso inscrito satisfactoriamente"; #hay que cambiarlo por una alerta y que esta actualice la pagina
             }
     
             return "Creditos insfucientes";
@@ -123,7 +136,6 @@ class RamosController extends Controller
     public function destroy(Request $request)
     {
         $cantidad_cursos = count(CursoInscrito::all());
-
         $student = auth()->user()->AcademicRecord;
         $curso = CursoInscrito::find($request['curso_id']);
 
@@ -146,9 +158,15 @@ class RamosController extends Controller
     }
 
     public function inscribirSectionView(Request $request) {
+        $id = [];
+        $usuario = auth()->user()->AcademicRecord->InscripcionCurso;
+        foreach ($usuario as $key => $value) {
+            array_push($id,$value->Seccion->id);
+        }
         $curso = Ramo::find($request["curso_id"]);
         $secciones = $curso->Seccion;
-        return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones]);
+
+        return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones, 'inscrito'=> $id]);
     }
 
     public function deleteCourseView(Request $request) {

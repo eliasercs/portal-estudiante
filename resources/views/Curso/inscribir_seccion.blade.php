@@ -38,10 +38,15 @@
                             <form action="/inscripcion" method="post">
                                 @csrf
                                 <input type="hidden" name="seccion_id" value="{{ $seccion['id'] }}">
-                                
+                                @if(!in_array($seccion["id"],$inscrito))
                                 <button class="btn btn-primary" type="submit">
                                     Inscribir
                                 </buttom>
+                                @else
+                                <button class="btn btn-primary" disabled type="submit">
+                                    Inscrito
+                                </buttom>
+                                @endif
                                 
                             </form>
                         </td>

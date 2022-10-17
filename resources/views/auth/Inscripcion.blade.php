@@ -54,6 +54,24 @@
                         <td>{{ $item["Sala"] }}</td>
                         <td>{{ $item["Capacidad"] }}</td>
                         <td>{{ $item["Inscritos"] }}</td>
+                        <td>
+                        <form action="/inscripcion/seccion" method="post">
+                        @csrf
+                        <input type="hidden" name="curso_id" value="{{ $item['Cid'] }}">
+                        <button class="btn btn-success" type="submit">
+                            Cambio de Seccion
+                        </buttom>
+                        </form>
+                        </td>
+                        <td>
+                        <form action="/course/delete" method="post">
+                        @csrf
+                        <input type="hidden" name="curso_id" value="{{ $item['Sid'] }}">
+                        <button class="btn btn-danger" type="submit">
+                            eliminar
+                        </buttom>
+                        </form>
+                        </td>
                 @endforeach
                 </table>
                 </div>
