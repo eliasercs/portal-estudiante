@@ -72,6 +72,15 @@
                         </buttom>
                         </form>
                         </td>
+                        <td>
+                        <form action="/notas" method="get">
+                        @csrf
+                        <input type="hidden" name="curso_id" value="{{ $item['Cid'] }}">
+                        <button class="btn btn-success" type="submit">
+                            Notas
+                        </buttom>
+                        </form>
+                        </td>
                 @endforeach
                 </table>
                 </div>

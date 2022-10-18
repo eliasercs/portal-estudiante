@@ -18,9 +18,10 @@ class RegisterController extends Controller
             'rut'  => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
+            'rol' => 'required'
         ]);
 
-        $user = User::create(request(['name','rut', 'email', 'password']));
+        $user = User::create(request(['name','rut', 'email', 'password', 'rol']));
 
         auth()->login($user);
         return redirect()->to('/');

@@ -23,6 +23,8 @@ use App\Http\Controllers\EntidadController;
 
 use App\Http\Controllers\AcademicaController;
 
+use App\Http\Controllers\NotasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -141,5 +143,15 @@ Route::get('/view-academica', [AcademicaController::class, 'index'])
 Route::get('/view-calificaciones', [CalificacionesController::class, 'index'])
     ->name('calificaciones.index');
 
-Route::get('/RegisterNotas', [RegisterNotas::class, 'create']) 
-    -> name('register-notas.index');
+#Route::get('/RegisterNotas', [RegisterNotas::class, 'create']) 
+    #-> name('register-notas.index');
+
+Route::get('/notas', [NotasController::class, 'index']) 
+    ->name('notas.index');
+
+Route::get('/notas/new', [NotasController::class, 'creadorNotas'])
+    ->name('notas.store');
+
+Route::post('/notas/new', [NotasController::class, 'PonerNota'])
+    ->name('notas.store');
+

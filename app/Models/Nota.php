@@ -10,4 +10,12 @@ class Nota extends Model
     use HasFactory;
 
     protected $table = "notas";
+
+    protected $fillable = [
+        'rut_alumno',
+        'inscripcion',
+        'nota',
+        'porcentaje',
+        'fecha'
+    ];
 }
