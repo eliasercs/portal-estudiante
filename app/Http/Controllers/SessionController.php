@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Password;
 class SessionController extends Controller
 {
     public function create(){
-        $user = auth()->user();
-        if (is_null($user->AcademicRecord)) {
-            return redirect()->to("/estudiante/matricular");
+        if (auth()->check()) {
+            $user = auth()->user();
+            if (is_null($user->AcademicRecord)) {
+                return redirect()->to("/estudiante/matricular");
+            }
         } else {
             return view('auth.login');
         }
@@ -36,6 +38,7 @@ class SessionController extends Controller
 
 
     public function destroy() {
+        $user = auth()->user();
 
         auth()->logout();
 
