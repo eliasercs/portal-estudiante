@@ -24,6 +24,9 @@ use App\Http\Controllers\GeneradorController;
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\EntidadController;
 
+//pdfcontrolador
+use App\Http\Controllers\PdfController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -88,38 +91,38 @@ Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordN
 
 
 
-Route::get('/register-ramos', [RegisterRamosController::class, 'create']) 
-    -> name('register-ramo.index');
+Route::get('/register-ramos', [RegisterRamosController::class, 'create'])
+    ->name('register-ramo.index');
 
 Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
     ->name('register-ramo.store');
 
-Route::get('/inscripcion', [RamosController::class, 'index']) 
-    -> name('ramos.index');
+Route::get('/inscripcion', [RamosController::class, 'index'])
+    ->name('ramos.index');
 
 Route::post('/inscripcion', [RamosController::class, 'store'])
     ->name('ramos.store');
 
 Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
 
-Route::get('/tramos', [RamosController::class, 'create']) 
-    -> name('cursos.index');
+Route::get('/tramos', [RamosController::class, 'create'])
+    ->name('cursos.index');
 
 Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
     ->name('ramos.destroy');
 
 // Vista para matricular un usuario a una carrera
-Route::get('/estudiante/matricular', [AcademicRecordController::class,'create_view']);
+Route::get('/estudiante/matricular', [AcademicRecordController::class, 'create_view']);
 
 // Vista para generar una nueva carrera
-Route::get('/carreras/new', [CarreraController::class, 'create_view'])-> name('register-carrera.index');
+Route::get('/carreras/new', [CarreraController::class, 'create_view'])->name('register-carrera.index');
 
-Route::post('/carreras/new', [CarreraController::class, 'create_carrera'])-> name('register-carrera.store');;
+Route::post('/carreras/new', [CarreraController::class, 'create_carrera'])->name('register-carrera.store');;
 
 // Vista para visualizar el listado de carreras disponibles
 Route::get("/carreras/show", [CarreraController::class, 'show_carreras']);
 
-Route::post('/estudiante/matricular', [AcademicRecordController::class,'enroll']);
+Route::post('/estudiante/matricular', [AcademicRecordController::class, 'enroll']);
 
 // Rutas para testear entidades
 Route::get('/testing/user/id={id}', [EntidadController::class, 'checkUser']);
@@ -131,13 +134,16 @@ Route::get('/testing/cursos/seccion/new/curso_id={id}', [EntidadController::clas
 Route::post('/cursos/seccion/new_seccion', [EntidadController::class, 'newSeccion']);
 Route::post('/testing', [EntidadController::class, 'AddNewSection']);
 #Route::get('/inscripcion', [InscripcionController::class,create]);
-    #-> name('inscripcion.agregar');
+#-> name('inscripcion.agregar');
 
- // Vista para visualizar solicitudes nota p
-Route::get('/solinotap', [SolNotapController::class, 'index']);  
+// Vista para visualizar solicitudes nota p
+Route::get('/solinotap', [SolNotapController::class, 'index']);
 
 //Visualizar en pdf los cursos inscritos
 Route::name('print')->get('/imprimir', [GeneradorController::class, 'imprimir']);
 
 Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
 Route::post("/course/delete", [RamosController::class, 'destroy']);
+
+//ruta para Ficha de Avance Curricular en PDF
+Route::name('PDF')->get('/descargaFAC', [PdfController::class, 'FAC']);

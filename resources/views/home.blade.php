@@ -17,9 +17,10 @@
       <h3 class="text-center">Ingreso: {{ auth()->user()->AcademicRecord->ingreso }}</h3>
       <h3 class="text-center">Situacion: {{ auth()->user()->AcademicRecord->situacion }}</h3>
       <h3 class="text-center"> <a href="/imprimir">Cursos inscritos (PDF) </a> </h3>
+      <h3 class="text-center">Ficha Avance Curricular: <a href=" /descargaFAC"> Descargar</a></h3>
     </div>
   </div>
-  
+
 </div>
 @else
 <h1 class="text-5xl text-center pt-24">Portal del estudiante</h1>

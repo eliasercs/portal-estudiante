@@ -18,28 +18,24 @@ class BotmanController extends Controller
     {
         $botman = app('botman');
         $botman = resolve('botman');
-        $botman->reply("hola");
+        #$botman->reply("hola");
 
-        $botman->hears("{message}", function($botman,$message)
-        {
-            if ($message == NULL)
-            {
+        /*$botman->hears("{message}", function ($botman, $message) {
+            if ($message == NULL) {
                 $this->askName($botman);
-            }
-            else
-            {
+            } else {
                 $botman->reply("Please write hi to start conversation! ");
             }
         });
-/*         $botman->hears('Hi|Hola', function ($bot) {
+        $botman->hears('Hi|Hola', function ($bot) {
             $bot->reply($bot->getUser()->getId());
             $bot->reply('Hola como estas!');
-        }); */
-        $botman->hears('conversar', BotmanController::class . '@startConversation');
-        #$botman->hears('matematicas', BotmanController::class . '@startOperations');
-        $botman->hears('interactivo', BotmanController::class . '@startInteractive');
-        $botman->hears('examen', BotmanController::class . '@startQuiz');
-        $botman->hears('secciones', BotmanController::class . '@startOperations');
+        });*/
+        #$botman->hears('conversar', BotmanController::class . '@startConversation');
+        $botman->hears('Si|si|yes|Yes|s|S', BotmanController::class . '@startOperations');
+        #$botman->hears('interactivo', BotmanController::class . '@startInteractive');
+        #$botman->hears('examen', BotmanController::class . '@startQuiz');
+        #$botman->hears('secciones', BotmanController::class . '@startOperations');
 
         $botman->hears('stop', function (\BotMan\BotMan\BotMan $botMan) {
             $botMan->reply('chat detenido');
