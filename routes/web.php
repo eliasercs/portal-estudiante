@@ -40,6 +40,10 @@ use App\Http\Controllers\PdfController;
 
 
 Route::get('/home', function () {
+    $user = auth()->user();
+    if (is_null($user->AcademicRecord)) {
+        return redirect()->to("/estudiante/matricular");
+    }
     return view('home');
 });
 

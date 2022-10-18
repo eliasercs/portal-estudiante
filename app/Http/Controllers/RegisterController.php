@@ -22,6 +22,10 @@ class RegisterController extends Controller
 
         $user = User::create(request(['name','rut', 'email', 'password']));
 
+        if (is_null($user->AcademicRecord)) {
+            return redirect()->to("/estudiante/matricular");
+        }
+
         auth()->login($user);
         return redirect()->to('/');
     }
