@@ -122,10 +122,11 @@ class RamosController extends Controller
 
     public function destroy(Request $request)
     {
-        $cantidad_cursos = count(CursoInscrito::all());
 
         $student = auth()->user()->AcademicRecord;
         $curso = CursoInscrito::find($request['curso_id']);
+
+        $cantidad_cursos = count($student->InscripcionCurso);
 
         $seccion = Seccion::find($curso->seccion_id);
 
