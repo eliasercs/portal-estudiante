@@ -41,14 +41,14 @@ class BotmanController extends Controller
             $botMan->reply('chat detenido');
         })->stopsConversation();
 
-        $botman->fallback(function (\BotMan\BotMan\BotMan $bot) {
+       /*  $botman->fallback(function (\BotMan\BotMan\BotMan $bot) {
             $bot->reply('Para interactuar ingresa lo siguiente:');
             $bot->reply('hola');
             $bot->reply('matematicas');
             $bot->reply('interactivo');
             $bot->reply('conversar');
             $bot->reply('secciones');
-        });
+        }); */
         $botman->listen();
     }
 
