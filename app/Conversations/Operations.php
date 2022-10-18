@@ -19,10 +19,10 @@ class Operations extends Conversation
     {
         $this->askOperations();
     }
-    
+
     private function askOperations()
     {
-        $question=Question::create('Las secciones mas vistas:')
+        $question = Question::create('Las secciones mas vistas:')
             ->fallback('No se pudo responder la pregunta')
             ->callbackId('ask_reason')
             ->addButtons([
@@ -30,11 +30,12 @@ class Operations extends Conversation
                 Button::create('Cursos inscritos')->value('C'),
                 Button::create('Documentos')->value('D'),
                 Button::create('Inscripcion')->value('I'),
+                Button::create('Desincribir curso')->value('B'),
             ]);
-        return $this->ask($question,function (Answer $answer){
-            if($answer->isInteractiveMessageReply()){
-                    $content=Operator::getStrategy($answer->getValue());
-                    $this->say((new $content)->process());
+        return $this->ask($question, function (Answer $answer) {
+            if ($answer->isInteractiveMessageReply()) {
+                $content = Operator::getStrategy($answer->getValue());
+                $this->say((new $content)->process());
             }
         });
     }

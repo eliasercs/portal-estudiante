@@ -12,13 +12,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
   <!--<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">-->
+  @if(auth()->check())
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+  @endif
 
   <script defer src="resources\js\login.js"></script>
 
 </head>
 
 <body class="bg-gray-100 text-gray-800">
+
   <script type="text/javascript">
     var botmanWidget = {
       //desktopHeight:"",
