@@ -10,6 +10,7 @@ use Auth;
 
 use App\Models\CursoInscrito;
 use App\Models\Seccion;
+use App\Models\History_course;
 
 class RamosController extends Controller
 {
@@ -42,7 +43,6 @@ class RamosController extends Controller
         $creditos = auth()->user()->AcademicRecord->creditos;
         foreach ($inscritos as $key => $value) {
             $data[$key] = [
-                "fecha" => $value->fecha,
                 "Curso" => $value->Seccion->Curso->nombre,
                 "Sigla" => $value->Seccion->Curso->code,
                 "Creditos" => $value->Seccion->Curso->creditos,
@@ -75,9 +75,16 @@ class RamosController extends Controller
         $data = []; 
     
         foreach ($cursos as $key => $value) {
+            if(date("m", strtotime($value->fecha))<7){
+                $semestre = 1;
+            }
+            else{
+                $semestre = 2;
+            };
             $data[$key] = [
                 "id" => $value->id,
-                "fecha" => $value->fecha,
+                "Año" => date("Y", strtotime($value->fecha)),
+                "Semestre" => $semestre,
                 "Curso" => $value->Seccion->Curso->nombre,
                 "Sigla" => $value->Seccion->Curso->code,
                 "Creditos" => $value->Seccion->Curso->creditos,
@@ -86,10 +93,23 @@ class RamosController extends Controller
                 "Profesor" => $value->Seccion->profesor,
                 "Horario" => $value->Seccion->horario,
                 "Sala" => $value->Seccion->sala,
+
             ];
         }
-
-        return $data;
+        $record = [];
+        if (auth()->user()->AcademicRecord->History){
+            foreach (auth()->user()->AcademicRecord->History as $key => $value) {
+                $record[$key] = [
+                    "Año" => $value->Año,
+                    "Semestre" => $value->Semestre,
+                    "Curso" => $value->Curso,
+                    "Sigla" => $value->Sigla,
+                    "Creditos" => $value->Creditos,
+                    "Nota" => $value->Nota,
+                ];
+            }
+        }
+        return view('auth.view-academica')->with(['ramos' => $data, 'record' => $record]);
     }
     
     public function store(Request $request){
@@ -111,10 +131,17 @@ class RamosController extends Controller
         }
         if ($seccion->inscritos <= $seccion->capacidad) { #si hay espacio
             if ($seccion->Curso->creditos <= $usuario->creditos) { #si hay creditos disponibles
-                if(in_array($seccion->Curso->id, $inscritos)){ #si ya no lo inscribio
-                    $test = CursoInscrito::Select('id')->whereIn('seccion_id',$Sinscrito)->get(); #test devuelve la id del curso inscrito que se debe eliminar
-                    #destroy($test); Ahora se deberia eliminar el registro seleccionado, pero no me funciona, siento que no es la manera correcta, y le falta el token que no se como agregarlo
+                if(in_array($seccion->Curso->id, $inscritos)){ #si ya lo ha inscrito en otra seccion lo elimina
+                    $select = CursoInscrito::Select('id')->whereIn('seccion_id',$Sinscrito)->get();
+                    $SeccionAntigua = CursoInscrito::find($select)[0]->Seccion;
+                    $eliminar = CursoInscrito::destroy($select);
+                    $SeccionAntigua->inscritos = $SeccionAntigua->inscritos - 1;
+                    $SeccionAntigua->save();
+                    $usuario->creditos = $usuario->creditos + $seccion->Curso->creditos;
+                    $usuario->save(); 
+
                 }
+                #inscribe la nueva seccion
                 $curso_inscrito = new CursoInscrito();
                 $curso_inscrito->AcademicRecord()->associate($usuario);
                 $curso_inscrito->Seccion()->associate($seccion);
@@ -132,6 +159,7 @@ class RamosController extends Controller
             return "No quedan cupos disponibles para esta sección";
         }
     }
+
 
     public function destroy(Request $request)
     {

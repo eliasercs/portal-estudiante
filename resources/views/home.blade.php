@@ -7,8 +7,9 @@
 @if(auth()->check())
 <h1 class="text-5xl text-center pt-24">Bienvenido {{ auth()->user()->name }}</h1>
 <div class="text-5xl text-center pt-16">
+  @if(auth()->user()->AcademicRecord)
   <p>Información academica</p>
-
+  
   <div class="col-lg-7 text-align-center">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <h3 class="text-center">Su carrera es: </h3>
@@ -19,6 +20,7 @@
       <h3 class="text-center">Situacion: {{ auth()->user()->AcademicRecord->CursoInscrito}}</h3>
     </div>
   </div>
+  @endif
   
 </div>
 @else

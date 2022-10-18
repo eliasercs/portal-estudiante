@@ -21,6 +21,8 @@ use App\Http\Controllers\CarreraController;
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\EntidadController;
 
+use App\Http\Controllers\AcademicaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,7 +101,7 @@ Route::post('/inscripcion', [RamosController::class, 'store'])
 
 Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
 
-Route::get('/tramos', [RamosController::class, 'create']) 
+Route::get('/Academico', [RamosController::class, 'create']) 
     -> name('cursos.index');
 
 Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
@@ -132,3 +134,12 @@ Route::post('/testing', [EntidadController::class, 'AddNewSection']);
 
 Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
 Route::post("/course/delete", [RamosController::class, 'destroy']);
+
+Route::get('/view-academica', [AcademicaController::class, 'index'])
+    ->name('academica.index');
+
+Route::get('/view-calificaciones', [CalificacionesController::class, 'index'])
+    ->name('calificaciones.index');
+
+Route::get('/RegisterNotas', [RegisterNotas::class, 'create']) 
+    -> name('register-notas.index');
