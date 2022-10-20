@@ -17,7 +17,7 @@
             <th>Profesor</th>
             <th>Horario</th>
             <th>Sala</th>
-            <th>Fecha</th>
+            <th>Año</th>
         </thead>
         <tbody>
             @foreach ($cursos as $curso)
@@ -30,7 +30,7 @@
                     <td>{{ $curso['Profesor'] }}</td>
                     <td>{{ $curso['Horario'] }}</td>
                     <td>{{ $curso['Sala'] }}</td>
-                    <td>{{ $curso['fecha'] }}</td>
+                    <td>{{ $curso['Año'] }}</td>
                     <td>
                         <form action="/course/delete" method="post">
                             @csrf

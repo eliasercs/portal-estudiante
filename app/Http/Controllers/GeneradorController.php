@@ -16,7 +16,7 @@ class GeneradorController extends Controller
     {
         $ramos=new RamosController();
         #$ramos->create();
-        $cursos=$ramos->create();
+        $cursos=$ramos->get_Cursos();
         $pdf = \PDF::loadView('cursosinscritos',["cursos"=>$cursos]);
         return $pdf->download('cursosinscritos.pdf');
 

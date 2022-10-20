@@ -18,9 +18,10 @@ class RegisterController extends Controller
             'rut'  => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
+            'rol' => 'required'
         ]);
 
-        $user = User::create(request(['name','rut', 'email', 'password']));
+        $user = User::create(request(['name','rut', 'email', 'password', 'rol']));
 
         if (is_null($user->AcademicRecord)) {
             return redirect()->to("/estudiante/matricular");

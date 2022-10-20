@@ -29,7 +29,7 @@
                 <div class="table">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Fecha</th>
+                            <th>Año</th>
                             <th>Curso</th>
                             <th>Sigla</th>
                             <th>Creditos</th>
@@ -43,7 +43,7 @@
                         <tbody>
                         @foreach ($cursos as $item)
                             <tr>
-                                <td>{{ $item["fecha"] }}</td>
+                                <td>{{ $item["Año"] }}</td>
                                 <td>{{ $item["Curso"] }}</td>
                                 <td>{{ $item["Sigla"] }}</td>
                                 <td>{{ $item["Creditos"] }}</td>

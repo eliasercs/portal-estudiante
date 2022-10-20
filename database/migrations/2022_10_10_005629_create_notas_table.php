@@ -17,7 +17,8 @@ class CreateNotasTable extends Migration
     {
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('inscripcion');
+            $table->string('rut_alumno');
+            $table->unsignedBigInteger('curso_id');
             $table->unsignedFloat('nota');
             $table->unsignedFloat('porcentaje');
             $table->dateTime('fecha')->default(now());

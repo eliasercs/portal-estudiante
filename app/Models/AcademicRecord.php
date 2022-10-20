@@ -37,4 +37,7 @@ class AcademicRecord extends Model
     public function InscripcionCurso() {
         return $this->hasMany(CursoInscrito::class,'academic_record_id', 'id');
     }
+    public function History() {
+        return $this->hasMany(History_course::class,'record', 'id');
+    }
 }

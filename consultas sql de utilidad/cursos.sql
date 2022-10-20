@@ -8,12 +8,12 @@ INSERT INTO [dbo].[ramos]
            ,[carrera]
            ,[tipo])
      VALUES
-           ('INFO1122', 'Programacion',6, 'INFO', 'diciplinar'),
-		   ('INFO1123', 'interfaces',5, 'INFO', 'diciplinar'),
-		   ('INFO1124', 'Integracion',4, 'INFO', 'diciplinar'),
-		   ('INFO1125', 'Sistemas',6, 'INFO', 'diciplinar'),
-		   ('MAT1186', 'Calculo',6, 'INFO', 'diciplinar'),
-		   ('IET1440', 'biblia',3, 'IET', 'electivo teologico')
+               ('INFO1122', 'Programacion',6, 1, 'MIN'),
+		   ('INFO1123', 'interfaces',5, 1, 'MIN'),
+		   ('INFO1124', 'Integracion',4, 1, 'MIN'),
+		   ('INFO1125', 'Sistemas',6, 1, 'MIN'),
+		   ('MAT1186', 'Calculo',6, 1, 'MIN'),
+		   ('IET1440', 'biblia',3, 1, 'IET2')
 		   
 GO
 

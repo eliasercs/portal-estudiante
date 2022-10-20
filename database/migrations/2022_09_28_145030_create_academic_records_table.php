@@ -26,7 +26,7 @@ class CreateAcademicRecordsTable extends Migration
             $table->string("situacion");
             $table->integer("creditos");
             
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->onUpdate('cascade');;
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade")->onUpdate('cascade');
             $table->foreign('carrera_id')->references('id')->on('carreras');
         });
     }

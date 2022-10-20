@@ -5,9 +5,33 @@
 @section('content')
 
 @if(auth()->check())
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/home">UCT</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/Academico">Informacion Academica</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/carreras/new">Registrar Carrera</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/estudiante/matricular">Matricular Estudiante</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/notas">Ver Notas</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <h1 class="text-5xl text-center pt-24">Bienvenido {{ auth()->user()->name }}</h1>
 <div class="text-5xl text-center pt-16">
-  <p>Información academica</p>
+  @if(auth()->user()->AcademicRecord)
 
   <div class="col-lg-7 text-align-center">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -21,6 +45,8 @@
     </div>
   </div>
 
+  @endif
+  
 </div>
 @else
 <h1 class="text-5xl text-center pt-24">Portal del estudiante</h1>

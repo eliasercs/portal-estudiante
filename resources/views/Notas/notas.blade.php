@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', 'Ramos')
+@section('title', 'Notas')
 
 @section('content')
 
@@ -37,9 +37,8 @@
         </div>
 
         <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
-            <h2 style="color: white;">Ramos</h2>
+            <h2 style="color: white;">Notas</h2>
         </div>
-
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-12">
@@ -47,47 +46,30 @@
                         <div class="alert alert-success" role="alert">
                             {{ $mensaje }}
                         </div>
-                    @endif
-
-                    
+                    @endif        
                 </div>
             </div>
-            <h5 class="card-title text-center">Ramos inscritos de {{ auth()->user()->name }} </h5>
+            <h5 class="card-title text-center">Notas de {{ auth()->user()->name }} </h5>
             <hr>
             <p class="card-text">
                 <div class="table table-responsive">
                     <table class="table table-sm table-bordered">
                         <thead>
-                            <th>Ramo</th>
-                            <th>Codigo</th>
-                            <th>Profesor</th>
-                            <th>Cupos</th>
+                            <th>Nota</th>
+                            <th>Fecha</th>
+                            <th>porcentaje</th> 
                         </thead>
                         <tbody>
-                        @foreach ($ramos as $item)
+                        @foreach ($notas as $item)
                             <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->code }}</td>
-                                <td>{{ $item->profesor }}</td>
-                                <td>{{ $item->cupos }}</td>
-                                <td>
-                                <form action="{{ route('ramos.destroy', $item->code) }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-danger">Eliminar
-                                        <span class="fas fa-user-times"></span>
-                                    </button>
-                                </form>
-                            </td>
+                                <td>{{ $item->nota }}</td>
+                                <td>{{ $item->fecha }}</td>
+                                <td>{{ $item->porcentaje }}</td>
                             </tr>   
                         @endforeach
                         </tbody>
                     </table>
                     <hr>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        {{ $ramos->links() }}
-                    </div>
                 </div>
             </p>
         </div>

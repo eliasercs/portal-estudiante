@@ -24,9 +24,9 @@ use App\Http\Controllers\GeneradorController;
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\EntidadController;
 
-//pdfcontrolador
+use App\Http\Controllers\AcademicaController;
+use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PdfController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -111,7 +111,9 @@ Route::post('/inscripcion', [RamosController::class, 'store'])
 
 Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
 
-Route::get('/tramos', [RamosController::class, 'create'])
+Route::get('/Academico', [RamosController::class, 'create']) 
+    -> name('cursos.index');
+Route::get('/tramos', [RamosController::class, 'get_Courses'])
     ->name('cursos.index');
 
 Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
@@ -150,6 +152,19 @@ Route::name('print')->get('/imprimir', [GeneradorController::class, 'imprimir'])
 
 Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
 Route::post("/course/delete", [RamosController::class, 'destroy']);
-
 //ruta para Ficha de Avance Curricular en PDF
 Route::name('PDF')->get('/descargaFAC', [PdfController::class, 'FAC']);
+Route::get('/view-academica', [AcademicaController::class, 'index'])
+    ->name('academica.index');
+
+Route::get('/view-calificaciones', [CalificacionesController::class, 'index'])
+    ->name('calificaciones.index');
+
+Route::get('/notas', [NotasController::class, 'index']) 
+    ->name('notas.index');
+
+Route::get('/notas/new', [NotasController::class, 'creadorNotas'])
+    ->name('notas.store');
+
+Route::post('/notas/new', [NotasController::class, 'PonerNota'])
+    ->name('notas.store');
