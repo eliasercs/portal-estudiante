@@ -123,7 +123,6 @@
                           <p>Su nueva contraseña <strong>debe contener</strong>:</p>
                           <ul>
                               <li>8 carácteres de longitud.</li>
-                              <li>Al menos <strong>un punto</strong>.</li>
                               <li>Al menos <strong>una letra en mayúscula</strong> y al menos <strong>un número</strong>.
                               </li>
                               <li>Sólo carácteres alfanuméricos, <strong>sin carácteres especiales</strong> como:
@@ -195,6 +194,36 @@
     </script>
   @endif
 
+  @if (session('status') == 'current_password_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'La contraseña actual ingresada no es correcta.',
+      })
+    </script>
+  @endif
+
+  @if (session('status') == 'user_email_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El correo electrónico ingresado no coincide con nuestros registros.',
+      })
+    </script>
+  @endif
+
+  @if (session('status') == 'password_validation_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Las nuevas contraseñas ingresadas no coinciden entre si.',
+      })
+    </script>
+  @endif
+
   @if (session('forgot') == 'success')
     <script>
       Swal.fire({
@@ -205,12 +234,102 @@
     </script>
   @endif
 
+  @if (session('success') == 'password_changed')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'Su contraseña ha sido cambiada con éxito',
+      })
+    </script>
+  @endif
+
   @if (session('change') == 'password_error')
     <script>
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Las contraseña no coinciden'
+        text: 'Contraseña no válida',
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'password_changed')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Listo!',
+        text: 'Se ha cambiado su contraseña con éxito',
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'symbol_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña no debe incluir carácteres especiales.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'upper_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un carácter en mayúscula.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'lower_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un carácter en minúscula.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'number_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un número.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'len_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe estar conformado por mínimo 8 carácteres.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'point_error')
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Su nueva contraseña debe incorporar al menos un punto.'
+      })
+    </script>
+  @endif
+
+  @if (session('change') == 'success')
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: 'Ok',
+        text: 'Contraseña actualizada con éxito.'
       })
     </script>
   @endif

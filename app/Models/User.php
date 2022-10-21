@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Hash;
+
+use App\Models\AcademicRecord;
 
 class User extends Authenticatable
 {
@@ -23,6 +26,7 @@ class User extends Authenticatable
         'email',
         'rut',
         'password',
+        'rol',
     ];
 
     /**
@@ -35,6 +39,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $table = "users";
+
     /**
      * The attributes that should be cast.
      *
@@ -45,6 +51,11 @@ class User extends Authenticatable
     ];
     public function setPasswordAttribute($password) {
 
-        $this->attributes['password'] = bcrypt($password);
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    // El usuario tiene una relación uno es a uno con el registro académico
+    public function AcademicRecord() {
+        return $this->hasOne(AcademicRecord::class);
     }
 }
