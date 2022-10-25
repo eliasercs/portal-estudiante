@@ -26,18 +26,23 @@
       title: "UCTIN",
       bubbleAvatarUrl: "https://images.vexels.com/media/users/3/235658/isolated/preview/ab14b963565a4c5ab27169d90c341994-silueta-animales-21.png",
       placeholderText: "Escribe tu consulta",
-      mainColor: '#038ACE',
-      bubbleBackground: "#01568E",
+      mainColor: '#ffdd00',
+      bubbleBackground: "#ffdd00",
       aboutText: 'Escribe tu consulta',
       introMessage: "Hola soy UCTIN encantado de conocerte! \n ¿Quisieras ver las secciones más recomendadas?"
     };
   </script>
 
-<div class="navbar" id="navbar">
+    <div class="navbar" id="navbar">
       <div class="menu">
         <i id="menu" class="bi bi-list animate__animated"></i>
       </div>
-      <h1>Hola Mundo</h1>
+      <ul>
+        @if (auth()->check())
+        <li>{{ auth()->user()->name }}</li>
+        <li><a href="/logout">Cerrar sesión</a></li>
+        @endif
+      </ul>
     </div>
 
     <div class="sidebar" id="sidebar">
@@ -86,27 +91,61 @@
         </div>
         <div class="col w40">
           <h2>Accesos Directos</h2>
-          
-          <div class="card" style="--img:url(/assets/img/1.jpg)">
-            <div class="card-content">
-                <h2>Título</h2>
-                <p>Descripción</p>
+
+          <div class="accesos-directos-container">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+
+            <div class="accesos-button">
+              <label for="one" class="one active"></label>
+              <label for="two" class="two"></label>
             </div>
+
+            <div class="main-accesos">
+              <div class="accesos">
+                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
+                  <div class="card-content">
+                    <h2>Reserva de cubículos</h2>
+                  </div>
+                </div>
+
+                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
+                  <div class="card-content">
+                    <h2>Galería de arte</h2>
+                  </div>
+                </div>
+
+                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
+                  <div class="card-content">
+                    <h2>Bibliotecas</h2>
+                  </div>
+                </div>
+              </div>
+
+              <div class="accesos">
+                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
+                  <div class="card-content">
+                    <h2>Hola 1</h2>
+                  </div>
+                </div>
+
+                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/439/553/103/minimalist-minimal-art-fox-night-wallpaper-preview.jpg)">
+                  <div class="card-content">
+                    <h2>Hola 2</h2>
+                  </div>
+                </div>
+
+                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/44/415/577/minimalist-winter-art-snow-wallpaper-preview.jpg)">
+                  <div class="card-content">
+                    <h2>Hola 3</h2>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            
           </div>
 
-          <div class="card" style="--img:url(/assets/img/1.jpg)">
-            <div class="card-content">
-                <h2>Título</h2>
-                <p>Descripción</p>
-            </div>
-          </div>
-
-          <div class="card" style="--img:url(/assets/img/1.jpg)">
-            <div class="card-content">
-                <h2>Título</h2>
-                <p>Descripción</p>
-            </div>
-          </div>
 
         </div>
       </div>

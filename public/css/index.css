@@ -22,6 +22,26 @@
     padding-right: 15px;
 }
 
+.navbar ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+}
+
+.navbar ul li {
+    margin: 0 10px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar ul li a:hover {
+    text-decoration: underline;
+}
+
 .menu .bi {
     font-size: 30px;
 }
@@ -159,3 +179,67 @@
 .card:hover .card-content {
     opacity: 1;
 }
+
+.accesos-directos-container {
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+.accesos-directos-container .main-accesos {
+    width: 200%;
+    display: flex;
+    justify-content: space-evenly;
+    transition: all 1s ease;
+}
+
+#two:checked ~ .main-accesos {
+    margin-left: -100%;
+}
+
+.accesos-directos-container .main-accesos .accesos {
+    width: calc(100% / 1 - 10px);
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 20px;
+    flex-wrap: wrap;
+}
+
+.accesos-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.accesos-button label {
+    height: 30px;
+    width: 30px;
+    background: #ffdd00;
+    margin: 0 4px;
+    border-radius: 20px;
+    transition: all 0.5s ease;
+}
+
+.accesos-button label.active {
+    width: 70px;
+}
+
+#one:checked ~ .accesos-button label.one {
+    width: 70px;
+}
+
+#two:checked ~ .accesos-button label.two {
+    width: 70px;
+}
+
+#two:checked ~ .accesos-button label.one {
+    width: 30px;
+}
+
+#one:checked ~ .accesos-button label.two {
+    width: 30px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+

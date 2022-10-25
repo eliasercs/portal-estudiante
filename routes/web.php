@@ -45,18 +45,16 @@ Route::get('/home', function () {
         if (is_null($user->AcademicRecord)) {
             return redirect()->to("/estudiante/matricular");
         }
+        return view('home');
+    } else {
+        return "Usted no tiene autorización para acceder a este recurso";
     }
-    return view('home');
+    
 });
 
 
 #Route::get('/',[listController::class,'index']);
 Route::match(['get', 'post'], '/botman', [BotmanController::class, 'handle']);
-
-#Route::get('/',[listController::class,'index']);
-Route::get('/info', function () {
-    return view('info');
-});
 
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register.index');
@@ -83,15 +81,6 @@ Route::post('reset-password', [NewPasswordController::class, 'store'])
     ->middleware('guest')
     ->name('password.update');
 
-
-Route::get('UCT', function () {
-    $correo = new UCTtestMailable;
-
-    Mail::to("testuct@gmail.com")->send($correo);
-
-    return "mensaje enviado";
-});
-
 Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordNoAuth'])
     ->name('Change-Password');
 
@@ -113,8 +102,6 @@ Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionVi
 
 Route::get('/Academico', [RamosController::class, 'create']) 
     -> name('cursos.index');
-Route::get('/tramos', [RamosController::class, 'get_Courses'])
-    ->name('cursos.index');
 
 Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
     ->name('ramos.destroy');
