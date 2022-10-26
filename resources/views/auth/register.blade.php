@@ -63,15 +63,6 @@ rounded-lg shadow-lg">
       text-red-600 p-2 my-2">* {{ $message }}</p>
     @enderror
 
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full
-    text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Carrera"
-    id="carrera" name="carrera">
-
-    @error('carrera')        
-      <p class="border border-red-500 rounded-md bg-red-100 w-full
-      text-red-600 p-2 my-2">* {{ $message }}</p>
-    @enderror
-
     <input type="password" class="border border-gray-200 rounded-md bg-gray-200 w-full
     text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Password"
     id="password" name="password">
@@ -85,13 +76,6 @@ rounded-lg shadow-lg">
     w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" 
     placeholder="Password confirmation" id="new_password_confirmation" 
     name="password_confirmation">
-
-    <select class="border border-gray-200 rounded-md bg-gray-200 w-full
-    text-lg placeholder-gray-900 p-2 my-2 focus:bg-white"
-    name="rol" id="rol">
-      <option value="profesor">Profesor</option>
-      <option value="alumno">Alumno</option>
-    </select>
 
     <button type="submit" class="rounded-md bg-indigo-500 w-full text-lg
     text-white font-semibold p-2 my-3 hover:bg-indigo-600">Send</button>

@@ -35,6 +35,7 @@
                         <form action="/course/delete" method="post">
                             @csrf
                             <input type="hidden" name="curso_id" value="{{ $curso['id'] }}">
+                            <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                             <button class="btn btn-primary" type="submit">Eliminar</button>
                         </form>
                     </td>

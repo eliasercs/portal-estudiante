@@ -59,9 +59,10 @@
                         <td>{{ $seccion["capacidad"] }}</td>
                         <td>{{ $seccion["inscritos"] }}</td>
                         <td>
-                            <form action="/inscripcion" method="post">
+                            <form action="/inscribir/curso" method="post">
                                 @csrf
                                 <input type="hidden" name="seccion_id" value="{{ $seccion['id'] }}">
+                                <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                                 @if(!in_array($seccion["id"],$inscrito))
                                 <button class="btn btn-primary" type="submit">
                                     Inscribir

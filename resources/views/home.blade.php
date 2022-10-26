@@ -45,44 +45,18 @@
       </ul>
     </div>
 
-    <div class="sidebar" id="sidebar">
-        <ul class="nav-list animate__animated">
-            <li>
-              <a href="#">
-                <i class='bi bi-file-earmark-ppt-fill'></i>
-                <span class="links_name">Solicitud de Nota P</span>
-              </a>
-            </li>
+<h1 class="text-5xl text-center pt-24">Bienvenido {{ auth()->user()->name }}</h1>
+<div class="text-5xl text-center pt-16">
+  @if(count(auth()->user()->AcademicRecord)>0)
 
-            <li>
-                <a href="#">
-                  <i class='bi bi-pencil-square'></i>
-                  <span class="links_name">Inscribir Cursos</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                  <i class='bi bi-trash'></i>
-                  <span class="links_name">Eliminar Cursos</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                  <i class='bi bi-info-circle'></i>
-                  <span class="links_name">Información Académica</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                  <i class='bi bi-card-checklist'></i>
-                  <span class="links_name">Notas Parciales</span>
-                </a>
-            </li>
-        </ul>
+    @foreach (auth()->user()->AcademicRecord as $academic_record)
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <h3 class="text-center">Su carrera es: {{ $academic_record->Carrera->nombre }}</h3>
+      <h3 class="text-center">Plan: {{ $academic_record->plan }}</h3>
+      <h3 class="text-center">Ingreso: {{ $academic_record->ingreso }}</h3>
+      <h3 class="text-center">Situacion: {{ $academic_record->situacion }}</h3>
     </div>
+    @endforeach
 
     <section class="content" id="content">
       <div class="row">

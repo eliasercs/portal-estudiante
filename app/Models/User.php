@@ -56,6 +56,6 @@ class User extends Authenticatable
 
     // El usuario tiene una relación uno es a uno con el registro académico
     public function AcademicRecord() {
-        return $this->hasOne(AcademicRecord::class);
+        return $this->hasMany(AcademicRecord::class);
     }
 }
