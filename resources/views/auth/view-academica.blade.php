@@ -57,12 +57,12 @@
             <p class="card-text">
             <div class="col-lg-7 text-align-center">
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <h3 class="text-center">Su carrera es:  </h3>
-                    <h3 class="text-center">Numero de registro: {{ auth()->user()->id }}</h3>
-                    <h3 class="text-center">Plan: {{ auth()->user()->AcademicRecord->plan }}</h3>
-                    <h3 class="text-center">Ingreso: {{ auth()->user()->AcademicRecord->ingreso }}</h3>
-                    <h3 class="text-center">Situacion: {{ auth()->user()->AcademicRecord->situacion }}</h3>
-                    <h3 class="text-center">Situacion: {{ auth()->user()->AcademicRecord->CursoInscrito}}</h3>
+                    <h3 class="text-center">Su carrera es:  {{ $academic_record->Carrera->nombre }}</h3>
+                    <h3 class="text-center">Plan: {{ $academic_record->plan }}</h3>
+                    <h3 class="text-center">Ingreso: {{ $academic_record->ingreso }}</h3>
+                    <h3 class="text-center">Situacion: {{ $academic_record->situacion }}</h3>
+                    <h3 class="text-center"> <a href="/imprimir/academic_record={{$academic_record->id}}">Cursos inscritos (PDF) </a> </h3>
+                    <h3 class="text-center">Ficha Avance Curricular: <a href=" /descargaFAC/academic_record={{$academic_record->id}}"> Descargar</a></h3>
                 </div>
             </div>
             </p>

@@ -24,7 +24,6 @@ use App\Http\Controllers\GeneradorController;
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\EntidadController;
 
-use App\Http\Controllers\AcademicaController;
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PdfController;
 /*
@@ -42,7 +41,7 @@ use App\Http\Controllers\PdfController;
 Route::get('/home', function () {
     if (auth()->check()){
         $user = auth()->user();
-        if (is_null($user->AcademicRecord)) {
+        if (count($user->AcademicRecord)==0) {
             return redirect()->to("/estudiante/matricular");
         }
     }
@@ -52,12 +51,6 @@ Route::get('/home', function () {
 
 #Route::get('/',[listController::class,'index']);
 Route::match(['get', 'post'], '/botman', [BotmanController::class, 'handle']);
-
-#Route::get('/',[listController::class,'index']);
-Route::get('/info', function () {
-    return view('info');
-});
-
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register.index');
 
@@ -83,19 +76,8 @@ Route::post('reset-password', [NewPasswordController::class, 'store'])
     ->middleware('guest')
     ->name('password.update');
 
-
-Route::get('UCT', function () {
-    $correo = new UCTtestMailable;
-
-    Mail::to("testuct@gmail.com")->send($correo);
-
-    return "mensaje enviado";
-});
-
 Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordNoAuth'])
     ->name('Change-Password');
-
-
 
 Route::get('/register-ramos', [RegisterRamosController::class, 'create'])
     ->name('register-ramo.index');
@@ -103,21 +85,19 @@ Route::get('/register-ramos', [RegisterRamosController::class, 'create'])
 Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
     ->name('register-ramo.store');
 
-Route::get('/inscripcion', [RamosController::class, 'index'])
+Route::get('/inscripcion', [RamosController::class, 'get_AcademicRecord'])
     ->name('ramos.index');
 
-Route::post('/inscripcion', [RamosController::class, 'store'])
+Route::post('/inscripcion', [RamosController::class, 'index'])
     ->name('ramos.store');
+
+Route::post('/inscribir/curso', [RamosController::class, 'store']);
 
 Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
 
-Route::get('/Academico', [RamosController::class, 'create']) 
+Route::get('/Academico', [RamosController::class, 'selectAcademicRecord']) 
     -> name('cursos.index');
-Route::get('/tramos', [RamosController::class, 'get_Courses'])
-    ->name('cursos.index');
-
-Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
-    ->name('ramos.destroy');
+Route::post('/Academico', [RamosController::class, 'create']);
 
 // Vista para matricular un usuario a una carrera
 Route::get('/estudiante/matricular', [AcademicRecordController::class, 'create_view']);
@@ -148,17 +128,13 @@ Route::post('/testing', [EntidadController::class, 'AddNewSection']);
 Route::get('/solinotap', [SolNotapController::class, 'index']);
 
 //Visualizar en pdf los cursos inscritos
-Route::name('print')->get('/imprimir', [GeneradorController::class, 'imprimir']);
+Route::name('print')->get('/imprimir/academic_record={id}', [GeneradorController::class, 'imprimir']);
 
 Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
 Route::post("/course/delete", [RamosController::class, 'destroy']);
+Route::post("/modules/delete/course", [RamosController::class, 'deleteCourse']);
 //ruta para Ficha de Avance Curricular en PDF
-Route::name('PDF')->get('/descargaFAC', [PdfController::class, 'FAC']);
-Route::get('/view-academica', [AcademicaController::class, 'index'])
-    ->name('academica.index');
-
-Route::get('/view-calificaciones', [CalificacionesController::class, 'index'])
-    ->name('calificaciones.index');
+Route::name('PDF')->get('/descargaFAC/academic_record={id}', [PdfController::class, 'FAC']);
 
 Route::get('/notas', [NotasController::class, 'index']) 
     ->name('notas.index');

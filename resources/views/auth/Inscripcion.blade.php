@@ -81,6 +81,7 @@
                         <form action="/inscripcion/seccion" method="post">
                         @csrf
                         <input type="hidden" name="curso_id" value="{{ $item['Cid'] }}">
+                        <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                         <button class="btn btn-success" type="submit">
                             Cambio de Seccion
                         </buttom>
@@ -90,6 +91,7 @@
                         <form action="/course/delete" method="post">
                         @csrf
                         <input type="hidden" name="curso_id" value="{{ $item['Sid'] }}">
+                        <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                         <button class="btn btn-danger" type="submit">
                             eliminar
                         </buttom>
@@ -99,6 +101,7 @@
                         <form action="/notas" method="get">
                         @csrf
                         <input type="hidden" name="curso_id" value="{{ $item['Cid'] }}">
+                        <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                         <button class="btn btn-success" type="submit">
                             Notas
                         </buttom>
@@ -129,6 +132,7 @@
                                         <form action="/inscripcion/seccion" method="post">
                                             @csrf
                                             <input type="hidden" name="curso_id" value="{{ $curso['id'] }}">
+                                            <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                                             <button class="btn btn-primary" type="submit">
                                                 Inscribir
                                             </buttom>
