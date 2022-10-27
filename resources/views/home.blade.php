@@ -7,7 +7,6 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="{{ asset('/css/index.css') }}" >
-  <script defer src="{{ asset('js/index.js') }}"></script>
 
   @if(auth()->check())
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
@@ -21,7 +20,6 @@
       //desktopWidth:,
       //mobileHeight:,
       //mobileWidth:,
-
       aboutLink: null,
       title: "UCTIN",
       bubbleAvatarUrl: "https://images.vexels.com/media/users/3/235658/isolated/preview/ab14b963565a4c5ab27169d90c341994-silueta-animales-21.png",
@@ -45,87 +43,50 @@
       </ul>
     </div>
 
-<h1 class="text-5xl text-center pt-24">Bienvenido {{ auth()->user()->name }}</h1>
-<div class="text-5xl text-center pt-16">
-  @if(count(auth()->user()->AcademicRecord)>0)
+    <div class="sidebar" id="sidebar">
+        <div class="close-menu">
+          <img src="{{ asset('/img/logo.png') }}" alt="UCT">
+          <i id="close-menu" class='bi bi-x-lg'></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+              <a href="#">
+                <i class='bi bi-file-earmark-ppt-fill'></i>
+                <span class="links_name">Solicitud de Nota P</span>
+              </a>
+            </li>
 
-    @foreach (auth()->user()->AcademicRecord as $academic_record)
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-      <h3 class="text-center">Su carrera es: {{ $academic_record->Carrera->nombre }}</h3>
-      <h3 class="text-center">Plan: {{ $academic_record->plan }}</h3>
-      <h3 class="text-center">Ingreso: {{ $academic_record->ingreso }}</h3>
-      <h3 class="text-center">Situacion: {{ $academic_record->situacion }}</h3>
+            <li>
+                <a href="#">
+                  <i class='bi bi-pencil-square'></i>
+                  <span class="links_name">Inscribir Cursos</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                  <i class='bi bi-trash'></i>
+                  <span class="links_name">Eliminar Cursos</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                  <i class='bi bi-info-circle'></i>
+                  <span class="links_name">Información Académica</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                  <i class='bi bi-card-checklist'></i>
+                  <span class="links_name">Notas Parciales</span>
+                </a>
+            </li>
+        </ul>
     </div>
-    @endforeach
 
-    <section class="content" id="content">
-      <div class="row">
-        <div class="col w100">
-          <h2>Noticias</h2>
-        </div>
-        <div class="col w40">
-          <h2>Accesos Directos</h2>
-
-          <div class="accesos-directos-container">
-            <input type="radio" name="dot" id="one">
-            <input type="radio" name="dot" id="two">
-
-            <div class="accesos-button">
-              <label for="one" class="one active"></label>
-              <label for="two" class="two"></label>
-            </div>
-
-            <div class="main-accesos">
-              <div class="accesos">
-                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
-                  <div class="card-content">
-                    <h2>Reserva de cubículos</h2>
-                  </div>
-                </div>
-
-                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
-                  <div class="card-content">
-                    <h2>Galería de arte</h2>
-                  </div>
-                </div>
-
-                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
-                  <div class="card-content">
-                    <h2>Bibliotecas</h2>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accesos">
-                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/390/935/605/black-low-poly-monochrome-pattern-wallpaper-preview.jpg)">
-                  <div class="card-content">
-                    <h2>Hola 1</h2>
-                  </div>
-                </div>
-
-                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/439/553/103/minimalist-minimal-art-fox-night-wallpaper-preview.jpg)">
-                  <div class="card-content">
-                    <h2>Hola 2</h2>
-                  </div>
-                </div>
-
-                <div class="card" style="--img:url(https://p4.wallpaperbetter.com/wallpaper/44/415/577/minimalist-winter-art-snow-wallpaper-preview.jpg)">
-                  <div class="card-content">
-                    <h2>Hola 3</h2>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            
-          </div>
-
-
-        </div>
-      </div>
-    </section>
-
-
+    <script defer src="{{ asset('js/index.js') }}"></script>
 
 </body>
 </html>
