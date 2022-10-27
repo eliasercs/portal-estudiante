@@ -1,6 +1,4 @@
-@extends('layout.app')
-
-@section('title', 'solinotap')
+@extends('home')
 
 @section('content')
 

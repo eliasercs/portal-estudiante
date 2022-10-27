@@ -1,6 +1,4 @@
-@extends('layout.app')
-
-@section('title', 'Seleccionar carrera')
+@extends('home')
 
 @section('content')
 

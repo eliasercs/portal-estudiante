@@ -1,6 +1,4 @@
-@extends('layout.app')
-
-@section('title', 'Módulo para eliminar cursos')
+@extends('home')
 
 @section('content')
 

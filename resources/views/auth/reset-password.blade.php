@@ -1,6 +1,4 @@
-@extends('layout.app')
-
-@section('title', 'reset')
+@extends('home')
 
 @section('content')
 

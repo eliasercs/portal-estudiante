@@ -39,6 +39,10 @@
         @if (auth()->check())
         <li>{{ auth()->user()->name }}</li>
         <li><a href="/logout">Cerrar sesión</a></li>
+        @else
+        <li>
+          <h3>Portal del estudiante</h3>
+        </li>
         @endif
       </ul>
     </div>
@@ -49,6 +53,7 @@
           <i id="close-menu" class='bi bi-x-lg'></i>
         </div>
         <ul class="nav-list">
+            @if (auth()->check())
             <li>
               <a href="#">
                 <i class='bi bi-file-earmark-ppt-fill'></i>
@@ -83,10 +88,20 @@
                   <span class="links_name">Notas Parciales</span>
                 </a>
             </li>
+            @else
+            <li>
+                <a href="#">
+                  <i class='bi bi-person-check-fill'></i>
+                  <span class="links_name">Iniciar sesión</span>
+                </a>
+            </li>
+            @endif
         </ul>
     </div>
 
     <script defer src="{{ asset('js/index.js') }}"></script>
+
+    @yield('content')
 
 </body>
 </html>

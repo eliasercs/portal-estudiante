@@ -14,7 +14,7 @@
     width: 100%;
     height: 60px;
     /*background: #023e8a;*/
-    background: linear-gradient(270deg,rgba(16,27,59,.9),rgba(35,90,166,.9));
+    background: linear-gradient(270deg,rgba(16,27,59,1),rgba(35,90,166,1));
     color: #fff;
     display: flex;
     align-items: center;
@@ -55,7 +55,7 @@
     height: 100%;
     width: 20%;
     /*background: #023e8a;*/
-    background: linear-gradient(270deg,rgba(35,90,166,.9),rgba(16,27,59,.9));
+    background: linear-gradient(270deg,rgba(35,90,166,1),rgba(16,27,59,1));
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
@@ -63,6 +63,7 @@
 
 .sidebar .close-menu {
     margin: 8px 0;
+    padding: 8px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -286,6 +287,18 @@ input[type="radio"] {
 
 @media screen and (min-width: 600px) {
     .sidebar {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .sidebar {
         width: 30%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .sidebar {
+        width: 25%;
     }
 }
