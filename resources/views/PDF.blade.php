@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha de avance curricular</title>
+    <title>Historial academico</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div align:center>
-                        <h1 class="card-title text-center">Ficha de avance curicular</h1>
+                        <h1 class="card-title text-center">Historial academico</h1>
                     </div>
                     <hr>
                     <div class="card-text">
@@ -34,28 +34,22 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <th>Año</th>
-                                    <th>Curso</th>
+                                    <th>Semestre</th>
                                     <th>Sigla</th>
+                                    <th>Curso</th>
                                     <th>Creditos</th>
-                                    <th>Tipo</th>
-                                    <th>Seccion</th>
-                                    <th>Profesor</th>
-                                    <th>Horario</th>
-                                    <th>Sala</th>
+                                    <th>Nota</th>
 
                                 </thead>
                                 <tbody>
                                     @foreach ($cursos as $item)
                                     <tr>
                                         <td>{{ $item["Año"] }}</td>
-                                        <td>{{ $item["Curso"] }}</td>
+                                        <td>{{ $item["Semestre"] }}</td>
                                         <td>{{ $item["Sigla"] }}</td>
-                                        <td>{{ $item["Creditos"] }}</td>
-                                        <td>{{ $item["Tipo"] }}</td>
-                                        <td>{{ $item["Seccion"] }}</td>
-                                        <td>{{ $item["Profesor"] }}</td>
-                                        <td>{{ $item["Horario"] }}</td>
-                                        <td>{{ $item["Sala"] }}</td>
+                                        <td>{{ $item["Curso"] }}</td>
+                                        <td>{{ $item["Credito"] }}</td>
+                                        <td>{{ $item["Nota"] }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

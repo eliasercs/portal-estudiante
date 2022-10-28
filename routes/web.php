@@ -24,6 +24,7 @@ use App\Http\Controllers\GeneradorController;
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\EntidadController;
 
+// controladores para  pdf
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PdfController;
 /*
@@ -37,18 +38,19 @@ use App\Http\Controllers\PdfController;
 |
 */
 
+//ruta para Ficha de Avance Curricular en PDF
+Route::name('PDF')->get('/descargaFAC/academic_record={id}', [PdfController::class, 'FAC']);
 
 Route::get('/home', function () {
-    if (auth()->check()){
+    if (auth()->check()) {
         $user = auth()->user();
-        if (count($user->AcademicRecord)==0) {
+        if (count($user->AcademicRecord) == 0) {
             return redirect()->to("/estudiante/matricular");
         }
         return view('home');
     } else {
         return "Usted no tiene autorización para acceder a este recurso";
     }
-    
 });
 
 
@@ -98,8 +100,8 @@ Route::post('/inscribir/curso', [RamosController::class, 'store']);
 
 Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
 
-Route::get('/Academico', [RamosController::class, 'selectAcademicRecord']) 
-    -> name('cursos.index');
+Route::get('/Academico', [RamosController::class, 'selectAcademicRecord'])
+    ->name('cursos.index');
 Route::post('/Academico', [RamosController::class, 'create']);
 
 // Vista para matricular un usuario a una carrera
@@ -136,10 +138,9 @@ Route::name('print')->get('/imprimir/academic_record={id}', [GeneradorController
 Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
 Route::post("/course/delete", [RamosController::class, 'destroy']);
 Route::post("/modules/delete/course", [RamosController::class, 'deleteCourse']);
-//ruta para Ficha de Avance Curricular en PDF
-Route::name('PDF')->get('/descargaFAC/academic_record={id}', [PdfController::class, 'FAC']);
 
-Route::get('/notas', [NotasController::class, 'index']) 
+
+Route::get('/notas', [NotasController::class, 'index'])
     ->name('notas.index');
 
 Route::get('/notas/new', [NotasController::class, 'creadorNotas'])

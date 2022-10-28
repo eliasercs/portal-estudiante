@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 
 
+
 class PdfController extends Controller
 {
     # funcion ficha de avance academico
