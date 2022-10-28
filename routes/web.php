@@ -27,6 +27,7 @@ use App\Http\Controllers\EntidadController;
 // controladores para  pdf
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PdfController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +41,8 @@ use App\Http\Controllers\PdfController;
 
 //ruta para Ficha de Avance Curricular en PDF
 Route::name('PDF')->get('/descargaFAC/academic_record={id}', [PdfController::class, 'FAC']);
+Route::name('PDF')->post('/descargaFAC/', [PdfController::class, 'create']);
+Route::get('/avanceCurricular', [PdfController::class, 'view']);
 
 Route::get('/home', function () {
     if (auth()->check()) {

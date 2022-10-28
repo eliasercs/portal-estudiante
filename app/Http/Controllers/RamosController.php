@@ -165,7 +165,10 @@ class RamosController extends Controller
                 ];
             }
         }
-        return view('auth.view-academica')->with(['ramos' => $data, 'record' => $record, 'academic_record' => $academic_record]);
+
+        $bootstrap = True;
+
+        return view('auth.view-academica')->with(['ramos' => $data, 'record' => $record, 'academic_record' => $academic_record, 'bootstrap' => $bootstrap]);
     }
     
     public function store(Request $request){
