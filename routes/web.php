@@ -28,6 +28,8 @@ use App\Http\Controllers\EntidadController;
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PdfController;
 
+use App\Http\Controllers\AsintenteSocial;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -151,3 +153,6 @@ Route::get('/notas/new', [NotasController::class, 'creadorNotas'])
 
 Route::post('/notas/new', [NotasController::class, 'PonerNota'])
     ->name('notas.store');
+
+Route::get('/xd', [AsintenteSocial::class, 'data']);
+Route::get('/xd2', [AsintenteSocial::class, 'gen']);
