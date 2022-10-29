@@ -28,6 +28,7 @@
     flex-direction: row;
     align-items: center;
     list-style: none;
+    margin-bottom: 0;
 }
 
 .navbar ul li {
@@ -86,6 +87,8 @@
 .sidebar .nav-list{
     margin-top: 5px;
     height: 100%;
+    margin-bottom: 0;
+    padding-left: 0;
 }
 
 .sidebar li{

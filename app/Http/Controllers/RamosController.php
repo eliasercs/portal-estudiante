@@ -15,6 +15,8 @@ use App\Models\History_course;
 
 class RamosController extends Controller
 {
+    public $bootstrap = True;
+
     public function get_Cursos(string $id) {
         /*
         $cursos retorna una lista con todos los cursos inscritos por el estudiante
@@ -113,12 +115,13 @@ class RamosController extends Controller
         //    ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','secciones.id')
         //    ->paginate(10);
         //return $cursos[0]["nombre"];    
-        return view('auth.inscripcion', compact('cursos','data','creditos','academic_record_id'));
+        $bootstrap = $this->bootstrap;
+        return view('auth.inscripcion', compact('cursos','data','creditos','academic_record_id', 'bootstrap'));
     }
 
     public function selectAcademicRecord() {
         $academic_records = auth()->user()->AcademicRecord;
-        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/Academico']);
+        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/Academico', 'bootstrap' => $this->bootstrap]);
     }
 
     public function create(Request $request) {
@@ -166,9 +169,7 @@ class RamosController extends Controller
             }
         }
 
-        $bootstrap = True;
-
-        return view('auth.view-academica')->with(['ramos' => $data, 'record' => $record, 'academic_record' => $academic_record, 'bootstrap' => $bootstrap]);
+        return view('auth.view-academica')->with(['ramos' => $data, 'record' => $record, 'academic_record' => $academic_record, 'bootstrap' => $this->bootstrap]);
     }
     
     public function store(Request $request){
@@ -255,17 +256,17 @@ class RamosController extends Controller
         $curso = Ramo::find($request["curso_id"]);
         $secciones = $curso->Seccion;
 
-        return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones, 'inscrito'=> $id, 'academic_record_id' => $academic_record->id]);
+        return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones, 'inscrito'=> $id, 'academic_record_id' => $academic_record->id, 'bootstrap' => $this->bootstrap]);
     }
 
     public function deleteCourseView(Request $request) {
         $academic_records = auth()->user()->AcademicRecord;
-        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/modules/delete/course']);
+        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/modules/delete/course', 'bootstrap' => $this->bootstrap]);
     }
 
     public function deleteCourse(Request $request) {
         $cursos = $this->get_Cursos($request->data);
-        return view('Curso.delete_course', ['cursos' => $cursos, 'academic_record_id' => $request->data]);
+        return view('Curso.delete_course', ['cursos' => $cursos, 'academic_record_id' => $request->data, 'bootstrap' => $this->bootstrap]);
     }
 
 }

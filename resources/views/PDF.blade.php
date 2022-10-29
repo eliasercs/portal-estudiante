@@ -38,7 +38,6 @@
                                     <th>Sigla</th>
                                     <th>Curso</th>
                                     <th>Creditos</th>
-                                    <th>Nota</th>
 
                                 </thead>
                                 <tbody>
@@ -48,8 +47,7 @@
                                         <td>{{ $item["Semestre"] }}</td>
                                         <td>{{ $item["Sigla"] }}</td>
                                         <td>{{ $item["Curso"] }}</td>
-                                        <td>{{ $item["Credito"] }}</td>
-                                        <td>{{ $item["Nota"] }}</td>
+                                        <td>{{ $item["Creditos"] }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
