@@ -8,40 +8,22 @@ use Carbon\Carbon;
 use App\Models\Ramo;
 use App\Models\Reserva;
 use App\Models\AsistenteSocial;
+use App\Models\InscripcionHours;
 use Auth;
 
 class AsintenteSocial extends Controller
 {
     //
     public function data() {
-
+        //carga la informacion de los asistentes
         $asistentes =AsistenteSocial::all();
-        //return $asistentes[0]->Nombre;
+        #return $asistentes[0]->Horas();
         return view('auth.asistente-social',['asistentes' => $asistentes]);
         
     }
-    public function test() {
 
-        $dias= Reserva::where('asistente','=',2)->get();
-        # dentro de un arreglo vacio ponemos todas las fechas en las que atendera, no se repiten
-        $unicos=[];
-        $i=0;
-        foreach($dias as $d){
-            if (!in_array($d->Fecha, $unicos)){
-                $unicos[$i]= $d->Fecha;
-                $i = $i+1;
-            }
-        }
-        #devolvemos un json con la lista encontrada
-        return response()->json([
-            'lista' => $unicos,
-            'success' => true
-        ]);;
-             
-    }
     public function dias(Request $request) {
         # Esta funcion se encarga de devolver una lista con todos los dias que atendera un determinado asistente
-
         if(isset($request->data)){
             $dias= Reserva::where('asistente','=',$request->data)->get();
             # dentro de un arreglo vacio ponemos todas las fechas en las que atendera, no se repiten
@@ -68,7 +50,13 @@ class AsintenteSocial extends Controller
         #hace exactamente lo mismo que la funcion anterior con la diferencia de que ahora queremos saber las horas dependiendo del dia
         #ahora en el Json debera contener el asistente y la fecha
         if(isset($request->data)){
-            $horas= Reserva::where('asistente','=',$request->data->asistente)->where("fecha","=",$request->data->fecha)->get();
+            $ocupados = [];
+            $i = 0;
+            foreach(InscripcionHours::all() as $j){
+                $ocupados[$i] = $j->IDHora;
+                $i = $i+1; 
+            }
+            $horas= Reserva::where('asistente','=',$request->asis)->where("fecha","=",$request->data)->whereNotIn('id', $ocupados)->get();
             return response()->json([
                 'lista' => $horas,
                 'success' => true
@@ -129,5 +117,26 @@ class AsintenteSocial extends Controller
         //devuelve lo que genera
         return Reserva::all();
     }
+    public function reservar(Request $request) {
+        //solo puede ser accedido si el usuario esta logeado
+        if(auth()->user()){
+            //solo puede tener una hora inscrita, por lo que se borra la anterior
+            if(auth()->user()->Horas){
+                auth()->user()->Horas->delete();
+            }
+            //creamos la hora
+            $hora = $request->hora;
+            $id = auth()->user()->id;
     
+            $new = InscripcionHours::create([
+            'idusuario'=> $id,
+            'idhora'=> $hora,
+            ]);
+            return "Hora inscrita";
+        }
+        return "Por favor inicia sesion";       
+    }
+    public function destroy(Request $request) {  
+        return $request;
+    }
 }

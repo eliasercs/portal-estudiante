@@ -156,7 +156,7 @@ Route::post('/notas/new', [NotasController::class, 'PonerNota'])
 
 Route::get('/Asistente', [AsintenteSocial::class, 'data']);
 Route::get('/gen', [AsintenteSocial::class, 'gen']);
-Route::post("/dias", [RamosController::class, 'dias']);
-Route::post("/horas", [RamosController::class, 'horas']);
-
-Route::get('/xd', [AsintenteSocial::class, 'test']);
+Route::post("/dias", [AsintenteSocial::class, 'dias']);
+Route::post("/horas", [AsintenteSocial::class, 'horas']);
+Route::post('/reservar', [AsintenteSocial::class, 'reservar']);
+Route::post('/xd', [AsintenteSocial::class, 'test']);

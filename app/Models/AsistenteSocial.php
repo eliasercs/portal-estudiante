@@ -18,6 +18,6 @@ class AsistenteSocial extends Model
     ];
 
     public function Horas() {
-        return $this->hasMany(Seccion::class,'asistente','id');
+        return $this->belongsTo(Reserva::class);
     }
 }

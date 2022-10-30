@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\AsistenteSocial;
-use App\Models\User;
+use App\Models\InscripcionHours;
 
 class Reserva extends Model
 {
@@ -23,6 +23,9 @@ class Reserva extends Model
     ];
 
     public function Ast() {
-        return $this->belongsTo(AsistenteSocial::class);
+        return $this->hasMany(AsistenteSocial::class,'id','Asistente');
+    }
+    public function Disp() {
+        return $this->hasOne(InscripcionHours::class);
     }
 }
