@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Hash;
 
 use App\Models\AcademicRecord;
+use App\Models\InscripcionHours;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,8 @@ class User extends Authenticatable
     // El usuario tiene una relación uno es a uno con el registro académico
     public function AcademicRecord() {
         return $this->hasMany(AcademicRecord::class);
+    }
+    public function Horas() {
+        return $this->hasOne(InscripcionHours::class,'idusuario');
     }
 }
