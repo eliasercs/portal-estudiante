@@ -16,7 +16,8 @@ class CreateReservationsHoursTable extends Migration
         Schema::create('reservations_hours', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('Asistente');
-            $table->dateTime('Horario');
+            $table->date('Fecha');
+            $table->Time('Hora');
 
             $table->foreign('Asistente')->references('id')->on('social_assistants')->onDelete('cascade')->onUpdate('cascade');
         });

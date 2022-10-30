@@ -154,5 +154,9 @@ Route::get('/notas/new', [NotasController::class, 'creadorNotas'])
 Route::post('/notas/new', [NotasController::class, 'PonerNota'])
     ->name('notas.store');
 
-Route::get('/xd', [AsintenteSocial::class, 'data']);
-Route::get('/xd2', [AsintenteSocial::class, 'gen']);
+Route::get('/Asistente', [AsintenteSocial::class, 'data']);
+Route::get('/gen', [AsintenteSocial::class, 'gen']);
+Route::post("/dias", [RamosController::class, 'dias']);
+Route::post("/horas", [RamosController::class, 'horas']);
+
+Route::get('/xd', [AsintenteSocial::class, 'test']);

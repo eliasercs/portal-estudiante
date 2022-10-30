@@ -18,7 +18,8 @@ class Reserva extends Model
 
     protected $fillable = [
         'asistente',
-        'horario',
+        'fecha',
+        'hora'
     ];
 
     public function Ast() {
