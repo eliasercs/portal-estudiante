@@ -61,7 +61,7 @@
     <ul class="nav-list">
       @if (auth()->check())
       <li>
-        <a href="#">
+        <a href="/solinotap">
           <i class='bi bi-file-earmark-ppt-fill'></i>
           <span class="links_name">Solicitud de Nota P</span>
         </a>
