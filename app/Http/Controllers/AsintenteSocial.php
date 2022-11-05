@@ -15,10 +15,19 @@ class AsintenteSocial extends Controller
 {
     //
     public function data() {
+        $now = Carbon::now();
+        $first = Carbon::create($now->year, $now->month, 1)->dayOfWeek;
+        $monday = new Carbon('next monday');
         //carga la informacion de los asistentes
         $asistentes =AsistenteSocial::all();
         #return $asistentes[0]->Horas();
-        return view('auth.asistente-social',['asistentes' => $asistentes]);
+        #return $first;
+        if(auth()->user()->Horas){
+            $actual = auth()->user()->Horas->Hours;
+            $H = substr($actual->Hora,0,5);
+            return view('auth.asistente-social', ['asistentes' => $asistentes, 'actual' => $actual, 'H' => $H]);
+        }
+        return view('auth.asistente-social', ['asistentes' => $asistentes]);
         
     }
 
@@ -136,7 +145,18 @@ class AsintenteSocial extends Controller
         }
         return "Por favor inicia sesion";       
     }
-    public function destroy(Request $request) {  
-        return $request;
+    public function destroy(Request $request) {
+        #return $request->id;
+        $hora = InscripcionHours::find($request->id);
+        if ($hora->delete()) {
+            return "Hora eliminada";
+        }
+        else{
+            return "Error";
+        }
+    }
+    public function selectAcademicRecord() {
+        $academic_records = auth()->user()->AcademicRecord;
+        return view('auth.test', ['Academic_Records' => $academic_records, 'route' => '/Asistente',]);
     }
 }

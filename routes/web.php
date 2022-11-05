@@ -154,9 +154,13 @@ Route::get('/notas/new', [NotasController::class, 'creadorNotas'])
 Route::post('/notas/new', [NotasController::class, 'PonerNota'])
     ->name('notas.store');
 
-Route::get('/Asistente', [AsintenteSocial::class, 'data']);
+#Rutas de Asistente Social, gen es para un rellenado rapido de la base de datos.
 Route::get('/gen', [AsintenteSocial::class, 'gen']);
+
+Route::get('/Asistente', [AsintenteSocial::class, 'selectAcademicRecord']);
+Route::post('/Asistente', [AsintenteSocial::class, 'data']);
 Route::post("/dias", [AsintenteSocial::class, 'dias']);
 Route::post("/horas", [AsintenteSocial::class, 'horas']);
 Route::post('/reservar', [AsintenteSocial::class, 'reservar']);
-Route::post('/xd', [AsintenteSocial::class, 'test']);
+Route::post("/hour/delete", [AsintenteSocial::class, 'destroy'])->name("deletehour");;
+
