@@ -15,6 +15,7 @@ use App\Http\Controllers\RegisterRamosController;
 use App\Http\Controllers\RamosController;
 use App\Http\Controllers\InscripcionController;
 
+
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\AcademicRecordController;
 use App\Http\Controllers\CarreraController;
@@ -29,6 +30,7 @@ use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PdfController;
 
 use App\Http\Controllers\AsintenteSocial;
+use App\Http\Controllers\SolicitudEstudiantil;
 
 /*
 |--------------------------------------------------------------------------
@@ -163,4 +165,9 @@ Route::post("/dias", [AsintenteSocial::class, 'dias']);
 Route::post("/horas", [AsintenteSocial::class, 'horas']);
 Route::post('/reservar', [AsintenteSocial::class, 'reservar']);
 Route::post("/hour/delete", [AsintenteSocial::class, 'destroy'])->name("deletehour");;
+
+#Rutas de Solicitudes estudiantiles
+Route::get('/Solicitudes', [SolicitudEstudiantil::class, 'selectAcademicRecord']);
+Route::post('/Solicitudes', [SolicitudEstudiantil::class, 'data']);
+
 
