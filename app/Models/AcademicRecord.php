@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 use App\Models\Carrera;
-
 use App\Models\CursoInscrito;
+
+use App\Models\Beneficio;
+use App\Models\Solicitud;
 
 class AcademicRecord extends Model
 {
@@ -39,5 +41,11 @@ class AcademicRecord extends Model
     }
     public function History() {
         return $this->hasMany(History_course::class,'record', 'id');
+    }
+    public function Beneficio() {
+        return $this->hasMany(Beneficio::class,'user', 'id');
+    }
+    public function Solicitudes() {
+        return $this->hasMany(Solicitud::class,'user', 'id');
     }
 }

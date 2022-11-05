@@ -57,13 +57,20 @@ Se exime de esta obligación a los estudiantes que tengan FSCU. <br><br><br>
 </div>
 
 <h2 style="color: black;">Beneficios</h2>
+    @if ($beneficios)
+    <ol>
+    @foreach($beneficios as $b)
+        <li>{{ $b->beneficio }}</li>
+    @endforeach
+    </ol>
+    @endif
 
 <h2 style="color: black;">Formulario de ingreso de solicitud</h2>
 
 <p><b>Tipo de solicitud:</b> <select name="tipo" id="tipo">
 <option value="" disabled default>Seleccione</option>
-<option value="R">Renuncia</option>
-<option value="S">Suspensión</option>
+<option value="renuncia">Renuncia</option>
+<option value="suspension">Suspensión</option>
 </select>
 </p>
 Con Beneficio Estudiantil.	Recordar conversar con la asistente social para informarse de los ajustes de beneficios en los casos de suspensión.
