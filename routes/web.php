@@ -43,6 +43,11 @@ use App\Http\Controllers\SolicitudEstudiantil;
 |
 */
 
+//ruta para Competencias Especficas
+Route::name('com_esp')->get('/com_esp', function () {
+    return view('com_esp');
+});
+
 //ruta para Ficha de Avance Curricular en PDF
 Route::name('PDF')->get('/descargaFAC/academic_record={id}', [PdfController::class, 'FAC']);
 Route::name('PDF')->post('/descargaFAC/', [PdfController::class, 'create']);
@@ -54,7 +59,7 @@ Route::get('/home', function () {
         if (count($user->AcademicRecord) == 0) {
             return redirect()->to("/estudiante/matricular");
         }
-        return view('home',['bootstrap' => True]);
+        return view('home', ['bootstrap' => True]);
     } else {
         return "Usted no tiene autorización para acceder a este recurso";
     }
@@ -169,5 +174,3 @@ Route::post("/hour/delete", [AsintenteSocial::class, 'destroy'])->name("deleteho
 #Rutas de Solicitudes estudiantiles
 Route::get('/Solicitudes', [SolicitudEstudiantil::class, 'selectAcademicRecord']);
 Route::post('/Solicitudes', [SolicitudEstudiantil::class, 'data']);
-
-
