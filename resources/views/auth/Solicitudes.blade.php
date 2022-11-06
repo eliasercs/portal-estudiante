@@ -92,7 +92,6 @@ Semestre/Año Solicitud:
     Segundo semestre de {{ $año }}
 @endif 
 </p>
-
 <p>
     Desde <select name=semestre id=semestre disabled>
 <option value="{{$semestre}}" disabled selected>
