@@ -102,7 +102,7 @@
         </a>
       </li>
       <li>
-        <a href="#">
+        <a href="/com_esp">
           <i class="bi bi-clipboard2-x-fill"></i>
           <span class="links_name">Competencias especficas</span>
         </a>
