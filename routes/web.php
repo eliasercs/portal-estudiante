@@ -169,5 +169,8 @@ Route::post("/hour/delete", [AsintenteSocial::class, 'destroy'])->name("deleteho
 #Rutas de Solicitudes estudiantiles
 Route::get('/Solicitudes', [SolicitudEstudiantil::class, 'selectAcademicRecord']);
 Route::post('/Solicitudes', [SolicitudEstudiantil::class, 'data']);
+Route::post("/motivo", [SolicitudEstudiantil::class, 'motivo']);
+Route::post("/solicitud", [SolicitudEstudiantil::class, 'solicitud']);
+
 
 

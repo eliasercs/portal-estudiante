@@ -77,8 +77,12 @@
                     @endforeach
                 </select><br><br>
             <p>2. Seleccione una fecha para reserva.</p><br>
-            <p>Fecha<select name="dia" id="dia"></select></p><br>
-            <p>Hora<select name="hora" id="hora"></select></p><br>
+            <p>Fecha<select name="dia" id="dia">
+            <option value="" disabled default>Seleccione</option>
+            </select></p><br>
+            <p>Hora<select name="hora" id="hora">
+            <option value="" disabled default>Seleccione</option>
+            </select></p><br>
             <button class="btn btn-success" type="submit">
                     Reservar
             </buttom>

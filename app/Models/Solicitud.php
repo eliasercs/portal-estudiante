@@ -12,6 +12,16 @@ class Solicitud extends Model
     use HasFactory;
     protected $table = "solicitudes";
     public $timestamps = false;
+    protected $fillable = [
+        'user',
+        'Tipo',
+        'Año',
+        'Semestre',
+        'Motivo1',
+        'Motivo2',
+        'Detalle',
+        'Fecha'
+    ];
 
     // las solicitudes no pueden existir sin un registro académico
     public function AcademicRecord() {
