@@ -5,14 +5,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal del Estudiante</title>
+  <title>Document</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   @if(isset($bootstrap))
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   @endif
   <link rel="stylesheet" href="{{ asset('/css/index.css') }}">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   @if(auth()->check())
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
@@ -40,18 +39,46 @@
 
   <div class="navbar" id="navbar">
     <div class="menu">
-      <i id="menu" class="bi bi-list animate__animated"></i>
+      <i id="menu" class="bi bi-list"></i>
     </div>
-    <ul>
-      @if (auth()->check())
-      <li>{{ auth()->user()->name }}</li>
-      <li><a href="/logout">Cerrar sesión</a></li>
-      @else
-      <li>
-        <h3>Portal del estudiante</h3>
-      </li>
-      @endif
-    </ul>
+
+    <div class="menu">
+      <a href="/home">
+        <img class="logo-nav" style="width: 120px;" src="{{ asset('/img/logo.png') }}">
+      </a>
+
+    </div>
+
+
+    @if (auth()->check())
+
+    <div class="dropdown dropdown-header">
+      <button class="dropbtn bg-transparent border-0 text-white" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-person-circle"></i>
+        <i class="bi bi-caret-down-fill"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <h4 class="border-bottom pb-2">Hola, {{ auth()->user()->name }}</h4>
+        <div class="toggle-darkMode">
+          <i class="bi bi-brightness-high"></i>
+          <div class="circle">
+
+          </div>
+          <i class="bi bi-moon"></i>
+        </div>
+        <a href="/logout" class="btn btn-cerrarSesion">
+          <i class="bi bi-box-arrow-right"></i>
+          Cerrar sesión</a>
+      </div>
+
+    </div>
+
+    @else
+    <li>
+      <h3>Portal del estudiante</h3>
+    </li>
+    @endif
+
   </div>
 
   <div class="sidebar" id="sidebar">
@@ -69,7 +96,7 @@
       </li>
 
       <li>
-        <a href="#">
+        <a href="/inscripcion">
           <i class='bi bi-pencil-square'></i>
           <span class="links_name">Inscribir Cursos</span>
         </a>
@@ -83,7 +110,7 @@
       </li>
 
       <li>
-        <a href="#">
+        <a href="/Academico">
           <i class='bi bi-info-circle'></i>
           <span class="links_name">Información Académica</span>
         </a>
@@ -102,7 +129,7 @@
         </a>
       </li>
       <li>
-        <a href="/com_esp">
+        <a href="#">
           <i class="bi bi-clipboard2-x-fill"></i>
           <span class="links_name">Competencias especficas</span>
         </a>
@@ -120,6 +147,8 @@
   </div>
 
   <script defer src="{{ asset('js/index.js') }}"></script>
+
+
 
   @yield('content')
 
