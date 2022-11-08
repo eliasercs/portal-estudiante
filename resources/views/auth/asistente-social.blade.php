@@ -1,97 +1,85 @@
 @extends('home')
-@section('content')
-<body>
-    <div>
 
-    </div>
-    
-        <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
-            <h2 style="color: black;">Reserva de horas Asistente Social</h2>
+@section('content')
+
+<div class="center" style="display: flex; flex-direction: wrap; justify-content: center;">
+
+    <div class="col-lg-7 justify-content-center">
+
+        <div class="px-lg-5 py-lg-4 p-4 align-self-center">
+            <h2>Horas Asistente Social</h2>
         </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                @if ($mensaje = Session::get('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ $mensaje }}
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        <h5 class="card-tittle text-center">Elige una Hora</h5>
         <p>
-        En esta sección podrás realizar una reserva de hora con un/a asistente social donde se realizan las clases de tu carrera. 
-        Debes considerar que una reserva debe hacerse con <b class="subred"> 24 horas de antelación (de Lunes a Viernes)</b> y sólo se podrá realizar <b class="subred">una reserva
-        cada 15 días</b> a través de este medio. La atención será a través de videollamada, ya que se encuentran suspendidas las atenciones 
-        presenciales de forma indefinida.
+            Esto fue diseñado mediante laravel fetch (ajax), en donde al seleccionar un asistente, se cargaran los dias que atendera,
+                luego al seleccionar un dia se cargaran las horas disponibles (se ocultan las horas ocupadas), para que luego el usuario
+                envie la consulta y se registre en la base de datos (solo puede tener una reserva activa a la vez).
         </p>
 
-        <div>
-            <div class="row">
-                <div class="col-sm-12">
-                    @if ($mensaje = Session::get('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ $mensaje }}
-                        </div>
-                    @endif
-                    
-                </div>
-            </div>
-            <h2 style="color: black;">Reservar una hora</h2>
-            <div class="table">
-            <table class="table table-bordered">
-            <thead>
-                <th>Rut</th>
-                <th>Nombre</th>
-            </thead>     
-            <tbody>   
-                <td>{{ auth()->user()->rut }}</td>
-                <td>{{ auth()->user()->name }}</td>
-            </table>
-            </div>
+        <p>
+            PD: En el portal actual deja elegir horas para el proximo dia habil, yo lo configure para elegir dentro de un mes
+        </p>
 
-            @if (auth()->user()->Horas)
-            <h2 class="card-title text-center">Hora Actual Inscrita</h2>
-            <div class="table">
-            <table class="table table-bordered">
-            <thead>
-                <th>Asistente</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-            </thead>     
-            <tbody>   
-                <td>{{ auth()->user()->Horas->Hours->Ast[0]->Nombre }}</td>
-                <td>{{ auth()->user()->Horas->Hours->Fecha }}</td>
-                <td>{{ $H }}</td>
-                <td>
-                    <form action="/hour/delete" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ auth()->user()->Horas->id }}">
-                    <button class="btn btn-danger">Eliminar
-                    </button>
-                    </form>
-                </td>
-            </table>
+        @if (auth()->user()->Horas)
+        <h5 class="card-tittle text-center">Hora Actual Inscrita</h5>
+
+        <p class="card-text">
+            <div class="table-responsive">
+
+                <table class="table">
+
+                    <thead>
+                        <th>Asistente</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                    </thead>
+
+                    <tbody>
+                        <td>{{ auth()->user()->Horas->Hours->Ast[0]->Nombre }}</td>
+                        <td>{{ auth()->user()->Horas->Hours->Fecha }}</td>
+                        <td>{{ auth()->user()->Horas->Hours->Hora }}</td>
+                        <td>
+                            <form action="#" method="POST">
+                            @csrf
+                            <button class="btn btn-danger">Eliminar
+                            </button>
+                            </form>
+                        </td>
+                    </tbody>
+
+                </table>
             </div>
-            @endif
-            <h2 class="card-title text-center">Datos de reserva</h2>
-            <p>La reserva quedará agendada en el campus: <b class="subred">CAMPUS SAN JUAN PABLO II</b></p><br>
-            @if (auth()->user()->Horas)
-            <p>Actualmente ya tiene registrada una hora, la hora inscrita se cambiara reemplazara la hora actual<br><br>
-            @endif
-            <p>1. Seleccione un Asistente para la reserva.</p><br>
-            <form action="/reservar" method="post">
-                @csrf
-                <select name="asistente" id="asistente">
-                    @foreach($asistentes as $i)
-                        <option value="{{ $i->id }}">{{ $i->Nombre }}</option>
-                    @endforeach
-                </select><br><br>
-            <p>2. Seleccione una fecha para reserva.</p><br>
-            <p>Fecha<select name="dia" id="dia">
-            <option value="" disabled default>Seleccione</option>
-            </select></p><br>
-            <p>Hora<select name="hora" id="hora">
-            <option value="" disabled default>Seleccione</option>
-            </select></p><br>
+        </p>
+        @endif
+
+        <form action="/reservar" method="post">
+            @csrf
+            <select name="asistente" id="asistente">
+                @foreach($asistentes as $i)
+                    <option value="{{ $i->id }}">{{ $i->Nombre }}</option>
+                @endforeach
+            </select>
+            <select name="dia" id="dia"></select>
+            <select name="hora" id="hora"></select>
             <button class="btn btn-success" type="submit">
-                    Reservar
-            </buttom>
-            
-  
-                    
-        </div>
+                Enviar
+            </button>
+        </form>
+
     </div>
 </div>
+
 <script>
     const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
     document.getElementById('asistente').addEventListener('change',(e)=>{
@@ -147,8 +135,6 @@
         }).catch(error =>console.error(error));
     })
 
-</script>   
+</script>
 
-</body>
-</html>
 @endsection
