@@ -137,6 +137,18 @@
           <span class="links_name">Competencias especficas</span>
         </a>
       </li>
+      <li>
+        <a href="/Asistente">
+        <i class="bi bi-calendar2-date-fill"></i>
+          <span class="links_name">Reserva de horas asistente social</span>
+        </a>
+      </li>
+      <li>
+        <a href="/Solicitudes">
+        <i class="bi bi-pass-fill"></i>
+          <span class="links_name">Solicitudes estudiantiles</span>
+        </a>
+      </li>
 
       @else
       <li>
