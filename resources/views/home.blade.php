@@ -14,6 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   @endif
   <link rel="stylesheet" href="{{ asset('/css/index.css') }}">
+  <link rel="stylesheet" href="{{ asset('/css/bootstrap-settings.css') }}">
 
   @if(auth()->check())
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
@@ -55,7 +56,7 @@
     @if (auth()->check())
 
     <div class="dropdown dropdown-header">
-      <button class="dropbtn bg-transparent border-0 text-white" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="dropbtn bg-transparent border-0 text-white r-0" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi bi-person-circle"></i>
         <i class="bi bi-caret-down-fill"></i>
       </button>

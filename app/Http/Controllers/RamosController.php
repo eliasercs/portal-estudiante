@@ -52,7 +52,8 @@ class RamosController extends Controller
 
     public function get_AcademicRecord() {
         $academic_records = auth()->user()->AcademicRecord;
-        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/inscripcion']);
+        $bootstrap = true;
+        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/inscripcion', 'bootstrap' => $bootstrap]);
     }
 
     public function index(Request $request)

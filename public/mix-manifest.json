@@ -2,5 +2,6 @@
     "/js/index.js": "/js/index.js",
     "/js/login.js": "/js/login.js",
     "/js/mapa.js": "/js/mapa.js",
+    "/css/bootstrap-settings.css": "/css/bootstrap-settings.css",
     "/css/index.css": "/css/index.css"
 }
