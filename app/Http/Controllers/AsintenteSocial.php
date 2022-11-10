@@ -20,14 +20,12 @@ class AsintenteSocial extends Controller
         $monday = new Carbon('next monday');
         //carga la informacion de los asistentes
         $asistentes =AsistenteSocial::all();
-        #return $asistentes[0]->Horas();
-        #return $first;
         if(auth()->user()->Horas){
             $actual = auth()->user()->Horas->Hours;
             $H = substr($actual->Hora,0,5);
-            return view('auth.asistente-social', ['asistentes' => $asistentes, 'actual' => $actual, 'H' => $H]);
+            return view('auth.asistente-social', ['asistentes' => $asistentes, 'actual' => $actual, 'H' => $H, 'bootstrap' => True]);
         }
-        return view('auth.asistente-social', ['asistentes' => $asistentes]);
+        return view('auth.asistente-social', ['asistentes' => $asistentes, 'bootstrap' => True]);
         
     }
 
@@ -137,26 +135,34 @@ class AsintenteSocial extends Controller
             $hora = $request->hora;
             $id = auth()->user()->id;
     
-            $new = InscripcionHours::create([
+            if($new = InscripcionHours::create([
             'idusuario'=> $id,
             'idhora'=> $hora,
-            ]);
-            return "Hora inscrita";
+            ])){
+                return redirect()->to("/Asistente")->with('status', 'ok');
+            }
+            return redirect()->to("/Asistente")->with('status', 'error');
         }
-        return "Por favor inicia sesion";       
+        return redirect()->route('admin.index')->with('status', 'inactivo');       
     }
     public function destroy(Request $request) {
         #return $request->id;
         $hora = InscripcionHours::find($request->id);
         if ($hora->delete()) {
-            return "Hora eliminada";
+            return redirect()->to("/Asistente")->with('delete', 'ok');
         }
         else{
-            return "Error";
+            return redirect()->to("/Asistente")->with('delete', 'error');
         }
     }
     public function selectAcademicRecord() {
         $academic_records = auth()->user()->AcademicRecord;
-        return view('auth.test', ['Academic_Records' => $academic_records, 'route' => '/Asistente',]);
+        if(auth()->user()->Horas){
+            $actual = auth()->user()->Horas->Hours;
+            $H = substr($actual->Hora,0,5);
+            return view('auth.test', ['Academic_Records' => $academic_records, 'route' => '/Asistente','H' => $H, 'bootstrap' => True]);
+        }else{
+            return view('auth.test', ['Academic_Records' => $academic_records, 'route' => '/Asistente', 'bootstrap' => True]);
+        }
     }
 }

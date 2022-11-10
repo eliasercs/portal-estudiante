@@ -24,11 +24,11 @@ class SolicitudEstudiantil extends Controller
         $date = $now->toDateString();
         $beneficios = $record->Beneficio;
         $solicitudes = $record->Solicitudes;
-        return view('auth.Solicitudes', ['beneficios' => $beneficios, 'record' => $record, 'año'=> $año, 'semestre' => $sem, 'now' => $date, 'sol' => $solicitudes]);
+        return view('auth.Solicitudes', ['beneficios' => $beneficios, 'record' => $record, 'año'=> $año, 'semestre' => $sem, 'now' => $date, 'sol' => $solicitudes, 'bootstrap' => True]);
     }
     public function selectAcademicRecord() {
         $academic_records = auth()->user()->AcademicRecord;
-        return view('auth.SolicitudEstudiantil', ['Academic_Records' => $academic_records, 'route' => '/Solicitudes']);
+        return view('auth.SolicitudEstudiantil', ['Academic_Records' => $academic_records, 'route' => '/Solicitudes',  'bootstrap' => True]);
     }
     public function motivo(Request $request) {
         if(isset($request->data)){
@@ -113,11 +113,11 @@ public function solicitud(Request $request)
         'Detalle'=> $detalle,
         'Fecha' => $fecha
         ])){
-            return "Solicitud Enviada";
+            return redirect()->to("/Solicitudes")->with('status', 'ok');
         }else{
-            return "ERROR";  
+            return redirect()->to("/Solicitudes")->with('status', 'error');
         }
-        return "Sesion no iniciada";
+        return redirect()->route('admin.index')->with('status', 'inactivo');
     }
 }
 }

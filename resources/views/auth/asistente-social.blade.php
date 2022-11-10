@@ -20,25 +20,20 @@
             </div>
         </div>
 
-        <h5 class="card-tittle text-center">Elige una Hora</h5>
         <p>
-            Esto fue diseñado mediante laravel fetch (ajax), en donde al seleccionar un asistente, se cargaran los dias que atendera,
-                luego al seleccionar un dia se cargaran las horas disponibles (se ocultan las horas ocupadas), para que luego el usuario
-                envie la consulta y se registre en la base de datos (solo puede tener una reserva activa a la vez).
-        </p>
-
-        <p>
-            PD: En el portal actual deja elegir horas para el proximo dia habil, yo lo configure para elegir dentro de un mes
+        En esta sección podrás realizar una reserva de hora con un/a asistente social donde se realizan las clases de tu carrera. 
+        Debes considerar que una reserva debe hacerse con <b class="text-danger"> 24 horas de antelación (de Lunes a Viernes)</b> y sólo se podrá realizar <b class="text-danger">una reserva
+        cada 15 días</b> a través de este medio. La atención será a través de videollamada, ya que se encuentran suspendidas las atenciones 
+        presenciales de forma indefinida.
         </p>
 
         @if (auth()->user()->Horas)
-        <h5 class="card-tittle text-center">Hora Actual Inscrita</h5>
+        <h5 class="alert alert-primary bg-primary text-white">Hora Actual Inscrita</h5>
 
         <p class="card-text">
             <div class="table-responsive">
 
                 <table class="table">
-
                     <thead>
                         <th>Asistente</th>
                         <th>Fecha</th>
@@ -48,13 +43,14 @@
                     <tbody>
                         <td>{{ auth()->user()->Horas->Hours->Ast[0]->Nombre }}</td>
                         <td>{{ auth()->user()->Horas->Hours->Fecha }}</td>
-                        <td>{{ auth()->user()->Horas->Hours->Hora }}</td>
+                        <td>{{ $H }}</td>
                         <td>
-                            <form action="#" method="POST">
+                            <form action="/hour/delete" method="POST">
                             @csrf
+                            <input type="hidden" name="id" value="{{ auth()->user()->Horas->id }}">
                             <button class="btn btn-danger">Eliminar
                             </button>
-                            </form>
+                        </form>
                         </td>
                     </tbody>
 
@@ -63,19 +59,40 @@
         </p>
         @endif
 
-        <form action="/reservar" method="post">
-            @csrf
-            <select name="asistente" id="asistente">
-                @foreach($asistentes as $i)
-                    <option value="{{ $i->id }}">{{ $i->Nombre }}</option>
-                @endforeach
-            </select>
-            <select name="dia" id="dia"></select>
-            <select name="hora" id="hora"></select>
+        <h2 class="alert alert-primary bg-primary text-white" >Reservar una hora</h2>
+
+            <div class="table">
+            <table class="table">
+            <thead class="bg-info">
+                <th class="text-white">Rut</th>
+                <th class="text-white">Nombre</th>
+            </thead>     
+            <tbody>   
+                <td>{{ auth()->user()->rut }}</td>
+                <td>{{ auth()->user()->name }}</td>
+            </table>
+            </div>
+        
+        <h2 class="alert alert-primary bg-primary text-white">Datos de reserva</h2>
+        <p>La reserva quedará agendada en el campus: <b class="text-danger">CAMPUS SAN JUAN PABLO II</b></p>
+        @if (auth()->user()->Horas)
+            <div class="alert alert-warning">Actualmente ya tiene registrada una hora, la hora inscrita se cambiara reemplazara la hora actual</div>
+        @endif
+            <p>1. Seleccione un Asistente para la reserva.</p>
+            <form action="/reservar" method="post">
+                @csrf
+                <select name="asistente" id="asistente">
+                    <option value='' disabled selected>Seleccione</option>
+                    @foreach($asistentes as $i)
+                        <option value="{{ $i->id }}">{{ $i->Nombre }}</option>
+                    @endforeach
+                </select><br><br>
+            <p>2. Seleccione una fecha para reserva.</p>
+            <p>Fecha<select name="dia" id="dia"></select></p>
+            <p>Hora<select name="hora" id="hora"></select></p>
             <button class="btn btn-success" type="submit">
-                Enviar
-            </button>
-        </form>
+                    Reservar
+            </buttom>
 
     </div>
 </div>
@@ -99,7 +116,7 @@
             return response.json()
         }).then( data =>{
             
-            var opciones ="<option value=''>Seleccione</option>";
+            var opciones ="<option value='' disabled selected>Seleccione</option>";
             for (let i in data.lista) {
                opciones+= '<option value="'+data.lista[i]+'">'+data.lista[i]+'</option>';
             }
@@ -125,7 +142,7 @@
             console.log(response)
             return response.json()
         }).then( datos =>{
-            var opciones ="<option value=''>Seleccione</option>";
+            var opciones ="<option value='' disabled selected>Seleccione</option>";
             for (let i in datos.lista) {
                 console.log(datos.lista[i].id)
                opciones+= '<option value="'+datos.lista[i].id+'">'+datos.lista[i].Hora.substring(0, 8)+'</option>';

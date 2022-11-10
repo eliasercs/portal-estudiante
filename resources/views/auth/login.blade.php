@@ -161,6 +161,15 @@
     })
   </script>
   @endif
+  @if (session('status') == 'inactivo')
+  <script>
+    Swal.fire({
+      icon: 'error',
+      title: 'Sesion no iniciada',
+      text: 'Inicia sesion para continuar',
+    })
+  </script>
+  @endif
 
   @if (session('status') == 'current_password_error')
   <script>
