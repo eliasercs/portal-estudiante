@@ -15,7 +15,8 @@ class PdfController extends Controller
     public function view() {
         $academic_record = auth()->user()->AcademicRecord;
         $route = "/descargaFAC";
-        return view('Carrera.select',['Academic_Records' => $academic_record, 'route' => $route]);
+        $bootstrap = true;
+        return view('Carrera.select',['Academic_Records' => $academic_record, 'route' => $route, 'bootstrap' => $bootstrap]);
     }
 
     # funcion ficha de avance academico
@@ -24,7 +25,7 @@ class PdfController extends Controller
         $ramos = new RamosController();
         $cursos = $ramos->get_Cursos($id);
         #se crea la variale cargando una vista blade
-        $pdf = \PDF::loadView('PDF', ["cursos" => $cursos]);
+        $pdf = PDF::loadView('PDF', ["cursos" => $cursos]);
         return $pdf->download('FAC.pdf');
     }
 

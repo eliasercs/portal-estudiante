@@ -126,7 +126,7 @@
         </a>
       </li>
       <li>
-        <a href='PDF' target='_blank'>
+        <a href='/avanceCurricular' target='_blank'>
           <i class='bi bi-briefcase-fill'></i>
           <span class="links_name">Avance curricular</span>
         </a>
