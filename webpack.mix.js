@@ -12,4 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/index.js', 'public/js')
+    .js('resources/js/login.js','public/js')
+    .js('resources/js/mapa.js', 'public/js')
     .postCss('resources/css/index.css', 'public/css');

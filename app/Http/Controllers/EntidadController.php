@@ -26,7 +26,7 @@ class EntidadController extends Controller
         return $user->AcademicRecord;
     }
 
-    public function checkCarrera($register_id) {
+    public function checkCarrera($user_id) {
         $user = User::where('id', $user_id)->first();
         $registro = $user->AcademicRecord;
         return $registro->Carrera;
