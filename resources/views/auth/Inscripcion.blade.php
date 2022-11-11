@@ -28,7 +28,6 @@
             <div class="table table-responsive">
                 <table class="table table-sm table-bordered">
                     <thead>
-                        <th>Sigla</th>
                         <th>Curso</th>
                         <th>Seccion</th>
                         <th>Creditos</th>
@@ -42,7 +41,6 @@
                     <tbody>
                         @foreach ($data as $item)
                             <tr>
-                                <td>{{ $item["Sigla"] }}</td>
                                 <td>{{ $item["Curso"] }}</td>
                                 <td>{{ $item["Seccion"] }}</td>
                                 <td>{{ $item["Creditos"] }}</td>
@@ -110,14 +108,14 @@
                     <tbody>
                         @foreach ($cursos as $curso)
                             <tr>
-                                <td>{{ $curso["Sigla"] }}</td>
-                                <td>{{ $curso["Curso"] }}</td>
-                                <td>{{ $curso["Creditos"] }}</td>
+                                <td>{{ $curso["sigla"] }}</td>
+                                <td>{{ $curso["nombre"] }}</td>
+                                <td>{{ $curso["creditos"] }}</td>
 
                                 <td>
                                     <form action="/inscripcion/seccion" method="post">
                                         @csrf
-                                        <input type="hidden" name="curso_id" value="{{ $curso['Cid'] }}">
+                                        <input type="hidden" name="curso_id" value="{{ $curso['id'] }}">
                                         <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                                         <button class="btn btn-success" type="submit">
                                             Inscribir
