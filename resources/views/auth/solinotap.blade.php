@@ -1,7 +1,8 @@
 @extends('home')
 
 @section('content')
-
+<div class="container">
+  
 <div class="row justify-content-center mt-4">
     <div class="col-11 col-lg-9 mb-4">
         <h3 class="text-center mb-0" >Notas Pendientes de evaluación</h3>
@@ -104,7 +105,41 @@ Para mayor información puedes solicitar el reglamento de Nota P del alumno de p
         </tbody>
       </table>
     </div>
+    <div>
+      <select class="form-select mb-2">
+   <option selected>Seleccione el motivo</option>
+   <option value="1">Académico</option>
+   <option value="2">Cambio de universidad</option>
+   <option value="3">Cambio interno UCT</option>
+   <option value="4">Disconformidad carrera</option>
+   <option value="5">Disconformidad universidad</option>
+   <option value="6">Económicos</option>
+   <option value="7">Hijos</option>
+   <option value="8">Otros</option>
+   <option value="9">Personales</option>
+   <option value="10">Salud</option>
+   <option value="11">Traslado</option>
+   <option value="12">Vocación</option>
+  </select>
+</div>
+  <div class="mb-5">
+  <label for="exampleFormControlTextarea1" class="form-label mb-0">Observación</label>
+   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <p class="text-secondary">(Máx. 600 caracteres. Además se han bloqueado algunos caracteres especiales por temas de seguridad, ejemplo: * +-&%# ' ")
+    </p>
   </div>
+   <h6 class="fw-light mb-2">Puedes subir archivos que respalden tu solicitud:</h6>
+   <div class="mb-1">   
+   <input class="form-control" type="file" id="formFileMultiple" multiple>
+   </div>
+   <p class="text-secondary">(Máximo 3 archivos, en formato PDF con un tamaño máx. de 5 MB.)</p>
+  <div class="text-center">
+  <a class="btn btn-primary mt-2" type="submit">Enviar</a>
+   </div>
+  </div>
+
+
+
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
   <h3 class="text-center">DATOS DE LA SOLICITUD</h3>
 
@@ -301,6 +336,7 @@ Para mayor información puedes solicitar el reglamento de Nota P del alumno de p
     </div>
   </div>
   
+</div>
 </div>
 </div>
 </div>
