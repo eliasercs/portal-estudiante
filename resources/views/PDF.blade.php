@@ -34,9 +34,13 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <th>Año</th>
+                                    <th> </th>
                                     <th>Semestre</th>
+                                    <th> </th>
                                     <th>Sigla</th>
+                                    <th> </th>
                                     <th>Curso</th>
+                                    <th> </th>
                                     <th>Creditos</th>
 
                                 </thead>
@@ -44,9 +48,13 @@
                                     @foreach ($cursos as $item)
                                     <tr>
                                         <td>{{ $item["Año"] }}</td>
+                                        <td> </td>
                                         <td>{{ $item["Semestre"] }}</td>
+                                        <td> </td>
                                         <td>{{ $item["Sigla"] }}</td>
+                                        <td> </td>
                                         <td>{{ $item["Curso"] }}</td>
+                                        <td> </td>
                                         <td>{{ $item["Creditos"] }}</td>
                                     </tr>
                                     @endforeach

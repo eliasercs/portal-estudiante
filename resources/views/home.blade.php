@@ -7,8 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal del estudiante</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-  <meta name="csrf-token" content="{{ csrf_token() }}"> 
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   @if(isset($bootstrap))
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -19,6 +18,10 @@
   @if(auth()->check())
   <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
   @endif
+  <!-- css post it -->
+  <link rel="stylesheet" href="{{ asset('/css/style_stikers.css') }}">
+  <link href="http://fonts.googleapis.com/css? family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -134,13 +137,13 @@
       </li>
       <li>
         <a href="/Asistente">
-        <i class="bi bi-calendar2-date-fill"></i>
+          <i class="bi bi-calendar2-date-fill"></i>
           <span class="links_name">Reserva de horas asistente social</span>
         </a>
       </li>
       <li>
         <a href="/Solicitudes">
-        <i class="bi bi-pass-fill"></i>
+          <i class="bi bi-pass-fill"></i>
           <span class="links_name">Solicitudes estudiantiles</span>
         </a>
       </li>
@@ -161,7 +164,35 @@
 
 
   @yield('content')
-
+  <!-- stikers -->
+  <div id="container_stikers">
+    <ul class="stikers">
+      <li class="stikers_li">
+        <a href="#">
+          <h2>Title #1</h2>
+          <p>Text Content #1</p>
+        </a>
+      </li>
+      <li class="stikers_li">
+        <a href="#">
+          <h2>Title #2</h2>
+          <p>Text Content #2</p>
+        </a>
+      </li>
+      <li class="stikers_li">
+        <a href="#">
+          <h2>Title #3</h2>
+          <p>Text Content #3</p>
+        </a>
+      </li>
+      <li class="stikers_li">
+        <a href="#">
+          <h2>Title #4</h2>
+          <p>Text Content #4</p>
+        </a>
+      </li>
+    </ul>
+  </div>
 </body>
 
 </html>
