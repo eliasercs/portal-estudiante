@@ -59,7 +59,7 @@ Route::get('/home', function () {
         if (count($user->AcademicRecord) == 0) {
             return redirect()->to("/estudiante/matricular");
         }
-        return view('home', ['bootstrap' => True]);
+        return view('dashboard', ['bootstrap' => True]);
     } else {
         return "Usted no tiene autorización para acceder a este recurso";
     }
