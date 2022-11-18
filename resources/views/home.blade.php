@@ -60,18 +60,13 @@
         <i class="bi bi-person-circle"></i>
         <i class="bi bi-caret-down-fill"></i>
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <h4 class="border-bottom pb-2">Hola, {{ auth()->user()->name }}</h4>
-        <div class="toggle-darkMode">
-          <i class="bi bi-brightness-high"></i>
-          <div class="circle">
-
-          </div>
-          <i class="bi bi-moon"></i>
-        </div>
-        <a href="/logout" class="btn btn-cerrarSesion">
-          <i class="bi bi-box-arrow-right"></i>
-          Cerrar sesión</a>
+      <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuLink">
+        <h4 class="border-bottom p-2">Bienvenido, {{ auth()->user()->name }}</h4>
+        <button class="btn btn-danger w-100">
+          <a href="/logout" class="btn btn-cerrarSesion text-white">
+            <i class="bi bi-box-arrow-right"></i>
+            Cerrar sesión</a>
+        </button>
       </div>
 
     </div>

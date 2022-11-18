@@ -59,12 +59,18 @@ class RamosController extends Controller
     public function index(Request $request)
     {
         if ($request->data == "default") {
-            return $request;
+            $ref = "/inscripcion";
+            $response = "Este recurso no existe.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
         }
         $academic_record =  AcademicRecord::find($request->data);
         
         if (is_null($academic_record)) {
-            return "No se ha encontrado los registros académicos para este usuario";
+            $ref = "/inscripcion";
+            $response = "No se han encontrado registros académicos para este usuario.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
         }
 
         $academic_record_id = $academic_record->id;
@@ -127,6 +133,13 @@ class RamosController extends Controller
 
     public function create(Request $request) {
         
+        if ($request->data == "default") {
+            $ref = "/Academico";
+            $response = "Este recurso no existe.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        }
+
         /*
         $cursos retorna una lista con todos los cursos inscritos por el estudiante
         */
@@ -212,18 +225,31 @@ class RamosController extends Controller
                 $usuario->creditos = $usuario->creditos - $seccion->Curso->creditos;
                 $usuario->save();
                 $seccion->save();
-                return "Curso inscrito satisfactoriamente"; #hay que cambiarlo por una alerta y que esta actualice la pagina
+
+                $ref = "/inscripcion";
+                $response = "Curso inscrito satisfactoriamente.";
+                $img = "/img/confirm.svg";
+                return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
             }
     
-            return "Creditos insfucientes";
+            $ref = "/inscripcion";
+            $response = "Créditos insuficientes";
+            $img = "/img/creditos.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+
         } else {
-            return "No quedan cupos disponibles para esta sección";
+
+            $ref = "/inscripcion";
+            $response = "No quedan cupos para esta sección";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
         }
     }
 
 
     public function destroy(Request $request)
     {
+
         $student = AcademicRecord::find($request->academic_record_id || $request->data);
         $curso = CursoInscrito::find($request['curso_id']);
 
@@ -237,12 +263,21 @@ class RamosController extends Controller
                 $seccion->save();
                 $student->creditos = $student->creditos + $seccion->Curso->creditos;
                 $student->save();
-                return "El curso ha sido eliminado satisfactoriamente";
+                $ref = "/inscripcion";
+                $response = "El curso ha sido eliminado satisfactoriamente";
+                $img = "/img/confirm.svg";
+                return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
             } else {
-                return "Ha ocurrido un error al eliminar el curso";
+                $ref = "/inscripcion";
+                $response = "Ha ocurrido un error al eliminar este curso, por favor, intente más tarde.";
+                $img = "/img/error.svg";
+                return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
             }
         } else {
-            return "No podemos eliminar este curso.";
+            $ref = "/inscripcion";
+            $response = "No podemos eliminar este curso.";
+            $img = "/img/error.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
         }
         
     }
@@ -266,7 +301,16 @@ class RamosController extends Controller
     }
 
     public function deleteCourse(Request $request) {
+
+        if ($request->data == "default") {
+            $ref = "/course/delete";
+            $response = "Este recurso no existe.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        }
+
         $cursos = $this->get_Cursos($request->data);
+
         return view('Curso.delete_course', ['cursos' => $cursos, 'academic_record_id' => $request->data, 'bootstrap' => $this->bootstrap]);
     }
 

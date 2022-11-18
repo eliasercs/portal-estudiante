@@ -2,3 +2,7 @@
     left: unset;
     right: 0;
 }
+
+.select-container {
+    height: calc(100vh - 60px);
+}
