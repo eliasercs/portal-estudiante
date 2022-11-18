@@ -4,13 +4,9 @@
 
 @section('content')
 
-<div class="center" style="display: flex; flex-direction: wrap; justify-content: center;">
+<div class="container pt-5">
 
-    <div class="col-lg-7 justify-content-center">
-
-        <div class="px-lg-5 py-lg-4 p-4 align-center">
-            <h2>Ramos</h2>
-        </div>
+    <div class="col-auto justify-content-center">
 
         <div class="row">
             <div class="col-sm-12">
@@ -36,6 +32,8 @@
                         <th>Sala</th>
                         <th>Cupos</th>
                         <th>Inscritos</th>
+                        <th>Cambiar</th>
+                        <th>Eliminar</th>
                     </thead>
 
                     <tbody>
@@ -55,8 +53,8 @@
                                         @csrf
                                         <input type="hidden" name="curso_id" value="{{ $item['Cid'] }}">
                                         <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
-                                        <button class="btn btn-success" type="submit">
-                                            Cambio de Seccion
+                                        <button class="btn btn-success w-100" type="submit">
+                                            <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -66,19 +64,8 @@
                                         @csrf
                                         <input type="hidden" name="curso_id" value="{{ $item['Sid'] }}">
                                         <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
-                                        <button class="btn btn-danger" type="submit">
-                                            eliminar
-                                        </button>
-                                    </form>
-                                </td>
-
-                                <td>
-                                    <form action="/notas" method="get">
-                                        @csrf
-                                        <input type="hidden" name="curso_id" value="{{ $item['Sid'] }}">
-                                        <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
-                                        <button class="btn btn-primary" type="submit">
-                                            Notas
+                                        <button class="btn btn-danger w-100" type="submit">
+                                            <i class="bi bi-trash3"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -93,7 +80,7 @@
 
         <h4>Creditos Disponibles: {{ $creditos }}</h4>
 
-        <h5 class="card-tittle text-center">Cursos Inscritos</h5>
+        <h5 class="card-tittle text-center">Cursos disponibles</h5>
         <hr>
 
         <p class="card-text">
@@ -103,6 +90,7 @@
                         <th>Sigla</th>
                         <th>Curso</th>
                         <th>Creditos</th>
+                        <th>Más detalles</th>
                     </thead>
 
                     <tbody>
@@ -111,14 +99,13 @@
                                 <td>{{ $curso["sigla"] }}</td>
                                 <td>{{ $curso["nombre"] }}</td>
                                 <td>{{ $curso["creditos"] }}</td>
-
                                 <td>
                                     <form action="/inscripcion/seccion" method="post">
                                         @csrf
                                         <input type="hidden" name="curso_id" value="{{ $curso['id'] }}">
                                         <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                                         <button class="btn btn-success" type="submit">
-                                            Inscribir
+                                            <i class="bi bi-file-plus"></i>
                                         </button>
                                     </form>
                                 </td>
