@@ -117,4 +117,17 @@ Una vez completados los pasos descritos en pre-requisitos e instalación, ya pue
 
 ## Características
 
+A continuación se describen las principales rutas para acceder mediante el navegador.
+
+| Método | Ruta | Descripción | Autenticación |
+| --- | --- | --- | --- |
+| GET | / | Corresponde a la vista principal del proyecto. A través de ella el estudiante puede iniciar sesión. | No |
+| GET | /register | Vista generada con la finalidad de registrar usuarios a la plataforma. | No |
+| GET | /home | Vista generada para el estudiante que ya pudo iniciar sesión a su cuenta | Sí |
+| GET | /inscripcion | Módulo y vista que permite al estudiante inscribir cursos asociados a su carrera. | Sí |
+| GET | /course/delete | Módulo y vista que permite al estudiante continuar con el proceso de eliminación de cursos. | Sí |
+| GET | /Academico | Módulo y vista que permite al estudiante verificar y obtener acceso a información académica. | Sí |
+| GET | /Asistente | Módulo y vista que permite al estudiante generar una solicitud con algún asistente social de la institución. | Sí |
+| GET | /Solicitudes | Módulo y vista que permite al estudiante generar solicitudes de renuncia y/o suspención académica. | Sí |
+
 ## Licencia
