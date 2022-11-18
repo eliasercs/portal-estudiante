@@ -130,12 +130,6 @@
         </a>
       </li>
       <li>
-        <a href="#">
-          <i class="bi bi-clipboard2-x-fill"></i>
-          <span class="links_name">Competencias especficas</span>
-        </a>
-      </li>
-      <li>
         <a href="/Asistente">
           <i class="bi bi-calendar2-date-fill"></i>
           <span class="links_name">Reserva de horas asistente social</span>
