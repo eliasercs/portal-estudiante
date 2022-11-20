@@ -130,8 +130,6 @@ Route::get("/carreras/show", [CarreraController::class, 'show_carreras']);
 Route::post('/estudiante/matricular', [AcademicRecordController::class, 'enroll']);
 
 // Rutas para testear entidades
-Route::get('/testing/user/id={id}', [EntidadController::class, 'checkUser']);
-Route::get('/testing/academic-record/userid={id}', [EntidadController::class, 'checkAcademicRecord']);
 Route::get('/testing/cursos/new', [EntidadController::class, 'createCursoView']);
 Route::post('/testing/cursos/new', [EntidadController::class, 'createCurso']);
 Route::get('/testing/cursos/seccion/new/curso_id={id}', [EntidadController::class, 'createSeccionView'])
@@ -152,7 +150,7 @@ Route::post("/course/delete", [RamosController::class, 'destroy']);
 Route::post("/modules/delete/course", [RamosController::class, 'deleteCourse']);
 
 
-Route::get('/notas', [NotasController::class, 'index'])
+Route::get('/notas/curso_id={curso_id}', [NotasController::class, 'index'])
     ->name('notas.index');
 
 Route::get('/notas/new', [NotasController::class, 'creadorNotas'])

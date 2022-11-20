@@ -69,7 +69,7 @@ class EntidadController extends Controller
 
     public function createSeccionView($curso_id) {
         $curso = Ramo::where('id',$curso_id)->first();
-        return view('Curso.create_seccion', ['curso' => $curso]);
+        return view('Curso.create_seccion', ['curso' => $curso, 'curso_id' => $curso_id]);
     }
 
     public function newSeccion(Request $request) {
@@ -113,9 +113,10 @@ class EntidadController extends Controller
             'horario' => 'required',
             'sala' => 'required',
             'capacidad' => 'required',
+            'curso_id' => 'required',
         ]);
 
-        $curso = Ramo::where('code', $data['code'])->first();
+        $curso = Ramo::find($data['curso_id']);
 
         $values = [
             'numero' => $data['seccion'],
@@ -129,9 +130,17 @@ class EntidadController extends Controller
 
         $seccion = new Seccion($values);
         $seccion->Curso()->associate($curso);
-        $seccion->save();
-
-        return $seccion->Curso->Carrera;
+        
+        $ref = "/testing/cursos/seccion/new/curso_id={$data['curso_id']}";
+        if ($seccion->save()) {
+            $response = "Sección creada satisfactoriamente.";
+            $img = "/img/confirm.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        } else {
+            $response = "Esta sección ya existe.";
+            $img = "/img/error.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        }
 
     }
 }

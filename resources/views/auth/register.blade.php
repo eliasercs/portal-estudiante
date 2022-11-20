@@ -1,88 +1,88 @@
 @extends('layout.app')
 
-@section('title', 'Register')
+@section('title', 'Registrar Usuarios')
+
+@section('headers')
+<link rel="stylesheet" href="{{ asset('/css/register.css') }}" >
+@endsection
 
 @section('content')
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/home">UCT</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/Academico">Informacion Academica</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/carreras/new">Registrar Carrera</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/estudiante/matricular">Matricular Estudiante</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/notas">Ver Notas</a>
-      </li>
-    </ul>
+<div class="container-registro">
+
+  <div class="container">
+
+    <div class="row vh-100 align-content-center justify-content-center">
+
+    <div class="col-auto">
+    <div class="content-container p-3">
+      <h5 class="text-center"><strong>Registro de usuarios</strong></h5>
+      <form method="POST" action="">
+        @csrf
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Nombre y apellidos</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="text" name="name" class="form-control" placeholder="Jhon Doe">
+          </div>
+          @error('name')        
+          <label class="form-label">* {{ $message }}</p>
+          @enderror
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Rut</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="text" name="rut" class="form-control" placeholder="XXXXXXXX-X">
+          </div>
+          @error('rut')        
+          <label class="form-label">* {{ $message }}</p>
+          @enderror
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Correo Electrónico</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" name="email" class="form-control" placeholder="estudiante@alu.uct.cl">
+          </div>
+          @error('email')        
+          <label class="form-label">* {{ $message }}</p>
+          @enderror
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="password" name="password" class="form-control" placeholder="*********">
+          </div>
+          @error('password')        
+          <label class="form-label">* {{ $message }}</p>
+          @enderror
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Confirmar Contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="password" name="password_confirmation" class="form-control" placeholder="*********">
+          </div>
+        </div>
+
+       <button type="submit" class="btn btn-success w-100">Registrar</button>
+
+
+      </form>
+    </div>
   </div>
-</nav>
 
+    </div>
 
-<div class="block mx-auto my-12 p-8 bg-white w-1/3 border border-gray-200 
-rounded-lg shadow-lg">
-
-  <h1 class="text-3xl text-center font-bold">Register</h1>
-
-  <form class="mt-4" method="POST" action="">
-    @csrf
-
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full
-    text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Nombre"
-    id="name" name="name">
-
-    @error('name')        
-      <p class="border border-red-500 rounded-md bg-red-100 w-full
-      text-red-600 p-2 my-2">* {{ $message }}</p>
-    @enderror
-
-    <input type="text" class="border border-gray-200 rounded-md bg-gray-200 w-full
-    text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="RUT"
-    id="rut" name="rut">
-
-    @error('rut')        
-      <p class="border border-red-500 rounded-md bg-red-100 w-full
-      text-red-600 p-2 my-2">* {{ $message }}</p>
-    @enderror
-
-    <input type="email" class="border border-gray-200 rounded-md bg-gray-200 w-full
-    text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Email"
-    id="email" name="email">
-
-    @error('email')        
-      <p class="border border-red-500 rounded-md bg-red-100 w-full
-      text-red-600 p-2 my-2">* {{ $message }}</p>
-    @enderror
-
-    <input type="password" class="border border-gray-200 rounded-md bg-gray-200 w-full
-    text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" placeholder="Password"
-    id="password" name="password">
-
-    @error('password')        
-      <p class="border border-red-500 rounded-md bg-red-100 w-full
-      text-red-600 p-2 my-2">* {{ $message }}</p>
-    @enderror
-
-    <input type="password" class="border border-gray-200 rounded-md bg-gray-200 
-    w-full text-lg placeholder-gray-900 p-2 my-2 focus:bg-white" 
-    placeholder="Password confirmation" id="new_password_confirmation" 
-    name="password_confirmation">
-
-    <button type="submit" class="rounded-md bg-indigo-500 w-full text-lg
-    text-white font-semibold p-2 my-3 hover:bg-indigo-600">Send</button>
-
-
-  </form>
-
+  </div>  
+  
 
 </div>
 

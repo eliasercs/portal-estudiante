@@ -70,6 +70,19 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 
+/***/ }),
+
+/***/ "./resources/css/register.css":
+/*!************************************!*\
+  !*** ./resources/css/register.css ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
 /***/ })
 
 /******/ 	});
@@ -159,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/index": 0,
+/******/ 			"css/register": 0,
 /******/ 			"css/bootstrap-settings": 0,
 /******/ 			"css/index": 0,
 /******/ 			"css/style_stikers": 0
@@ -211,10 +225,11 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/js/index.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/css/style_stikers.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/css/index.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/css/bootstrap-settings.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/register","css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/js/index.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/register","css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/css/style_stikers.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/register","css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/css/index.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/register","css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/css/bootstrap-settings.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/register","css/bootstrap-settings","css/index","css/style_stikers"], () => (__webpack_require__("./resources/css/register.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
