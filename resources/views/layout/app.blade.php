@@ -15,33 +15,12 @@
   <link rel="stylesheet" href="{{ asset('/css/index.css') }}" >
 
   <!--<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">-->
-  @if(auth()->check())
-  <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-  @endif
 
   @yield('headers')
 
 </head>
 
 <body class="bg-gray-100 text-gray-800">
-
-  <script type="text/javascript">
-    var botmanWidget = {
-      //desktopHeight:"",
-      //desktopWidth:,
-      //mobileHeight:,
-      //mobileWidth:,
-
-      aboutLink: null,
-      title: "UCTIN",
-      bubbleAvatarUrl: "https://images.vexels.com/media/users/3/235658/isolated/preview/ab14b963565a4c5ab27169d90c341994-silueta-animales-21.png",
-      placeholderText: "Escribe tu consulta",
-      mainColor: '#038ACE',
-      bubbleBackground: "#01568E",
-      aboutText: 'Escribe tu consulta',
-      introMessage: "Hola soy UCTIN encantado de conocerte! \n ¿Quisieras ver las secciones más recomendadas?"
-    };
-  </script>
 
   @yield('content')
   @yield('scripts')

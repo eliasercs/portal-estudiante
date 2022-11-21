@@ -17,35 +17,12 @@
     @endif
     <link rel="stylesheet" href="{{ asset('/css/index.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/bootstrap-settings.css') }}">
-
-    @if(auth()->check())
-    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-    @endif
     <!-- css post it -->
     <link rel="stylesheet" href="{{ asset('/css/style_stikers.css') }}">
-    <link href="http://fonts.googleapis.com/css? family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
-
-    <script type="text/javascript">
-    var botmanWidget = {
-        //desktopHeight:"",
-        //desktopWidth:,
-        //mobileHeight:,
-        //mobileWidth:,
-        aboutLink: null,
-        title: "UCTIN",
-        bubbleAvatarUrl: "https://images.vexels.com/media/users/3/235658/isolated/preview/ab14b963565a4c5ab27169d90c341994-silueta-animales-21.png",
-        placeholderText: "Escribe tu consulta",
-        mainColor: '#ffdd00',
-        bubbleBackground: "#ffdd00",
-        aboutText: 'Escribe tu consulta',
-        introMessage: "Hola soy UCTIN encantado de conocerte! \n ¿Quisieras ver las secciones más recomendadas?"
-    };
-    </script>
-
     <div id="page-content">
 
         <div class="navbar" id="navbar">
@@ -73,7 +50,7 @@
                     <h4 class="border-bottom p-2">Bienvenido, {{ auth()->user()->name }}</h4>
                     <div id="toggle">
                         <input type="checkbox" id="darkmode-toggle" />
-                        <label for="darkmode-toggle"></label>
+                        <label for="darkmode-toggle" id="label-darktheme"></label>
                     </div>
                     <button class="btn btn-danger w-100">
                         <a href="/logout" class="btn btn-cerrarSesion text-white">
@@ -114,7 +91,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="/course/delete">
                         <i class='bi bi-trash'></i>
                         <span class="links_name">Eliminar Cursos</span>
                     </a>

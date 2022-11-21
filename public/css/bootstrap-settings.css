@@ -7,7 +7,7 @@
     height: calc(100vh - 60px);
 }
 
-label {
+#label-darktheme {
     width: 100px;
     height: 50px;
     position: relative;
@@ -19,7 +19,7 @@ label {
     transition: 0.3s;
 }
 
-label::after {
+#label-darktheme::after {
     content: '';
     width: 40px;
     height: 40px;
@@ -32,22 +32,22 @@ label::after {
     transition: 0.3s;
 }
 
-input {
+#darkmode-toggle {
     width: 0;
     height: 0;
     visibility: hidden;
 }
 
-input:checked + label {
+#darkmode-toggle:checked + #label-darktheme {
     background: #242424;
 }
 
-input:checked + label::after {
+#darkmode-toggle:checked + #label-darktheme::after {
     left: 100px;
     transform: translateX(-110%);
     background: green;
 }
 
-label:active::after {
+#label-darktheme:active::after {
     width: 60px;
 }
