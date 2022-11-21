@@ -15,6 +15,7 @@ use App\Http\Controllers\RegisterRamosController;
 use App\Http\Controllers\RamosController;
 use App\Http\Controllers\InscripcionController;
 
+
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\AcademicRecordController;
 use App\Http\Controllers\CarreraController;
@@ -24,9 +25,13 @@ use App\Http\Controllers\GeneradorController;
 // Controlador que utilizo para testear mis entidades
 use App\Http\Controllers\EntidadController;
 
-use App\Http\Controllers\AcademicaController;
+// controladores para  pdf
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\PdfController;
+
+use App\Http\Controllers\AsintenteSocial;
+use App\Http\Controllers\SolicitudEstudiantil;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,26 +43,31 @@ use App\Http\Controllers\PdfController;
 |
 */
 
+//ruta para Competencias Especficas
+Route::name('com_esp')->get('/com_esp', function () {
+    return view('com_esp');
+});
+
+//ruta para Ficha de Avance Curricular en PDF
+Route::name('PDF')->get('/descargaFAC/academic_record={id}', [PdfController::class, 'FAC']);
+Route::name('PDF')->post('/descargaFAC/', [PdfController::class, 'create']);
+Route::get('/avanceCurricular', [PdfController::class, 'view']);
 
 Route::get('/home', function () {
-    if (auth()->check()){
+    if (auth()->check()) {
         $user = auth()->user();
-        if (is_null($user->AcademicRecord)) {
+        if (count($user->AcademicRecord) == 0) {
             return redirect()->to("/estudiante/matricular");
         }
+        return view('dashboard', ['bootstrap' => True]);
+    } else {
+        return "Usted no tiene autorización para acceder a este recurso";
     }
-    return view('home');
 });
 
 
 #Route::get('/',[listController::class,'index']);
 Route::match(['get', 'post'], '/botman', [BotmanController::class, 'handle']);
-
-#Route::get('/',[listController::class,'index']);
-Route::get('/info', function () {
-    return view('info');
-});
-
 
 Route::get('/register', [RegisterController::class, 'create'])->name('register.index');
 
@@ -83,19 +93,8 @@ Route::post('reset-password', [NewPasswordController::class, 'store'])
     ->middleware('guest')
     ->name('password.update');
 
-
-Route::get('UCT', function () {
-    $correo = new UCTtestMailable;
-
-    Mail::to("testuct@gmail.com")->send($correo);
-
-    return "mensaje enviado";
-});
-
 Route::post('/Change-Password', [UserSettingsController::class, 'changePasswordNoAuth'])
     ->name('Change-Password');
-
-
 
 Route::get('/register-ramos', [RegisterRamosController::class, 'create'])
     ->name('register-ramo.index');
@@ -103,21 +102,19 @@ Route::get('/register-ramos', [RegisterRamosController::class, 'create'])
 Route::post('/register-ramos', [RegisterRamosController::class, 'store'])
     ->name('register-ramo.store');
 
-Route::get('/inscripcion', [RamosController::class, 'index'])
+Route::get('/inscripcion', [RamosController::class, 'get_AcademicRecord'])
     ->name('ramos.index');
 
-Route::post('/inscripcion', [RamosController::class, 'store'])
+Route::post('/inscripcion', [RamosController::class, 'index'])
     ->name('ramos.store');
+
+Route::post('/inscribir/curso', [RamosController::class, 'store']);
 
 Route::post('/inscripcion/seccion', [RamosController::class, 'inscribirSectionView']);
 
-Route::get('/Academico', [RamosController::class, 'create']) 
-    -> name('cursos.index');
-Route::get('/tramos', [RamosController::class, 'get_Courses'])
+Route::get('/Academico', [RamosController::class, 'selectAcademicRecord'])
     ->name('cursos.index');
-
-Route::post('/tramos/{code}', [RamosController::class, 'destroy'])
-    ->name('ramos.destroy');
+Route::post('/Academico', [RamosController::class, 'create']);
 
 // Vista para matricular un usuario a una carrera
 Route::get('/estudiante/matricular', [AcademicRecordController::class, 'create_view']);
@@ -133,8 +130,6 @@ Route::get("/carreras/show", [CarreraController::class, 'show_carreras']);
 Route::post('/estudiante/matricular', [AcademicRecordController::class, 'enroll']);
 
 // Rutas para testear entidades
-Route::get('/testing/user/id={id}', [EntidadController::class, 'checkUser']);
-Route::get('/testing/academic-record/userid={id}', [EntidadController::class, 'checkAcademicRecord']);
 Route::get('/testing/cursos/new', [EntidadController::class, 'createCursoView']);
 Route::post('/testing/cursos/new', [EntidadController::class, 'createCurso']);
 Route::get('/testing/cursos/seccion/new/curso_id={id}', [EntidadController::class, 'createSeccionView'])
@@ -148,19 +143,14 @@ Route::post('/testing', [EntidadController::class, 'AddNewSection']);
 Route::get('/solinotap', [SolNotapController::class, 'index']);
 
 //Visualizar en pdf los cursos inscritos
-Route::name('print')->get('/imprimir', [GeneradorController::class, 'imprimir']);
+Route::name('print')->get('/imprimir/academic_record={id}', [GeneradorController::class, 'imprimir']);
 
 Route::get("/course/delete", [RamosController::class, 'deleteCourseView']);
 Route::post("/course/delete", [RamosController::class, 'destroy']);
-//ruta para Ficha de Avance Curricular en PDF
-Route::name('PDF')->get('/descargaFAC', [PdfController::class, 'FAC']);
-Route::get('/view-academica', [AcademicaController::class, 'index'])
-    ->name('academica.index');
+Route::post("/modules/delete/course", [RamosController::class, 'deleteCourse']);
 
-Route::get('/view-calificaciones', [CalificacionesController::class, 'index'])
-    ->name('calificaciones.index');
 
-Route::get('/notas', [NotasController::class, 'index']) 
+Route::get('/notas/curso_id={curso_id}', [NotasController::class, 'index'])
     ->name('notas.index');
 
 Route::get('/notas/new', [NotasController::class, 'creadorNotas'])
@@ -168,3 +158,22 @@ Route::get('/notas/new', [NotasController::class, 'creadorNotas'])
 
 Route::post('/notas/new', [NotasController::class, 'PonerNota'])
     ->name('notas.store');
+
+#Rutas de Asistente Social, gen es para un rellenado rapido de la base de datos.
+Route::get('/gen', [AsintenteSocial::class, 'gen']);
+
+Route::get('/Asistente', [AsintenteSocial::class, 'selectAcademicRecord']);
+Route::post('/Asistente', [AsintenteSocial::class, 'data']);
+Route::post("/dias", [AsintenteSocial::class, 'dias']);
+Route::post("/horas", [AsintenteSocial::class, 'horas']);
+Route::post('/reservar', [AsintenteSocial::class, 'reservar']);
+Route::post("/hour/delete", [AsintenteSocial::class, 'destroy'])->name("deletehour");;
+
+#Rutas de Solicitudes estudiantiles
+Route::get('/Solicitudes', [SolicitudEstudiantil::class, 'selectAcademicRecord']);
+Route::post('/Solicitudes', [SolicitudEstudiantil::class, 'data']);
+Route::post("/motivo", [SolicitudEstudiantil::class, 'motivo']);
+Route::post("/solicitud", [SolicitudEstudiantil::class, 'solicitud']);
+
+
+

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Password;
 
 class SessionController extends Controller
 {
+
+    public $bootstrap = True;
+
     public function create(){
         if (auth()->check()) {
             $user = auth()->user();
@@ -15,7 +18,7 @@ class SessionController extends Controller
                 return redirect()->to("/estudiante/matricular");
             }
         } else {
-            return view('auth.login');
+            return view('auth.login', ['bootstrap' => $this->bootstrap]);
         }
     }
     public function store() {

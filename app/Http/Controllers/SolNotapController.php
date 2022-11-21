@@ -17,7 +17,8 @@ class SolNotapController extends Controller
     {
         $query = DB::table('dbo.sol_notap')
         ->get();
-        return view('auth.solinotap', compact('query'));
+        $bootstrap = true;
+        return view('auth.solinotap', compact('query', 'bootstrap'));
     }
 
     /**

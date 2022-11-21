@@ -11,10 +11,10 @@ use DB;
 
 class NotasController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request,String $curso_id)
     {
         $usuario = auth()->user()->rut;;
-        $curso = Ramo::find($request['curso_id']);
+        $curso = Ramo::find($curso_id);
     	$notas = Nota::orderBy('id', 'DESC')
             ->where('rut_alumno', '=', $usuario)
             ->where('curso_id', '=', $curso->id)
@@ -39,7 +39,7 @@ class NotasController extends Controller
             'nota' => $nota,
             'porcentaje' => $porcentaje,]
         ]);
-        return redirect()->route('notas.index')->with('status', 'nota_agregada');
+        return "Nota agregada satisfactoriamente";
 
     }
 

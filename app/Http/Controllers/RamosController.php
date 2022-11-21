@@ -8,18 +8,20 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 
+use App\Models\AcademicRecord;
 use App\Models\CursoInscrito;
 use App\Models\Seccion;
 use App\Models\History_course;
 
 class RamosController extends Controller
 {
+    public $bootstrap = True;
 
-    public function get_Cursos() {
+    public function get_Cursos(string $id) {
         /*
         $cursos retorna una lista con todos los cursos inscritos por el estudiante
         */
-        $cursos = auth()->user()->AcademicRecord->InscripcionCurso;
+        $cursos = AcademicRecord::find($id)->InscripcionCurso;
         $data = []; 
     
         foreach ($cursos as $key => $value) {
@@ -48,11 +50,34 @@ class RamosController extends Controller
         return $data;
     }
 
-    public function index()
-    {
-        $curso_inscrito = auth()->user()->AcademicRecord->InscripcionCurso;
+    public function get_AcademicRecord() {
+        $academic_records = auth()->user()->AcademicRecord;
+        $bootstrap = true;
+        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/inscripcion', 'bootstrap' => $bootstrap]);
+    }
 
-        $carrera = auth()->user()->AcademicRecord->Carrera->Cursos;
+    public function index(Request $request)
+    {
+        if ($request->data == "default") {
+            $ref = "/inscripcion";
+            $response = "Este recurso no existe.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        }
+        $academic_record =  AcademicRecord::find($request->data);
+        
+        if (is_null($academic_record)) {
+            $ref = "/inscripcion";
+            $response = "No se han encontrado registros académicos para este usuario.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        }
+
+        $academic_record_id = $academic_record->id;
+
+        $curso_inscrito = $academic_record->InscripcionCurso;
+
+        $carrera = $academic_record->Carrera->Cursos;
         
         $cursos_inscritos = [];
         foreach ($curso_inscrito as $key => $value) {
@@ -72,9 +97,9 @@ class RamosController extends Controller
                 ]);
             }
         }
-        $inscritos = auth()->user()->AcademicRecord->InscripcionCurso;
+        $inscritos = $academic_record->InscripcionCurso;
         $data = [];
-        $creditos = auth()->user()->AcademicRecord->creditos;
+        $creditos = $academic_record->creditos;
         foreach ($inscritos as $key => $value) {
             $data[$key] = [
                 "Curso" => $value->Seccion->Curso->nombre,
@@ -97,15 +122,29 @@ class RamosController extends Controller
         //    ->select('code','nombre','numero','profesor','horario','sala','capacidad','inscritos','secciones.id')
         //    ->paginate(10);
         //return $cursos[0]["nombre"];    
-        return view('auth.inscripcion', compact('cursos','data','creditos'));
+        $bootstrap = $this->bootstrap;
+        return view('auth.inscripcion', compact('cursos','data','creditos','academic_record_id', 'bootstrap'));
     }
 
-    public function create() {
+    public function selectAcademicRecord() {
+        $academic_records = auth()->user()->AcademicRecord;
+        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/Academico', 'bootstrap' => $this->bootstrap]);
+    }
+
+    public function create(Request $request) {
         
+        if ($request->data == "default") {
+            $ref = "/Academico";
+            $response = "Este recurso no existe.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        }
+
         /*
         $cursos retorna una lista con todos los cursos inscritos por el estudiante
         */
-        $cursos = auth()->user()->AcademicRecord->InscripcionCurso;
+        $academic_record = AcademicRecord::find($request->data);
+        $cursos = $academic_record->InscripcionCurso;
         $data = []; 
     
         foreach ($cursos as $key => $value) {
@@ -131,8 +170,8 @@ class RamosController extends Controller
             ];
         }
         $record = [];
-        if (auth()->user()->AcademicRecord->History){
-            foreach (auth()->user()->AcademicRecord->History as $key => $value) {
+        if ($academic_record->History){
+            foreach ($academic_record->History as $key => $value) {
                 $record[$key] = [
                     "Año" => $value->Año,
                     "Semestre" => $value->Semestre,
@@ -143,16 +182,17 @@ class RamosController extends Controller
                 ];
             }
         }
-        return view('auth.view-academica')->with(['ramos' => $data, 'record' => $record]);
+
+        return view('auth.view-academica')->with(['ramos' => $data, 'record' => $record, 'academic_record' => $academic_record, 'bootstrap' => $this->bootstrap]);
     }
     
     public function store(Request $request){
         $req = $request->all();
-
+        $academic_record =  AcademicRecord::find($request->academic_record_id);
         $id = $req["seccion_id"];
-        $usuario = auth()->user()->AcademicRecord;
+        $usuario = $academic_record;
         $seccion = Seccion::find($id);
-        $cursos = auth()->user()->AcademicRecord->InscripcionCurso;
+        $cursos = $academic_record->InscripcionCurso;
         #devuelve el id de los cursos que ya estan inscritos
         $inscritos = [];
         foreach ($cursos as $key => $value) {
@@ -185,12 +225,24 @@ class RamosController extends Controller
                 $usuario->creditos = $usuario->creditos - $seccion->Curso->creditos;
                 $usuario->save();
                 $seccion->save();
-                return "Curso inscrito satisfactoriamente"; #hay que cambiarlo por una alerta y que esta actualice la pagina
+
+                $ref = "/inscripcion";
+                $response = "Curso inscrito satisfactoriamente.";
+                $img = "/img/confirm.svg";
+                return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
             }
     
-            return "Creditos insfucientes";
+            $ref = "/inscripcion";
+            $response = "Créditos insuficientes";
+            $img = "/img/creditos.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+
         } else {
-            return "No quedan cupos disponibles para esta sección";
+
+            $ref = "/inscripcion";
+            $response = "No quedan cupos para esta sección";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
         }
     }
 
@@ -198,7 +250,7 @@ class RamosController extends Controller
     public function destroy(Request $request)
     {
 
-        $student = auth()->user()->AcademicRecord;
+        $student = AcademicRecord::find($request->academic_record_id || $request->data);
         $curso = CursoInscrito::find($request['curso_id']);
 
         $cantidad_cursos = count($student->InscripcionCurso);
@@ -211,31 +263,55 @@ class RamosController extends Controller
                 $seccion->save();
                 $student->creditos = $student->creditos + $seccion->Curso->creditos;
                 $student->save();
-                return "El curso ha sido eliminado satisfactoriamente";
+                $ref = "/inscripcion";
+                $response = "El curso ha sido eliminado satisfactoriamente";
+                $img = "/img/confirm.svg";
+                return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
             } else {
-                return "Ha ocurrido un error al eliminar el curso";
+                $ref = "/inscripcion";
+                $response = "Ha ocurrido un error al eliminar este curso, por favor, intente más tarde.";
+                $img = "/img/error.svg";
+                return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
             }
         } else {
-            return "No podemos eliminar este curso.";
+            $ref = "/inscripcion";
+            $response = "No podemos eliminar este curso.";
+            $img = "/img/error.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
         }
         
     }
 
     public function inscribirSectionView(Request $request) {
+        $academic_record =  AcademicRecord::find($request->academic_record_id);
         $id = [];
-        $usuario = auth()->user()->AcademicRecord->InscripcionCurso;
+        $usuario = $academic_record->InscripcionCurso;
         foreach ($usuario as $key => $value) {
             array_push($id,$value->Seccion->id);
         }
         $curso = Ramo::find($request["curso_id"]);
         $secciones = $curso->Seccion;
 
-        return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones, 'inscrito'=> $id]);
+        return view('Curso.inscribir_seccion', ['curso' => $curso, 'secciones' => $secciones, 'inscrito'=> $id, 'academic_record_id' => $academic_record->id, 'bootstrap' => $this->bootstrap]);
     }
 
     public function deleteCourseView(Request $request) {
-        $cursos = $this->get_Cursos();
-        return view("Curso.delete_course", ['cursos' => $cursos]);
+        $academic_records = auth()->user()->AcademicRecord;
+        return view('Carrera.select', ['Academic_Records' => $academic_records, 'route' => '/modules/delete/course', 'bootstrap' => $this->bootstrap]);
+    }
+
+    public function deleteCourse(Request $request) {
+
+        if ($request->data == "default") {
+            $ref = "/course/delete";
+            $response = "Este recurso no existe.";
+            $img = "/img/nodata.svg";
+            return view("Error.permiso", ['ref' => $ref, 'response' => $response, 'img' => $img]);
+        }
+
+        $cursos = $this->get_Cursos($request->data);
+
+        return view('Curso.delete_course', ['cursos' => $cursos, 'academic_record_id' => $request->data, 'bootstrap' => $this->bootstrap]);
     }
 
 }

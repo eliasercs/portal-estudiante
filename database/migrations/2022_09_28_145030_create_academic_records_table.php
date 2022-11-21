@@ -19,7 +19,7 @@ class CreateAcademicRecordsTable extends Migration
     {
         Schema::create('academic_records', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger("user_id")->unique();
+            $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("carrera_id");
             $table->integer("plan");
             $table->year("ingreso");

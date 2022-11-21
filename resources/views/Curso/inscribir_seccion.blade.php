@@ -1,31 +1,6 @@
-@extends('layout.app')
-
-@section('title', 'Crear sección para el curso: '.$curso->code)
+@extends('home')
 
 @section('content')
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/home">UCT</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/Academico">Informacion Academica</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/carreras/new">Registrar Carrera</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/estudiante/matricular">Matricular Estudiante</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/notas">Ver Notas</a>
-      </li>
-    </ul>
-  </div>
-</nav>
 
 <div>
     <h1>Información del curso</h1>
@@ -59,9 +34,10 @@
                         <td>{{ $seccion["capacidad"] }}</td>
                         <td>{{ $seccion["inscritos"] }}</td>
                         <td>
-                            <form action="/inscripcion" method="post">
+                            <form action="/inscribir/curso" method="post">
                                 @csrf
                                 <input type="hidden" name="seccion_id" value="{{ $seccion['id'] }}">
+                                <input type="hidden" name="academic_record_id" value="{{ $academic_record_id }}">
                                 @if(!in_array($seccion["id"],$inscrito))
                                 <button class="btn btn-primary" type="submit">
                                     Inscribir

@@ -11,7 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.js('resources/js/index.js', 'public/js')
+    .js('resources/js/login.js','public/js')
+    .js('resources/js/mapa.js', 'public/js')
+    .postCss('resources/css/style_stikers.css', 'public/css')
+    .postCss('resources/css/index.css', 'public/css')
+    .postCss('resources/css/bootstrap-settings.css', 'public/css')
+    .postCss('resources/css/register.css', 'public/css')
+    .js('resources/js/darkmode.js', 'public/js')
